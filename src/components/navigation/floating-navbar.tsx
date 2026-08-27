@@ -49,12 +49,12 @@ export const GlassNavbar = ({
         aria-label="Primary"
         className={cn(
           'glass-static flex w-full max-w-6xl items-center justify-between gap-4 rounded-full py-2.5 pl-4 pr-2.5 transition-all duration-500',
-          scrolled ? 'shadow-[0_18px_50px_rgba(0,0,0,0.55)] border-[rgba(214,178,94,0.28)]' : ''
+          scrolled ? 'shadow-[0_14px_40px_rgba(16,37,27,0.16)] border-[rgba(11,107,69,0.25)]' : ''
         )}
       >
         {/* Brand */}
         <a href="/" className="group flex items-center gap-2.5" aria-label="Gwarzo 2027 — home">
-          <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-[rgba(214,178,94,0.45)] bg-[linear-gradient(135deg,rgba(214,178,94,0.28),rgba(214,178,94,0.04))] font-display text-sm font-bold text-[var(--gold)] transition-transform duration-500 group-hover:scale-105">
+          <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-[rgba(11,107,69,0.35)] bg-[linear-gradient(135deg,rgba(14,138,90,0.16),rgba(11,107,69,0.04))] font-display text-sm font-bold text-[var(--primary-green)] transition-transform duration-500 group-hover:scale-105">
             G27
             <span
               aria-hidden
@@ -62,10 +62,10 @@ export const GlassNavbar = ({
             />
           </span>
           <span className="hidden sm:block leading-none">
-            <span className="block font-display text-[0.95rem] font-bold tracking-[0.08em]">
-              GWARZO <span className="text-[var(--gold)]">2027</span>
+            <span className="block font-display text-[0.95rem] font-bold tracking-[0.08em] text-[#10251B]">
+              GWARZO <span className="text-[var(--primary-green)]">2027</span>
             </span>
-            <span className="mt-1 block text-[0.6rem] uppercase tracking-[0.26em] text-[var(--muted-text)]">
+            <span className="mt-1 block text-[0.6rem] uppercase tracking-[0.26em] text-[#7A8C82]">
               For a Better Kano
             </span>
           </span>
@@ -92,7 +92,7 @@ export const GlassNavbar = ({
         {/* CTA */}
         <a
           href="/#engage"
-          className="hidden rounded-full border border-[rgba(214,178,94,0.5)] bg-[linear-gradient(135deg,rgba(214,178,94,0.22),rgba(214,178,94,0.06))] px-5 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[var(--gold-soft)] transition-all duration-300 hover:bg-[linear-gradient(135deg,rgba(214,178,94,0.4),rgba(214,178,94,0.15))] hover:shadow-[0_0_24px_rgba(214,178,94,0.25)] md:inline-flex"
+          className="hidden rounded-full border border-[rgba(11,107,69,0.4)] bg-[linear-gradient(135deg,rgba(14,138,90,0.14),rgba(11,107,69,0.05))] px-5 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[var(--primary-green)] transition-all duration-300 hover:bg-[var(--primary-green)] hover:text-white hover:shadow-[0_10px_26px_rgba(11,107,69,0.3)] md:inline-flex"
         >
           Join the Movement
         </a>
@@ -153,7 +153,7 @@ export const GlassNavbar = ({
         <a
           href="/#engage"
           onClick={() => setMenuOpen(false)}
-          className="mt-2 block rounded-2xl bg-[linear-gradient(135deg,rgba(214,178,94,0.3),rgba(214,178,94,0.1))] px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.14em] text-[var(--gold-soft)]"
+          className="mt-2 block rounded-2xl bg-[var(--primary-green)] px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.14em] text-white"
         >
           Join the Movement
         </a>

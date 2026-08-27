@@ -84,7 +84,7 @@ export function LatestSpeechesSection() {
               className={cn(
                 'px-4 py-2 text-sm font-medium uppercase tracking-wider',
                 i === 0
-                  ? 'bg-[var(--primary-green)] text-[var(--white)] border border-[var(--primary-green)]'
+                  ? 'bg-[var(--primary-green)] text-white border border-[var(--primary-green)]'
                   : 'text-[var(--muted-text)] hover:text-[var(--white)] hover:bg-transparent')
               }
             >

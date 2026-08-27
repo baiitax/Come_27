@@ -37,13 +37,13 @@ export function Preloader() {
         {/* pulse ring */}
         <div className="pulse-ring absolute inset-3 rounded-full border border-[rgba(214,178,94,0.4)]" />
         {/* monogram */}
-        <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-[rgba(214,178,94,0.5)] bg-[linear-gradient(135deg,rgba(214,178,94,0.2),rgba(214,178,94,0.03))] font-display text-2xl font-bold text-[var(--gold)] shadow-[0_0_50px_rgba(214,178,94,0.2)]">
+        <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-[rgba(11,107,69,0.4)] bg-[linear-gradient(135deg,rgba(14,138,90,0.14),rgba(214,178,94,0.08))] font-display text-2xl font-bold text-[var(--primary-green)] shadow-[0_0_50px_rgba(11,107,69,0.18)]">
           G27
         </div>
       </div>
 
       <p className="mt-8 font-display text-sm font-bold tracking-[0.42em] text-[var(--white)]">
-        GWARZO <span className="text-[var(--gold)]">2027</span>
+        GWARZO <span className="text-[var(--gold-ink)]">2027</span>
       </p>
       <p className="mt-2 text-[0.6rem] uppercase tracking-[0.32em] text-[var(--muted-text)]">
         For a Better Kano

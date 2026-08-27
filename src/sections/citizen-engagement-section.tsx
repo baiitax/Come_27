@@ -149,7 +149,7 @@ export function CitizenEngagementSection() {
                 <div className="glass-card premium p-4">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-xl bg-[var(--primary-green)] flex items-center justify-center">
-                      <svg className="w-4 h-4 text-[var(--white)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                         <path d="M12 5v14M5 12h14" />
                       </svg>
                     </div>
@@ -167,7 +167,7 @@ export function CitizenEngagementSection() {
                       </svg>
                     </div>
                     <div>
-                      <p className="font-medium text-[var(--obsidian)]">Water</p>
+                      <p className="font-medium text-[var(--white)]">Water</p>
                       <p className="text-[var(--muted-text)]">0%</p>
                     </div>
                   </div>
@@ -175,7 +175,7 @@ export function CitizenEngagementSection() {
                 <div className="glass-card premium p-4">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-xl bg-[var(--danger)] flex items-center justify-center">
-                      <svg className="w-4 h-4 text-[var(--white)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                         <path d="M12 5v14M5 12h14" />
                       </svg>
                     </div>
@@ -188,7 +188,7 @@ export function CitizenEngagementSection() {
                 <div className="glass-card premium p-4">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-xl bg-[var(--primary-green)] flex items-center justify-center">
-                      <svg className="w-4 h-4 text-[var(--white)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                         <path d="M12 5v14M5 12h14" />
                       </svg>
                     </div>

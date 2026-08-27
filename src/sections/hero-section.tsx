@@ -60,7 +60,7 @@ export function HeroSection() {
               </span>
               NDC • 2027 Kano Governorship
             </span>
-            <span className="text-[0.62rem] font-bold uppercase tracking-[0.3em] text-[var(--gold)]">
+            <span className="text-[0.62rem] font-bold uppercase tracking-[0.3em] text-[var(--gold-ink)]">
               Amintace 2027
             </span>
           </div>
