@@ -28,23 +28,38 @@ export const GlassNavbar = ({
   onScroll?: (progress: number) => void;
 }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    let raf = 0;
     const handler = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? scrollY / docHeight : 0;
-      setScrolled(scrollY > 24);
-      onScroll?.(progress);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const p = docHeight > 0 ? Math.min(scrollY / docHeight, 1) : 0;
+        setScrolled(scrollY > 24);
+        setProgress(p);
+        onScroll?.(p);
+      });
     };
     handler();
     window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
+    return () => {
+      window.removeEventListener('scroll', handler);
+      cancelAnimationFrame(raf);
+    };
   }, [onScroll]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4">
+      {/* Tricolor scroll progress (NDC green -> gold -> Kwankwasiya crimson) */}
+      <div
+        aria-hidden
+        className="tricolor-gradient fixed left-0 top-0 z-[60] h-[3px] rounded-r-full transition-[width] duration-150 ease-out"
+        style={{ width: `${(progress * 100).toFixed(2)}%` }}
+      />
       <nav
         aria-label="Primary"
         className={cn(
@@ -92,7 +107,7 @@ export const GlassNavbar = ({
         {/* CTA */}
         <a
           href="/#engage"
-          className="hidden rounded-full border border-[rgba(11,107,69,0.4)] bg-[linear-gradient(135deg,rgba(14,138,90,0.14),rgba(11,107,69,0.05))] px-5 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[var(--primary-green)] transition-all duration-300 hover:bg-[var(--primary-green)] hover:text-white hover:shadow-[0_10px_26px_rgba(11,107,69,0.3)] md:inline-flex"
+          className="btn-crimson !px-5 !py-2.5 !text-[0.72rem] !tracking-[0.14em] hidden md:inline-flex"
         >
           Join the Movement
         </a>
@@ -153,7 +168,7 @@ export const GlassNavbar = ({
         <a
           href="/#engage"
           onClick={() => setMenuOpen(false)}
-          className="mt-2 block rounded-2xl bg-[var(--primary-green)] px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.14em] text-white"
+          className="mt-2 block rounded-2xl bg-[linear-gradient(135deg,#C0323E,#A31621_60%,#7C0F18)] px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.14em] text-white shadow-[0_10px_26px_rgba(163,22,33,0.3)]"
         >
           Join the Movement
         </a>

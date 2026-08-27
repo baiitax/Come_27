@@ -12,8 +12,8 @@ export function Preloader() {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setLoading(false), 1600);
-    const t2 = setTimeout(() => setHidden(true), 2450);
+    const t1 = setTimeout(() => setLoading(false), 900);
+    const t2 = setTimeout(() => setHidden(true), 1500);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);

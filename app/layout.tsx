@@ -1,20 +1,20 @@
 import './globals.css';
 import type { ReactNode } from 'react';
-import { Inter, Space_Grotesk } from 'next/font/google';
+import { Manrope, Bricolage_Grotesque } from 'next/font/google';
 import { Preloader } from '@/components/preloader';
 import { ScrollReveals } from '@/components/scroll-reveals';
 import { SiteFooter } from '@/components/site-footer';
 import { GlassNavbar } from '@/components/navigation/floating-navbar';
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-manrope',
   display: 'swap',
 });
 
-const spaceGrotesk = Space_Grotesk({
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  variable: '--font-grotesk',
+  variable: '--font-bricolage',
   display: 'swap',
 });
 
@@ -52,7 +52,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${bricolage.variable}`}>
       <body className="grain relative">
         {/* Preloader */}
         <Preloader />
@@ -60,8 +60,9 @@ export default function RootLayout({
         {/* Ambient aurora background */}
         <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
           <div className="aurora-a absolute -top-40 -left-40 h-[34rem] w-[34rem] rounded-full bg-[#0B6B45]/12 blur-[120px]" />
-          <div className="aurora-b absolute top-1/3 -right-52 h-[38rem] w-[38rem] rounded-full bg-[#D6B25E]/16 blur-[140px]" />
-          <div className="aurora-a absolute -bottom-60 left-1/4 h-[30rem] w-[30rem] rounded-full bg-[#138A5B]/10 blur-[130px]" />
+          <div className="aurora-b absolute top-1/3 -right-52 h-[38rem] w-[38rem] rounded-full bg-[#D9B96A]/18 blur-[140px]" />
+          <div className="aurora-b absolute -bottom-40 -left-32 h-[32rem] w-[32rem] rounded-full bg-[#A31621]/6 blur-[130px]" />
+          <div className="aurora-a absolute -bottom-60 right-1/4 h-[30rem] w-[30rem] rounded-full bg-[#0E8A5A]/12 blur-[130px]" />
         </div>
 
         {/* Skip link for accessibility */}

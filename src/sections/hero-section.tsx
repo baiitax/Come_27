@@ -5,9 +5,9 @@ import Image from 'next/image';
 import { useParallax } from '@/hooks/use-parallax';
 
 const stats = [
-  { value: '27+', label: 'Years in public service' },
-  { value: '44', label: 'LGAs to empower' },
-  { value: '2027', label: 'NDC • Kano' },
+  { value: '27+', label: 'Years in public service', accent: 'text-[var(--primary-green)]' },
+  { value: '44', label: 'LGAs to empower', accent: 'text-[var(--gold-ink)]' },
+  { value: '2027', label: 'NDC • Kano', accent: 'text-[var(--kwankwasiya)]' },
 ];
 
 export function HeroSection() {
@@ -60,7 +60,7 @@ export function HeroSection() {
               </span>
               NDC • 2027 Kano Governorship
             </span>
-            <span className="text-[0.62rem] font-bold uppercase tracking-[0.3em] text-[var(--gold-ink)]">
+            <span className="text-[0.62rem] font-bold uppercase tracking-[0.3em] text-[var(--kwankwasiya)]">
               Amintace 2027
             </span>
           </div>
@@ -121,7 +121,7 @@ export function HeroSection() {
                 key={s.label}
                 className="glass-card !p-4 text-center hover:!translate-y-0"
               >
-                <p className="font-display text-2xl font-bold text-[var(--gold)] md:text-3xl">{s.value}</p>
+                <p className={`font-display text-2xl font-bold md:text-3xl ${s.accent}`}>{s.value}</p>
                 <p className="mt-1 text-[0.6rem] uppercase leading-snug tracking-[0.14em] text-[var(--muted-text)]">
                   {s.label}
                 </p>

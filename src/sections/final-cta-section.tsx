@@ -19,7 +19,8 @@ export function FinalCTASection() {
               ref={orbRef}
               className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#138A5B]/30 blur-[90px]"
             />
-            <div className="absolute -bottom-28 -right-16 h-64 w-64 rounded-full bg-[#D6B25E]/20 blur-[100px]" />
+            <div className="absolute -bottom-28 -right-16 h-64 w-64 rounded-full bg-[#D9B96A]/22 blur-[100px]" />
+            <div className="absolute -left-20 top-1/3 h-56 w-56 rounded-full bg-[#A31621]/25 blur-[110px]" />
             <div className="pattern-kano absolute inset-0 opacity-20" />
           </div>
 
@@ -30,7 +31,7 @@ export function FinalCTASection() {
           />
 
           <div className="relative">
-            <span className="section-eyebrow !text-[#E8CE8F]">
+            <span className="section-eyebrow" style={{ color: "#E8CE8F" }}>
               <span style={{ color: '#E8CE8F' }}>Join the Movement</span>
             </span>
 
