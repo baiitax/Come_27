@@ -100,6 +100,12 @@ function iso(daysAgo) {
 }
 
 async function main() {
+  // Idempotency guard: only seed an empty database (safe in build pipelines).
+  const existingUsers = await prisma.user.count();
+  if (existingUsers > 0) {
+    console.log('SEED SKIPPED — database already contains data (idempotent guard).');
+    return;
+  }
   // wipe (dev database only)
   await prisma.alert.deleteMany();
   await prisma.report.deleteMany();

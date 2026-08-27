@@ -1,3 +1,20 @@
+## Production deployment (Vercel) — current flow (PostgreSQL)
+
+1. **Database**: attach **Vercel Postgres** (Project → Storage). This sets `DATABASE_URL` automatically.
+2. **Secrets**: set `AUTH_SECRET` in Vercel project env (any strong random string, ≥32 chars — e.g. `openssl rand -hex 48`).
+3. **Build Command**: set the project Build Command to:
+   ```
+   prisma migrate deploy && npm run db:seed && next build
+   ```
+   - `prisma migrate deploy` applies committed migrations (`prisma/migrations/`).
+   - `npm run db:seed` is **idempotent** — it seeds only an empty database (first deploy), then no-ops.
+   - `postinstall` runs `prisma generate` automatically.
+4. Deploy. Public site reads from Postgres; admin at `/admin` (login: seeded admin, change password immediately in Settings → Users).
+
+Re-seeding a dev/empty DB manually: `npm run db:seed`.
+Creating new migrations locally: `npx prisma migrate dev --name <name>`.
+
+## Environment variables
 # Gwarzo 2027 — CMS, Content Operations & Intelligence Platform
 
 The public website is now the **presentation layer**; the CMS/database is the **authoritative source of truth**.
