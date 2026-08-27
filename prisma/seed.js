@@ -296,6 +296,44 @@ async function main() {
     }
   }
 
+  // ---- 2026 political transition (migrated from existing site, with attribution) ----
+  const TRANSITION = [
+    ['2026', 'Political Realignment', 'Officially documented political realignment within Kano state politics.', 'The Kano State Government', 'State government documentation', '', '', 'official-record'],
+    ['2026', 'Differences in Political Direction', 'Reported differences in political direction and approach between state leadership.', 'Various political stakeholders', 'Political reporting', '', '', 'reported'],
+    ['2026', 'Impeachment Proceedings', 'The Kano State House of Assembly alleged impeachment proceedings.', 'Kano State House of Assembly', 'Assembly statements', '', 'The candidate has formally responded to the allegations; the proceedings were subsequently withdrawn.', 'reported'],
+    ['2026', "Candidate's Response", "Comrade Gwarzo issued a formal response to the allegations.", 'Comrade Aminu Abdussalam Gwarzo campaign', 'Campaign statement', '', '', 'campaign-claim'],
+    ['2026', 'Resignation', 'Official resignation from the Deputy Governorship position.', 'Comrade Aminu Abdussalam Gwarzo', 'Resignation letter', '', '', 'official-record'],
+    ['2026', 'Withdrawal of Proceedings', 'Withdrawal of the impeachment proceedings.', 'Kano State House of Assembly', 'Assembly records', '', '', 'reported'],
+    ['2026', 'NDC Candidacy', 'Emergence as the NDC Kano governorship candidate for 2027.', 'Nigeria Democratic Congress (NDC)', 'NDC Kano State', '', '', 'official-record'],
+  ];
+  for (let i = 0; i < TRANSITION.length; i++) {
+    const [date, title, whatHappened, attribution, source, document, response, evidenceStatus] = TRANSITION[i];
+    await prisma.transitionEvent.create({ data: { date, title, whatHappened, attribution, source, document, response, evidenceStatus, sort: i } });
+  }
+
+  // ---- additional vision sectors (12-pillar architecture) ----
+  const EXTRA_SECTORS = [
+    ['Youth', 'sprout', 'Youth unemployment and under-employment drive restlessness in Kano.', 'Kano is one of the youngest states in Nigeria; opportunity is the core demand.', 'Skills, enterprise and apprenticeship pathways in every LGA.', 'Youth enterprise fund in all 44 LGAs', 'Skills academies; apprenticeship pipelines'],
+    ['Women', 'users', 'Women remain under-represented in enterprise, leadership and economic participation.', 'Market women and women farmers are central to Kano’s economy.', 'Market access, micro-finance and leadership pipelines for women.', 'Trader micro-finance in every market cluster', 'Women-led enterprise support'],
+    ['Digital Economy', 'monitor', 'Kano’s commercial potential is under-digitised; connectivity lags peer cities.', 'A young, mobile-connected population is an asset to build on.', 'Broadband expansion, digital skills and an e-services government.', 'Broadband coverage targets', 'Digital skills centres'],
+    ['Human Capital', 'book-open', 'Health and education outcomes decide whether Kano’s demographics become an asset.', 'Human capital is the foundation of every other sector in this plan.', 'Invest in teachers, doctors, classrooms and clinics first.', 'Teacher and health-worker incentives', 'Classroom and clinic expansion'],
+  ];
+  for (const [name, icon, problem, context, approach, ...rest] of EXTRA_SECTORS) {
+    if (await prisma.policySector.findUnique({ where: { name } })) continue;
+    const objectives = rest[0] ? [rest[0]] : [];
+    const initiatives = rest[1] ? [rest[1]] : [];
+    const sector = await prisma.policySector.create({
+      data: { name, icon, problemStatement: problem, currentContext: context, approach, objectivesJson: JSON.stringify(objectives), researchJson: JSON.stringify([]), published: true },
+    });
+    const inits = initiatives.map((title, i) => ({ sectorId: sector.id, title, sort: i }));
+    if (inits.length) await prisma.policyInitiative.createMany({ data: inits });
+  }
+
+  // ---- fourth hero stat ----
+  if (!(await prisma.stat.findFirst({ where: { value: 'NDC' } }))) {
+    await prisma.stat.create({ data: { value: 'NDC', label: 'Candidate', accent: 'crimson', sort: 4 } });
+  }
+
   // ---------------- DEMO engagement (flagged, excluded from public stats) ----------------
   const demoTopics = ['water', 'roads', 'education', 'healthcare', 'employment'];
   for (let i = 0; i < 14; i++) {

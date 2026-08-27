@@ -2,7 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useParallax } from '@/hooks/use-parallax';
+import { StatsStrip } from '@/components/public/stats-strip';
+import { trackEvent } from '@/components/public/track';
 
 export interface HeroCandidate {
   name: string;
@@ -13,28 +16,16 @@ export interface HeroCandidate {
   profileImageUrl: string;
 }
 
-const DEFAULT_STATS = [
-  { value: '27+', label: 'Years in public service', accent: 'text-[var(--primary-green)]' },
-  { value: '44', label: 'LGAs to empower', accent: 'text-[var(--gold-ink)]' },
-  { value: '2027', label: 'Governorship', accent: 'text-[var(--kwankwasiya)]' },
-];
-
-const ACCENT_CLASSES: Record<string, string> = {
-  green: 'text-[var(--primary-green)]',
-  gold: 'text-[var(--gold-ink)]',
-  crimson: 'text-[var(--kwankwasiya)]',
-};
-
 export function HeroSection({
   candidate,
   stats,
 }: {
-  candidate?: HeroCandidate;
-  stats?: { value: string; label: string; accent: string }[];
+  candidate: HeroCandidate;
+  stats: { value: string; label: string; accent: string; source?: string | null }[];
 }) {
-  const c = candidate;
-  const statList = stats && stats.length > 0 ? stats.map((s) => ({ ...s, accent: ACCENT_CLASSES[s.accent] ?? s.accent })) : DEFAULT_STATS;
   const [scrollY, setScrollY] = useState(0);
+  const portraitRef = useParallax<HTMLDivElement>(0.05);
+  const orbRef = useParallax<HTMLDivElement>(-0.07);
 
   useEffect(() => {
     let raf = 0;
@@ -50,123 +41,97 @@ export function HeroSection({
   }, []);
 
   const drift = Math.min(scrollY, 900);
-  const orbARef = useParallax<HTMLDivElement>(0.06);
-  const orbBRef = useParallax<HTMLDivElement>(-0.08);
-  const portraitRef = useParallax<HTMLDivElement>(0.05);
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden pt-32 pb-20">
-      {/* Background layers */}
-      <div aria-hidden className="absolute inset-0">
-        <div className="pattern-kano absolute inset-0" />
+    <section className="relative overflow-hidden pb-16 pt-32 md:pb-24 md:pt-40">
+      {/* background: subtle tints + fine lines + grain */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
         <div
-          ref={orbARef}
-          className="absolute -left-32 top-1/4 h-[28rem] w-[28rem] rounded-full bg-[#0B6B45]/20 blur-[110px]"
+          ref={orbRef}
+          className="absolute -right-40 -top-32 h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(circle,rgba(198,146,50,0.1),transparent_65%)]"
         />
         <div
-          ref={orbBRef}
-          className="absolute -right-24 bottom-1/4 h-[26rem] w-[26rem] rounded-full bg-[#D6B25E]/12 blur-[120px]"
+          ref={orbRef}
+          className="absolute -left-48 bottom-0 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(166,27,27,0.06),transparent_65%)]"
         />
-        {/* vertical gold hairline */}
-        <div className="absolute inset-y-0 left-[46%] hidden w-px bg-[linear-gradient(180deg,transparent,rgba(214,178,94,0.25),transparent)] lg:block" />
+        <div className="absolute inset-y-0 left-1/2 hidden w-px bg-[linear-gradient(180deg,transparent,rgba(23,32,51,0.08),transparent)] lg:block" />
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-12">
-        {/* ---------------- Left: headline ---------------- */}
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-12">
+        {/* ---------------- Left: identity ---------------- */}
         <div className="lg:col-span-7">
-          <div className="hero-rise flex flex-wrap items-center gap-3" style={{ '--rise-delay': '150ms' } as React.CSSProperties}>
-            <span className="glass-static inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[0.62rem] font-bold uppercase tracking-[0.26em] text-[var(--white)]">
+          <div className="hero-rise flex flex-wrap items-center gap-3" style={{ '--rise-delay': '100ms' } as React.CSSProperties}>
+            <span className="glass-static inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-[0.62rem] font-bold uppercase tracking-[0.26em] text-[var(--white)]">
               <span aria-hidden className="flex gap-1">
-                <span className="h-2 w-2 rounded-full bg-[var(--ndc-green)]" />
-                <span className="h-2 w-2 rounded-full bg-white" />
-                <span className="h-2 w-2 rounded-full bg-[var(--ndc-red)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--ndc-green)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white ring-1 ring-[rgba(23,32,51,0.15)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--ndc-red)]" />
               </span>
               NDC • 2027 Kano Governorship
             </span>
-            <span className="text-[0.62rem] font-bold uppercase tracking-[0.3em] text-[var(--kwankwasiya)]">
+            <span className="text-[0.62rem] font-bold uppercase tracking-[0.3em] text-[var(--brand)]">
               Amintace 2027
             </span>
           </div>
 
-          <h1 className="mt-8 font-display font-bold leading-[0.98] tracking-tight">
-            <span
-              className="hero-rise block text-[clamp(2.8rem,7.5vw,6rem)] text-[var(--white)]"
-              style={{ '--rise-delay': '300ms' } as React.CSSProperties}
-            >
-              COMRADE AMINU
+          <h1 className="mt-8 font-display font-extrabold tracking-tight">
+            <span className="hero-rise block text-[clamp(2.4rem,6.4vw,4.6rem)] leading-[1.02] text-[var(--muted-2)]" style={{ '--rise-delay': '250ms' } as React.CSSProperties}>
+              Comrade
+            </span>
+            <span className="hero-rise block text-[clamp(2.8rem,7.4vw,5.6rem)] leading-[1.0] text-[var(--white)]" style={{ '--rise-delay': '380ms' } as React.CSSProperties}>
+              Aminu AbdullSalam
             </span>
             <span
-              className="hero-rise block text-[clamp(2.8rem,7.5vw,6rem)]"
-              style={{ '--rise-delay': '450ms' } as React.CSSProperties}
+              className="hero-rise block bg-[linear-gradient(100deg,var(--brand-deep),var(--brand)_55%,var(--gold))] bg-clip-text text-[clamp(3.2rem,8.6vw,6.6rem)] leading-[0.98] text-transparent"
+              style={{ '--rise-delay': '520ms' } as React.CSSProperties}
             >
-              ABDUSSALAM
-            </span>
-            <span
-              className="hero-rise text-gold-gradient block text-[clamp(3.1rem,8.5vw,7rem)]"
-              style={{ '--rise-delay': '600ms' } as React.CSSProperties}
-            >
-              GWARZO
+              Gwarzo
             </span>
           </h1>
 
-          <div className="gold-rule hero-rise mt-8 max-w-md" style={{ '--rise-delay': '750ms' } as React.CSSProperties} />
-
-          <p
-            className="hero-rise mt-8 text-xl font-medium leading-snug text-[var(--white)] md:text-2xl"
-            style={{ '--rise-delay': '850ms' } as React.CSSProperties}
-          >
-            A LIFETIME OF SERVICE.
-            <span className="block text-[var(--muted-text)]">A NEW RESPONSIBILITY TO KANO.</span>
-          </p>
-
-          <p
-            className="hero-rise mt-6 max-w-xl text-base leading-relaxed text-[var(--muted-text)] md:text-lg"
-            style={{ '--rise-delay': '950ms' } as React.CSSProperties}
-          >
-            {c?.shortBio}
-          </p>
-
-          <div className="hero-rise mt-10 flex flex-col gap-4 sm:flex-row" style={{ '--rise-delay': '1100ms' } as React.CSSProperties}>
-            <a href="/#record" className="btn-primary">
-              Explore the Record
-              <span aria-hidden>→</span>
-            </a>
-            <a href="/#vision" className="btn-secondary">
-              Discover the Vision
-            </a>
+          <div className="hero-rise mt-8 max-w-md" style={{ '--rise-delay': '650ms' } as React.CSSProperties}>
+            <p className="font-display text-xl font-bold leading-snug text-[var(--white)] md:text-2xl">
+              A lifetime of service.
+            </p>
+            <p className="font-display text-xl font-bold leading-snug text-[var(--muted-text)] md:text-2xl">
+              A new responsibility to Kano.
+            </p>
           </div>
 
-          {/* Stats */}
-          <div className="hero-rise mt-14 grid max-w-lg grid-cols-3 gap-3" style={{ '--rise-delay': '1250ms' } as React.CSSProperties}>
-            {statList.map((s) => (
-              <div
-                key={s.label}
-                className="glass-card !p-4 text-center hover:!translate-y-0"
-              >
-                <p className={`font-display text-2xl font-bold md:text-3xl ${s.accent}`}>{s.value}</p>
-                <p className="mt-1 text-[0.6rem] uppercase leading-snug tracking-[0.14em] text-[var(--muted-text)]">
-                  {s.label}
-                </p>
-              </div>
-            ))}
+          <p className="hero-rise mt-6 max-w-xl text-base leading-relaxed text-[var(--muted-text)] md:text-lg" style={{ '--rise-delay': '780ms' } as React.CSSProperties}>
+            {candidate.shortBio}
+          </p>
+
+          <div className="hero-rise mt-9 flex flex-col gap-3 sm:flex-row" style={{ '--rise-delay': '900ms' } as React.CSSProperties}>
+            <a
+              href="/record"
+              onClick={() => trackEvent('cta_click', '/record')}
+              className="btn-primary"
+            >
+              Explore the Record <span aria-hidden>→</span>
+            </a>
+            <a
+              href="/vision"
+              onClick={() => trackEvent('cta_click', '/vision')}
+              className="btn-secondary"
+            >
+              Discover the Vision
+            </a>
           </div>
         </div>
 
         {/* ---------------- Right: portrait ---------------- */}
         <div className="lg:col-span-5">
-          <div
-            ref={portraitRef}
-            className="hero-rise relative mx-auto w-full max-w-sm lg:max-w-none"
-            style={{ '--rise-delay': '500ms' } as React.CSSProperties}
-          >
-            {/* decorative orbit ring */}
-            <div aria-hidden className="spin-slow absolute -inset-6 rounded-[3rem] border border-dashed border-[rgba(214,178,94,0.22)]" />
+          <div ref={portraitRef} className="hero-rise relative mx-auto w-full max-w-[26rem]" style={{ '--rise-delay': '400ms' } as React.CSSProperties}>
+            {/* fine editorial frame */}
+            <div aria-hidden className="absolute -inset-3 rounded-[2.2rem] border border-[rgba(166,27,27,0.15)]" />
+            <div aria-hidden className="absolute -inset-3 -translate-x-2 -translate-y-2 rounded-[2.2rem] border border-[rgba(198,146,50,0.25)]" />
 
             <div className="float-slow relative">
-              <div className="portrait-frame">
+              <div className="portrait-frame !rounded-[1.9rem]">
                 <Image
-                  src={c?.profileImageUrl || '/images/hero/gwarzo-hero.jpg'}
-                  alt={c?.name || 'Comrade Aminu Abdussalam Gwarzo'}
+                  src={candidate.profileImageUrl || '/images/hero/gwarzo-hero.jpg'}
+                  alt={candidate.name}
                   width={864}
                   height={1220}
                   priority
@@ -174,47 +139,49 @@ export function HeroSection({
                 />
               </div>
 
-              {/* floating credential chip */}
+              {/* glass info panel */}
               <div
-                className="glass-static absolute -left-4 bottom-10 rounded-2xl px-5 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.55)] md:-left-10"
+                className="glass-static absolute -left-4 bottom-10 rounded-2xl px-5 py-4 shadow-[0_18px_50px_rgba(23,32,51,0.16)] md:-left-10"
                 style={{ transform: `translateY(${drift * -0.04}px)` }}
               >
-                <p className="font-display text-sm font-bold tracking-wide text-[var(--white)]">
-                  NDC Candidate
-                </p>
-                <p className="mt-0.5 text-[0.62rem] uppercase tracking-[0.18em] text-[var(--gold)]">
-                  Governor of Kano State 2027
-                </p>
+                <p className="font-display text-sm font-bold tracking-wide text-[var(--white)]">NDC Candidate</p>
+                <p className="mt-0.5 text-[0.62rem] uppercase tracking-[0.18em] text-[var(--gold-ink)]">Governor of Kano State 2027</p>
               </div>
 
-              {/* NDC badge */}
+              {/* NDC chip */}
               <div
-                className="glass-static absolute -right-3 top-8 flex items-center gap-2 rounded-full px-4 py-2 md:-right-8"
+                className="glass-static absolute -right-3 top-8 flex items-center gap-2 rounded-full px-4 py-2 md:-right-7"
                 style={{ transform: `translateY(${drift * 0.05}px)` }}
               >
                 <span aria-hidden className="flex gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--ndc-green)]" />
-                  <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-white ring-1 ring-[rgba(23,32,51,0.15)]" />
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--ndc-red)]" />
                 </span>
-                <span className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[var(--white)]">
-                  NDC 2027
-                </span>
+                <span className="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-[var(--white)]">NDC 2027</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* ---------------- Stats (CMS) ---------------- */}
+      <div className="relative mx-auto mt-16 max-w-7xl px-6" data-reveal data-delay="200">
+        <StatsStrip stats={stats} />
+      </div>
+
+      {/* scroll indicator */}
       <a
-        href="/#vision"
-        aria-label="Scroll to content"
-        className="fade-in-late absolute bottom-7 left-1/2 z-10 -translate-x-1/2"
-        style={{ '--rise-delay': '1800ms' } as React.CSSProperties}
+        href="#meet"
+        aria-label="Scroll to explore"
+        className="fade-in-late absolute bottom-5 left-1/2 z-10 -translate-x-1/2"
+        style={{ '--rise-delay': '1600ms' } as React.CSSProperties}
       >
-        <span className="flex h-10 w-6 items-start justify-center rounded-full border border-[var(--glass-border)] p-1.5">
-          <span className="scroll-dot h-2 w-1 rounded-full bg-[var(--gold)]" />
+        <span className="flex flex-col items-center gap-2 text-[0.55rem] font-bold uppercase tracking-[0.3em] text-[var(--muted-2)]">
+          Scroll to explore
+          <span className="flex h-9 w-5 items-start justify-center rounded-full border border-[var(--glass-border)] p-1">
+            <span className="scroll-dot h-2 w-0.5 rounded-full bg-[var(--brand)]" />
+          </span>
         </span>
       </a>
     </section>

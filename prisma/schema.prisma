@@ -470,3 +470,16 @@ model Session {
 
   @@index([userId])
 }
+
+model TransitionEvent {
+  id             String  @id @default(cuid())
+  date           String  @default("")
+  title          String
+  whatHappened   String  @default("")
+  attribution    String  @default("")
+  source         String  @default("")
+  document       String  @default("")
+  response       String  @default("")
+  evidenceStatus String  @default("reported") // verified|official-record|reported|campaign-claim|proposed|under-review
+  sort           Int     @default(0)
+}

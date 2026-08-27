@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 import { Preloader } from '@/components/preloader';
 import { ScrollReveals } from '@/components/scroll-reveals';
 import { SiteFooter } from '@/components/site-footer';
-import { GlassNavbar } from '@/components/navigation/floating-navbar';
+import { PublicNavbar } from '@/components/public-navbar';
+import { Track } from '@/components/public/track';
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
@@ -12,10 +13,9 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
 
       {/* Ambient aurora background */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="aurora-a absolute -top-40 -left-40 h-[34rem] w-[34rem] rounded-full bg-[#0B6B45]/12 blur-[120px]" />
-        <div className="aurora-b absolute top-1/3 -right-52 h-[38rem] w-[38rem] rounded-full bg-[#D9B96A]/18 blur-[140px]" />
-        <div className="aurora-b absolute -bottom-40 -left-32 h-[32rem] w-[32rem] rounded-full bg-[#A31621]/6 blur-[130px]" />
-        <div className="aurora-a absolute -bottom-60 right-1/4 h-[30rem] w-[30rem] rounded-full bg-[#0E8A5A]/12 blur-[130px]" />
+        <div className="aurora-a absolute -top-48 -left-40 h-[36rem] w-[36rem] rounded-full bg-[rgba(166,27,27,0.04)] blur-[130px]" />
+        <div className="aurora-b absolute top-1/3 -right-56 h-[40rem] w-[40rem] rounded-full bg-[rgba(198,146,50,0.06)] blur-[140px]" />
+        <div className="aurora-a absolute -bottom-64 right-1/4 h-[32rem] w-[32rem] rounded-full bg-[rgba(166,27,27,0.035)] blur-[130px]" />
       </div>
 
       {/* Skip link for accessibility */}
@@ -27,7 +27,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
       </a>
 
       <ScrollReveals />
-      <GlassNavbar />
+      <PublicNavbar />
 
       <main id="main-content" className="relative">
         {children}

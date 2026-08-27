@@ -39,23 +39,33 @@
 
 /* ---------- Bare CSS variables used across components ---------- */
 :root {
-  --obsidian: #F6F7F2;
-  --deep-forest: #0C2A1F;
-  --pine: #103627;
-  --glass-surface: rgba(255, 255, 255, 0.75);
-  --glass-strong: rgba(255, 255, 255, 0.92);
-  --glass-border: rgba(20, 35, 28, 0.1);
-  --primary-green: #00795B;
-  --secondary-green: #0E8A5A;
-  --heritage-green: #064A32;
-  --kwankwasiya: #A31621;
-  --kwankwasiya-deep: #7C0F18;
-  --gold: #C9A24B;
-  --gold-soft: #D9B96A;
-  --gold-ink: #9C7427;
-  --white: #14231C;
-  --muted-text: #5E7168;
-  --danger: #B5544A;
+  /* Gwarzo 2027 — premium light identity */
+  --obsidian: #F6F7F9;            /* canvas (legacy name) */
+  --canvas: #F6F7F9;
+  --soft-surface: #F0F2F5;
+  --deep-forest: #172033;
+  --pine: #172033;
+  --glass-surface: rgba(255, 255, 255, 0.68);
+  --glass-strong: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(23, 32, 51, 0.08);
+  --primary-green: #A61B1B;       /* campaign crimson (legacy name) */
+  --brand: #A61B1B;
+  --brand-deep: #7F1515;
+  --brand-light: #FDECEC;
+  --secondary-green: #A61B1B;
+  --heritage-green: #7F1515;
+  --kwankwasiya: #A61B1B;
+  --kwankwasiya-deep: #7F1515;
+  --gold: #C69232;
+  --gold-soft: #D9AE55;
+  --gold-ink: #8A6414;
+  --white: #172033;               /* primary text ink (legacy name) */
+  --muted-text: #667085;
+  --muted-2: #98A2B3;
+  --danger: #F04438;
+  --success: #12B76A;
+  --warning: #F79009;
+  --info: #2E90FA;
   --ndc-red: #C8102E;
   --ndc-green: #007A5E;
   --ndc-blue: #0A3D91;
