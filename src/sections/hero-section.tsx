@@ -180,10 +180,10 @@ export function HeroSection({
                 style={{ transform: `translateY(${drift * -0.04}px)` }}
               >
                 <p className="font-display text-sm font-bold tracking-wide text-[var(--white)]">
-                  Former Deputy Governor
+                  NDC Candidate
                 </p>
-                <p className="mt-0.5 text-[0.62rem] uppercase tracking-[0.2em] text-[var(--gold)]">
-                  Kano State
+                <p className="mt-0.5 text-[0.62rem] uppercase tracking-[0.18em] text-[var(--gold)]">
+                  Governor of Kano State 2027
                 </p>
               </div>
 
