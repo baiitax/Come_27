@@ -4,13 +4,36 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useParallax } from '@/hooks/use-parallax';
 
-const stats = [
+export interface HeroCandidate {
+  name: string;
+  displayName: string;
+  title: string;
+  tagline: string;
+  shortBio: string;
+  profileImageUrl: string;
+}
+
+const DEFAULT_STATS = [
   { value: '27+', label: 'Years in public service', accent: 'text-[var(--primary-green)]' },
   { value: '44', label: 'LGAs to empower', accent: 'text-[var(--gold-ink)]' },
-  { value: '2027', label: 'NDC • Kano', accent: 'text-[var(--kwankwasiya)]' },
+  { value: '2027', label: 'Governorship', accent: 'text-[var(--kwankwasiya)]' },
 ];
 
-export function HeroSection() {
+const ACCENT_CLASSES: Record<string, string> = {
+  green: 'text-[var(--primary-green)]',
+  gold: 'text-[var(--gold-ink)]',
+  crimson: 'text-[var(--kwankwasiya)]',
+};
+
+export function HeroSection({
+  candidate,
+  stats,
+}: {
+  candidate?: HeroCandidate;
+  stats?: { value: string; label: string; accent: string }[];
+}) {
+  const c = candidate;
+  const statList = stats && stats.length > 0 ? stats.map((s) => ({ ...s, accent: ACCENT_CLASSES[s.accent] ?? s.accent })) : DEFAULT_STATS;
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -76,7 +99,7 @@ export function HeroSection() {
               className="hero-rise block text-[clamp(2.8rem,7.5vw,6rem)]"
               style={{ '--rise-delay': '450ms' } as React.CSSProperties}
             >
-              ABDULLSALAM
+              ABDUSSALAM
             </span>
             <span
               className="hero-rise text-gold-gradient block text-[clamp(3.1rem,8.5vw,7rem)]"
@@ -100,8 +123,7 @@ export function HeroSection() {
             className="hero-rise mt-6 max-w-xl text-base leading-relaxed text-[var(--muted-text)] md:text-lg"
             style={{ '--rise-delay': '950ms' } as React.CSSProperties}
           >
-            A public servant, grassroots leader and former Deputy Governor of Kano State — bringing
-            decades of institutional and community experience to Kano&apos;s next chapter.
+            {c?.shortBio}
           </p>
 
           <div className="hero-rise mt-10 flex flex-col gap-4 sm:flex-row" style={{ '--rise-delay': '1100ms' } as React.CSSProperties}>
@@ -116,7 +138,7 @@ export function HeroSection() {
 
           {/* Stats */}
           <div className="hero-rise mt-14 grid max-w-lg grid-cols-3 gap-3" style={{ '--rise-delay': '1250ms' } as React.CSSProperties}>
-            {stats.map((s) => (
+            {statList.map((s) => (
               <div
                 key={s.label}
                 className="glass-card !p-4 text-center hover:!translate-y-0"
@@ -143,10 +165,10 @@ export function HeroSection() {
             <div className="float-slow relative">
               <div className="portrait-frame">
                 <Image
-                  src="/images/hero/gwarzo-hero.jpg"
-                  alt="Comrade Aminu Abdussalam Gwarzo"
-                  width={832}
-                  height={1216}
+                  src={c?.profileImageUrl || '/images/hero/gwarzo-hero.jpg'}
+                  alt={c?.name || 'Comrade Aminu Abdussalam Gwarzo'}
+                  width={864}
+                  height={1220}
                   priority
                   className="h-full w-full object-cover"
                 />

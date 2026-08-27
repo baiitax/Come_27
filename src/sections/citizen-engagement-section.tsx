@@ -4,8 +4,11 @@
    ============================================================ */
 import { GlassCard } from '../components/glass/glass-card';
 import { cn } from '@/lib/utils';
+import { prisma } from '@/lib/db';
+import { ContactForm } from '@/components/contact-form';
 
-export function CitizenEngagementSection() {
+export async function CitizenEngagementSection() {
+  const lgas = await prisma.lga.findMany({ orderBy: { name: 'asc' } });
   return (
     <section id="voice" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
@@ -32,104 +35,7 @@ export function CitizenEngagementSection() {
                 and policy feedback.
               </p>
 
-              <form className="space-y-4">
-                {/* Name field - optional */}
-                <div>
-                  <label className="text-sm text-[var(--muted-text)] uppercase tracking-wider mb-2">
-                    Name (optional)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    className="w-full glass-card premium p-3 mb-4"
-                    style={{
-                      background: 'var(--glass-surface)',
-                      border: '1px solid var(--glass-border)',
-                      color: 'var(--white)',
-                    }}
-                  />
-                </div>
-
-                {/* LGA field */}
-                <div>
-                  <label className="text-sm text-[var(--muted-text)] uppercase tracking-wider mb-2">
-                    LGA
-                  </label>
-                  <select
-                    className="w-full glass-card premium p-3 mb-4"
-                    style={{
-                      background: 'var(--glass-surface)',
-                      border: '1px solid var(--glass-border)',
-                      color: 'var(--white)',
-                    }}
-                  >
-                    <option value="">Select LGA</option>
-                    {/* LGAs would be populated here */}
-                  </select>
-                </div>
-
-                {/* Topic field */}
-                <div>
-                  <label className="text-sm text-[var(--muted-text)] uppercase tracking-wider mb-2">
-                    Topic
-                  </label>
-                  <select
-                    className="w-full glass-card premium p-3 mb-4"
-                    style={{
-                      background: 'var(--glass-surface)',
-                      border: '1px solid var(--glass-border)',
-                      color: 'var(--white)',
-                    }}
-                  >
-                    <option value="">Select topic</option>
-                    <option value="education">Education</option>
-                    <option value="healthcare">Healthcare</option>
-                    <option value="jobs">Jobs & Enterprise</option>
-                    <option value="water">Water & Sanitation</option>
-                    <option value="roads">Roads & Infrastructure</option>
-                    <option value="security">Security & Community</option>
-                    <option value="housing">Housing</option>
-                    <option value="digital">Digital Economy</option>
-                  </select>
-                </div>
-
-                {/* Message field */}
-                <div>
-                  <label className="text-sm text-[var(--muted-text)] uppercase tracking-wider mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="Share your thoughts, priorities, or ideas for Kano's development..."
-                    className="w-full glass-card premium p-3 mb-6 resize-none"
-                    style={{
-                      background: 'var(--glass-surface)',
-                      border: '1px solid var(--glass-border)',
-                      color: 'var(--white)',
-                    }}
-                  /></div>
-
-                  {/* Consent */}
-                  <div>
-                    <label className="flex items-start text-sm">
-                      <input
-                        type="checkbox"
-                        className="w-4 h-4 rounded border-[var(--glass-border)] margin-right-2"
-                        required
-                      />
-                      <span className="text-[var(--muted-text)]">
-                        I consent to my submission being used to improve public dialogue.
-                      </span>
-                    </label>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full btn-primary"
-                  >
-                    SUBMIT
-                  </button>
-                </form>
+              <ContactForm lgas={lgas.map((l) => ({ id: l.id, name: l.name }))} />
               </div>
           </div>
 

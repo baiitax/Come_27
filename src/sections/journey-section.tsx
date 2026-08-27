@@ -3,6 +3,7 @@
    Horizontal/Vertical Cinematic Storytelling Timeline
    ============================================================ */
 import { cn } from '@/lib/utils';
+import { prisma } from '@/lib/db';
 
 export interface TimelineChapter {
   id: string;
@@ -14,7 +15,7 @@ export interface TimelineChapter {
   evidence?: string;
 }
 
-export const chapters: TimelineChapter[] = [
+const FALLBACK_CHAPTERS: TimelineChapter[] = [
   {
     id: 'teacher',
     year: '1990s',
@@ -94,7 +95,21 @@ export const chapters: TimelineChapter[] = [
   },
 ];
 
-export function JourneySection() {
+export async function JourneySection() {
+  const entries = await prisma.timelineEntry.findMany({ where: { published: true, deletedAt: null }, orderBy: { sort: 'asc' } });
+  const chapters: TimelineChapter[] =
+    entries.length > 0
+      ? entries.map((e) => ({
+          id: e.id,
+          year: e.year,
+          location: e.location,
+          role: e.title,
+          explanation: e.description,
+          image: e.imageUrl ?? undefined,
+          evidence: e.evidenceLevel,
+        }))
+      : FALLBACK_CHAPTERS;
+
   return (
     <section className="py-24 md:py-32 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -116,7 +131,7 @@ export function JourneySection() {
           <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-[var(--primary-green)] opacity-50 top-0 bottom-0"></div>
 
           {/* Timeline chapters */}
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4 pt-20">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4 pt-20 max-w-none">
             {chapters.map((chapter) => (
               <div
                 key={chapter.id}

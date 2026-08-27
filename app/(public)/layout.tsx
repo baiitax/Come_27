@@ -1,0 +1,39 @@
+import type { ReactNode } from 'react';
+import { Preloader } from '@/components/preloader';
+import { ScrollReveals } from '@/components/scroll-reveals';
+import { SiteFooter } from '@/components/site-footer';
+import { GlassNavbar } from '@/components/navigation/floating-navbar';
+
+export default function PublicLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className="public-shell grain relative min-h-screen text-[color:var(--white)]">
+      {/* Preloader */}
+      <Preloader />
+
+      {/* Ambient aurora background */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="aurora-a absolute -top-40 -left-40 h-[34rem] w-[34rem] rounded-full bg-[#0B6B45]/12 blur-[120px]" />
+        <div className="aurora-b absolute top-1/3 -right-52 h-[38rem] w-[38rem] rounded-full bg-[#D9B96A]/18 blur-[140px]" />
+        <div className="aurora-b absolute -bottom-40 -left-32 h-[32rem] w-[32rem] rounded-full bg-[#A31621]/6 blur-[130px]" />
+        <div className="aurora-a absolute -bottom-60 right-1/4 h-[30rem] w-[30rem] rounded-full bg-[#0E8A5A]/12 blur-[130px]" />
+      </div>
+
+      {/* Skip link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-[var(--gold)] focus:px-5 focus:py-2 focus:text-sm focus:font-bold focus:text-black"
+      >
+        Skip to main content
+      </a>
+
+      <ScrollReveals />
+      <GlassNavbar />
+
+      <main id="main-content" className="relative">
+        {children}
+      </main>
+
+      <SiteFooter />
+    </div>
+  );
+}

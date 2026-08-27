@@ -1,0 +1,451 @@
+// Gwarzo 2027 — CMS / Content Operations / Analytics & Intelligence
+// Dev provider: sqlite (sandbox). Production: switch datasource provider to
+// "postgresql" and run `prisma migrate deploy` with DATABASE_URL.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================ IDENTITY & ACCESS
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("editor") // super_admin|content_admin|editor|fact_checker|media_manager|engagement_manager|analytics_manager|reviewer|read_only
+  isActive     Boolean  @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime @default(now())
+  auditLogs    AuditLog[]
+  notifications Notification[]
+  versions     ContentVersion[]
+}
+
+model Role {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String
+  permissions String // JSON array of permission keys
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userName  String
+  action    String // login|logout|create|update|publish|unpublish|delete|restore|approve|reject|verify|export|assign|login_failed
+  entity    String
+  entityId  String?
+  oldValues String?  // JSON
+  newValues String?  // JSON
+  ip        String?
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([createdAt])
+}
+
+// ============================================================ SITE & CONTENT
+model SiteSetting {
+  key       String @id // dotted keys: brand.campaignName, contact.email, seo.defaultTitle...
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model Candidate {
+  id                String  @id @default(cuid())
+  displayName       String
+  fullName          String
+  title             String  @default("")
+  tagline           String  @default("")
+  shortBio          String  @default("")
+  longBio           String  @default("")
+  philosophy        String  @default("")
+  profileImageUrl   String  @default("/images/hero/gwarzo-hero.jpg")
+  coverImageUrl     String  @default("")
+  socialJson        String  @default("{}") // {"x":"...","facebook":"...","instagram":"...","twitterGuild":"..."}
+  updatedAt         DateTime @updatedAt
+}
+
+model Stat {
+  id       String  @id @default(cuid())
+  value    String
+  label    String
+  accent   String  @default("green") // green|gold|crimson
+  sort     Int     @default(0)
+  isActive Boolean @default(true)
+}
+
+model PageSection {
+  id            String   @id @default(cuid())
+  key           String   @unique // hero|stats|why-gwarzo|journey|record|vision|movement|facts|media|engagement|cta
+  title         String
+  enabled       Boolean  @default(true)
+  sort          Int      @default(0)
+  settingsJson  String   @default("{}")
+  visibleFrom   DateTime?
+  visibleTo     DateTime?
+}
+
+model NavigationItem {
+  id      String  @id @default(cuid())
+  label   String
+  href    String
+  sort    Int     @default(0)
+  enabled Boolean @default(true)
+}
+
+model TimelineEntry {
+  id            String    @id @default(cuid())
+  year          String
+  date          String?
+  title         String
+  category      String    @default("public-service")
+  institution   String    @default("")
+  location      String    @default("")
+  description   String    @default("")
+  impact        String    @default("")
+  imageUrl      String?
+  evidenceLevel String    @default("official-record") // verified|official-record|reported|campaign-claim
+  source        String?
+  featured      Boolean   @default(false)
+  published     Boolean   @default(true)
+  sort          Int       @default(0)
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([published, sort])
+}
+
+model ServiceRecord {
+  id               String    @id @default(cuid())
+  position         String
+  institution      String
+  startDate        String
+  endDate          String
+  location         String
+  responsibilities String    @default("")
+  description      String    @default("")
+  impact           String    @default("")
+  achievements     String    @default("")
+  evidenceStatus   String    @default("under-review") // verified|official-record|reported|campaign-claim|proposed|under-review|disputed|archived
+  verificationDate DateTime?
+  reviewer         String?
+  notes            String    @default("")
+  published        Boolean   @default(true)
+  deletedAt        DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([published])
+}
+
+model PolicySector {
+  id               String   @id @default(cuid())
+  name             String   @unique
+  icon             String   @default("target")
+  problemStatement String   @default("")
+  currentContext   String   @default("")
+  approach         String   @default("")
+  objectivesJson   String   @default("[]")
+  metricsJson      String   @default("[]")
+  researchJson     String   @default("[]")
+  published        Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  initiatives      PolicyInitiative[]
+}
+
+model PolicyInitiative {
+  id          String  @id @default(cuid())
+  sectorId    String
+  sector      PolicySector @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  title       String
+  description String  @default("")
+  sort        Int     @default(0)
+}
+
+// ============================================================ NEWSROOM
+model Article {
+  id             String    @id @default(cuid())
+  title          String
+  slug           String    @unique
+  subtitle       String    @default("")
+  body           String    @default("")
+  category       String    @default("news") // news|speech|press-release|event|statement|community|policy|media|announcement
+  tagsJson       String    @default("[]")
+  location       String    @default("")
+  authorName     String    @default("Gwarzo 2027 Desk")
+  featuredImageId String?
+  status         String    @default("draft") // draft|review|scheduled|published|archived
+  publishAt      DateTime?
+  publishedAt    DateTime?
+  seoTitle       String?
+  seoDescription String?
+  isDemo         Boolean   @default(false)
+  deletedAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([status, publishedAt])
+  @@index([slug])
+}
+
+model Speech {
+  id            String    @id @default(cuid())
+  title         String
+  eventName     String    @default("")
+  eventDate     String    @default("")
+  venue         String    @default("")
+  location      String    @default("")
+  transcript    String    @default("")
+  summary       String    @default("")
+  videoUrl      String?
+  audioUrl      String?
+  themesJson    String    @default("[]")
+  status        String    @default("draft") // draft|review|published|archived
+  publishAt     DateTime?
+  publishedAt   DateTime?
+  isDemo        Boolean   @default(false)
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([status])
+}
+
+model CampaignEvent {
+  id              String    @id @default(cuid())
+  name            String
+  description     String    @default("")
+  startsAt        DateTime
+  endsAt          DateTime?
+  venue           String    @default("")
+  lgaId           String?
+  lga             Lga?      @relation(fields: [lgaId], references: [id], onDelete: SetNull)
+  address         String    @default("")
+  category        String    @default("rally") // rally|townhall|media|community|official
+  organizer       String    @default("")
+  coverImageId    String?
+  registrationUrl String?
+  status          String    @default("draft") // draft|upcoming|live|completed|cancelled|archived
+  isDemo          Boolean   @default(false)
+  deletedAt       DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([status, startsAt])
+}
+
+// ============================================================ MEDIA (DAM)
+model MediaAlbum {
+  id          String   @id @default(cuid())
+  name        String
+  description String   @default("")
+  createdAt   DateTime @default(now())
+  assets      MediaAsset[]
+}
+
+model MediaAsset {
+  id         String      @id @default(cuid())
+  filename   String
+  path       String // /uploads/...
+  kind       String     @default("image") // image|video|audio|pdf|document
+  size       Int        @default(0)
+  mimeType   String     @default("")
+  altText    String     @default("")
+  copyright  String     @default("")
+  source     String     @default("")
+  tagsJson   String     @default("[]")
+  albumId    String?
+  album      MediaAlbum? @relation(fields: [albumId], references: [id], onDelete: SetNull)
+  isDemo     Boolean    @default(false)
+  createdAt  DateTime   @default(now())
+  usageJson  String     @default("{}") // {articles: 2, speeches: 0}
+}
+
+model Document {
+  id          String    @id @default(cuid())
+  title       String
+  description String    @default("")
+  url         String    @default("")
+  category    String    @default("general") // policy|statement|report|legal|media-kit
+  published   Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ============================================================ VERIFICATION
+model Source {
+  id            String    @id @default(cuid())
+  title         String
+  publisher     String    @default("")
+  type          String    @default("media") // government|official-record|court|election-body|academic|media|campaign|public-statement|research|other
+  url           String?
+  publishedAt   DateTime?
+  author        String    @default("")
+  reliability   String    @default("unverified") // official|high|medium|low|unverified
+  verifiedAt    DateTime?
+  notes         String    @default("")
+  createdAt     DateTime  @default(now())
+  claims        Claim[]
+  evidences     Evidence[]
+}
+
+model Claim {
+  id           String    @id @default(cuid())
+  statement    String
+  context      String    @default("")
+  category     String    @default("general")
+  submittedBy  String    @default("")
+  status       String    @default("under-review") // under-review|verified|mostly-verified|unverified|misleading|false|insufficient
+  sourceId     String?
+  source       Source?   @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  verifiedBy   String?
+  verifiedAt   DateTime?
+  verdictNotes String    @default("")
+  isDemo       Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  evidences    Evidence[]
+
+  @@index([status])
+}
+
+model Evidence {
+  id         String   @id @default(cuid())
+  claimId    String
+  claim      Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  type       String   @default("url") // document|url|pdf|image|official-record|statement|archived
+  title      String
+  url        String?
+  notes      String   @default("")
+  sourceId   String?
+  source     Source?  @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  createdAt  DateTime @default(now())
+}
+
+// ============================================================ KANO & ENGAGEMENT
+model Lga {
+  id                 String   @id @default(cuid())
+  name               String   @unique
+  slug               String   @unique
+  senatorialDistrict String   @default("")
+  populationSource   String?  // required if population supplied — never fabricated
+  prioritiesJson     String   @default("[]")
+  createdAt          DateTime @default(now())
+  events             CampaignEvent[]
+  submissions        CommunitySubmission[]
+  volunteers         Volunteer[]
+}
+
+model IssueCategory {
+  id          String   @id @default(cuid())
+  name        String   @unique // education|water|roads|healthcare|agriculture|employment|security|youth|women|commerce
+  submissions CommunitySubmission[]
+}
+
+model CommunitySubmission {
+  id           String          @id @default(cuid())
+  lgaId        String?
+  lga          Lga?            @relation(fields: [lgaId], references: [id], onDelete: SetNull)
+  topicId      String?
+  topic        IssueCategory?  @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  topicName    String          @default("general")
+  message      String
+  name         String?
+  consent      Boolean         @default(false)
+  status       String          @default("new") // new|acknowledged|under-review|assigned|responded|resolved|archived
+  assignedTo   String?
+  priority     String          @default("normal") // low|normal|high
+  response     String          @default("")
+  internalNotes String         @default("")
+  resolvedAt   DateTime?
+  isDemo       Boolean         @default(false)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@index([status])
+  @@index([topicName, createdAt])
+  @@index([lgaId])
+}
+
+model Volunteer {
+  id        String    @id @default(cuid())
+  name      String
+  phone     String?
+  email     String?
+  lgaId     String?
+  lga       Lga?      @relation(fields: [lgaId], references: [id], onDelete: SetNull)
+  skills    String    @default("")
+  status    String    @default("pending") // pending|active|on-leave|declined
+  createdAt DateTime  @default(now())
+}
+
+// ============================================================ ANALYTICS & INTELLIGENCE
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  type      String // page_view|content_view|cta_click|search|submission_completed|volunteer_completed
+  path      String
+  referrer  String?
+  sessionId String?
+  isDemo    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([type, createdAt])
+  @@index([path, createdAt])
+}
+
+model Alert {
+  id         String    @id @default(cuid())
+  severity   String    @default("medium") // urgent|high|medium|low
+  title      String
+  reason     String    @default("")
+  entityKind String?
+  entityId   String?
+  action     String    @default("") // recommended administrative action
+  resolvedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([severity, createdAt])
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String?
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind      String    @default("system") // approval|verification|submission|event|alert|system
+  title     String
+  body      String    @default("")
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId, readAt])
+}
+
+model ContentVersion {
+  id         String   @id @default(cuid())
+  entity     String
+  entityId   String
+  version    Int
+  changes    String   // JSON snapshot of changed fields
+  summary    String   @default("")
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt  DateTime @default(now())
+
+  @@index([entity, entityId, version])
+}
+
+model Report {
+  id        String   @id @default(cuid())
+  kind      String // daily|weekly|monthly
+  dataJson  String
+  createdAt DateTime @default(now())
+}

@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { prisma } from '@/lib/db';
 import { HeroSection } from '@/sections/hero-section';
 import { WhyGwarzoSection } from '@/sections/why-gwarzo-section';
 import { JourneySection } from '@/sections/journey-section';
@@ -25,13 +26,39 @@ const FinalCTASection = dynamic(
   { ssr: true, loading: () => <div className="h-[26rem] md:h-[30rem]" /> }
 );
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [candidate, stats, records] = await Promise.all([
+    prisma.candidate.findFirst(),
+    prisma.stat.findMany({ where: { isActive: true }, orderBy: { sort: 'asc' } }),
+    prisma.serviceRecord.findMany({ where: { published: true, deletedAt: null }, orderBy: { startDate: 'desc' } }),
+  ]);
+
   return (
     <>
-      <HeroSection />
+      <HeroSection
+        candidate={{
+          name: candidate?.fullName ?? 'Comrade Aminu Abdussalam Gwarzo',
+          displayName: candidate?.displayName ?? 'Comrade Aminu AbdullSalam Gwarzo',
+          title: candidate?.title ?? 'NDC Candidate for Governor of Kano State 2027',
+          tagline: candidate?.tagline ?? 'A lifetime of service. A new responsibility to Kano.',
+          shortBio: candidate?.shortBio ?? 'A public servant, grassroots leader and former Deputy Governor of Kano State.',
+          profileImageUrl: candidate?.profileImageUrl ?? '/images/hero/gwarzo-hero.jpg',
+        }}
+        stats={stats.length > 0 ? stats.map((s) => ({ value: s.value, label: s.label, accent: s.accent })) : undefined}
+      />
       <WhyGwarzoSection />
       <JourneySection />
-      <PublicServiceRecordSection />
+      <PublicServiceRecordSection records={records.map((r) => ({
+        id: r.id,
+        year: r.startDate,
+        role: r.position,
+        institution: r.institution,
+        location: r.location,
+        responsibility: r.responsibilities,
+        impact: r.impact,
+        evidence: [r.evidenceStatus],
+        filters: [],
+      }))} />
       <TwentySixTransitionSection />
       <KwankwasiyyaSection />
       <FactsTransparencySection />

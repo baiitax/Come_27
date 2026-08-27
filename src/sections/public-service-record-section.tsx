@@ -89,11 +89,24 @@ const mockRecords: ServiceRecord[] = [
   },
 ];
 
-export function PublicServiceRecordSection() {
+export interface DbRecord {
+  id: string;
+  year: string;
+  role: string;
+  institution: string;
+  location: string;
+  responsibility: string;
+  impact: string;
+  evidence: string[];
+  filters: string[];
+}
+
+export function PublicServiceRecordSection({ records }: { records?: DbRecord[] }) {
+  const allRecords = records && records.length > 0 ? (records as ServiceRecord[]) : mockRecords;
   const [filter, setFilter] = React.useState<'all' | string>('all');
   const [sort, setSort] = React.useState<'newest' | 'oldest'>('newest');
 
-  const filteredRecords = mockRecords.filter((record) => {
+  const filteredRecords = allRecords.filter((record) => {
     if (filter === 'all') return true;
     return record.filters.includes(filter);
   });
