@@ -1,0 +1,206 @@
+/* ============================================================
+   GLOBAL CSS - Comrade Aminu Abdussalam Gwarzo 2027
+   ============================================================ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom properties */
+:root {
+  --obsidian: #07100D;
+  --deep-forest: #0C1B15;
+  --glass-surface: rgba(255,255,255,0.07);
+  --glass-strong: rgba(255,255,255,0.11);
+  --glass-border: rgba(255,255,255,0.14);
+  --primary-green: #0B6B45;
+  --secondary-green: #138A5B;
+  --heritage-green: #064A32;
+  --gold: #D6B25E;
+  --white: #F7F9F8;
+  --muted-text: #A8B5AF;
+  --danger: #C96B62;
+}
+
+/* Body */
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;
+  background-color: var(--obsidian);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--obsidian);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-green);
+}
+
+/* Glassmorphism utilities */
+.glass-card {
+  background: var(--glass-surface);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card.premium {
+  background: var(--glass-strong);
+  border-color: var(--glass-border);
+}
+
+/* Utilities */
+.btn-primary {
+  background: var(--primary-green);
+  color: var(--white);
+  border: none;
+  border-radius: 28px;
+  padding: 14px 32px;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(11, 107, 69, 0.4);
+}
+
+.btn-secondary {
+  background: var(--glass-surface);
+  color: var(--white);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  padding: 14px 32px;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--glass-strong);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Evidence badges */
+.evidence-verified {
+  background: rgba(11, 107, 69, 0.2);
+  color: var(--primary-green);
+  border: 1px solid rgba(11, 107, 69, 0.4);
+}
+
+.evidence-campaign {
+  background: rgba(218, 165, 32, 0.2);
+  color: var(--gold);
+  border: 1px solid rgba(218, 165, 32, 0.4);
+}
+
+.evidence-reported {
+  background: rgba(201, 107, 98, 0.2);
+  color: var(--danger);
+  border: 1px solid rgba(201, 107, 98, 0.4);
+}
+
+.evidence-under-review {
+  background: rgba(168, 181, 175, 0.2);
+  color: var(--muted-text);
+  border: 1px solid rgba(168, 181, 175, 0.4);
+}
+
+/* Navigation */
+.navbar {
+  background: var(--glass-strong);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--glass-border);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Hero utilities */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, var(--obsidian) 100%);
+}
+
+.hero-green-glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at 30% 30%, rgba(11, 107, 69, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-gold-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at 70% 70%, rgba(214, 178, 94, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Pattern background */
+.pattern-kano {
+  background-image: 
+    radial-gradient(at 20% 20%, #0B6B45 0%, transparent 50%),
+    radial-gradient(at 80% 80%, #0B6B45 0%, transparent 50%),
+    radial-gradient(at 40% 60%, rgba(6, 74, 50, 0.1) 0%, transparent 70%),
+    radial-gradient(at 70% 40%, rgba(6, 74, 50, 0.1) 0%, transparent 70%);
+  opacity: 0.08;
+  background-size: 100% 100%;
+}
+
+/* Gold accent */
+.gold-accent {
+  color: var(--gold);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,8 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blue background circle -->
+  <circle cx="20" cy="20" r="18" fill="#1A237E"/>
+  <!-- White text "NDC" -->
+  <text x="20" y="25" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">NDC</text>
+  <!-- Small accent detail -->
+  <line x1="15" y1="30" x2="25" y2="30" stroke="#FFFFFF" stroke-width="1"/>
+</svg>
