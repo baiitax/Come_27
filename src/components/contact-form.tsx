@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useActionState } from 'react';
-import { publicSubmit } from '@admin/actions/public';
+import React, { useState } from 'react';
 
 interface Lga {
   id: string;
@@ -9,8 +8,9 @@ interface Lga {
 }
 
 export function ContactForm({ lgas }: { lgas: Lga[] }) {
-  const [state, formAction] = useActionState(publicSubmit, { ok: undefined });
-  const done = state && 'ok' in state && !!state.ok;
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState<string>();
+  const [loading, setLoading] = useState(false);
 
   const inputStyle: React.CSSProperties = {
     background: 'rgba(255,255,255,0.75)',
@@ -19,6 +19,32 @@ export function ContactForm({ lgas }: { lgas: Lga[] }) {
   };
   const label = 'text-sm text-[var(--muted-text)] uppercase tracking-wider mb-2';
   const field = 'w-full rounded-xl p-3 mb-4 outline-none focus:border-[var(--primary-green)] transition-colors';
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(undefined);
+    setLoading(true);
+    const fd = new FormData(e.currentTarget);
+    try {
+      const res = await fetch('/api/public/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+        lga: String(fd.get('lga') ?? ''),
+        topic: String(fd.get('topic') ?? 'general'),
+        message: String(fd.get('message') ?? ''),
+        name: String(fd.get('name') ?? ''),
+        consent: !!fd.get('consent'),
+      }),
+      });
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+      if (res.ok) setDone(true);
+      else setError(data.error || 'Unable to submit. Please try again.');
+    } catch {
+      setError('Unable to submit. Please try again.');
+    }
+    setLoading(false);
+  }
 
   if (done) {
     return (
@@ -33,11 +59,9 @@ export function ContactForm({ lgas }: { lgas: Lga[] }) {
   }
 
   return (
-    <form action={formAction} className="space-y-4">
-      {(state as { error?: string })?.error && (
-        <div className="rounded-xl border border-[rgba(163,22,33,0.35)] bg-[rgba(163,22,33,0.08)] px-4 py-3 text-sm text-[var(--kwankwasiya)]">
-          {(state as { error?: string }).error}
-        </div>
+    <form onSubmit={onSubmit} className="space-y-4">
+      {error && (
+        <div className="rounded-xl border border-[rgba(163,22,33,0.35)] bg-[rgba(163,22,33,0.08)] px-4 py-3 text-sm text-[var(--kwankwasiya)]" role="alert">{error}</div>
       )}
 
       <div>
@@ -85,9 +109,8 @@ export function ContactForm({ lgas }: { lgas: Lga[] }) {
         </span>
       </label>
 
-      <button type="submit" className="btn-primary w-full">
-        SUBMIT
-        <span aria-hidden>→</span>
+      <button type="submit" disabled={loading} className="btn-primary w-full disabled:opacity-70">
+        {loading ? 'Sending…' : (<>SUBMIT <span aria-hidden>→</span></>)}
       </button>
     </form>
   );

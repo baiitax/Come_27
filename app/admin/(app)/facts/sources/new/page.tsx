@@ -3,7 +3,6 @@ import { getSessionUser, requirePerm } from '@/lib/auth-admin';
 import { prisma } from '@/lib/db';
 import { PageHeader, Card, CardHead, Field } from '@/components/admin/ui';
 import { AdminForm, In, Ta, Sel } from '@/components/admin/form';
-import { saveSource } from '@admin/actions/facts';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,7 +14,7 @@ export default async function SourceFormPage() {
   return (
     <div>
       <PageHeader crumb="Verification / Sources" title="New Source" sub="Sources are reusable across multiple claims and records." />
-      <AdminForm action={saveSource} saveLabel="Save Source">
+      <AdminForm endpoint="/api/admin/sources" successUrl="/admin/facts/sources" saveLabel="Save Source">
         <Card>
           <CardHead title="Source" />
           <div className="grid grid-cols-1 gap-5 p-5 md:grid-cols-2">

@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTransition } from 'react';
-import { logoutAction } from '@admin/actions/auth';
-import { markNotificationsRead } from '@admin/actions/system';
 import { roleLabel } from '@/lib/auth-admin-client';
 
 interface NavItem {
@@ -219,7 +217,10 @@ export function TopBar({ user, onMenu }: { user: { name: string; email: string; 
               <p className="text-xs text-[#9AA39C]">Open the dashboard to see the live activity feed and attention queue.</p>
               <button
                 type="button"
-                onClick={() => startTransition(() => markNotificationsRead())}
+                onClick={() => startTransition(async () => {
+                  const r = await fetch('/api/admin/notifications/read', { method: 'POST' });
+                  if (r.status === 401) window.location.href = '/admin/login?reason=expired';
+                })}
                 className="mt-3 text-xs font-bold text-[#C9A24B] hover:underline"
               >
                 Mark all as read
@@ -242,7 +243,12 @@ export function TopBar({ user, onMenu }: { user: { name: string; email: string; 
           <button
             type="button"
             disabled={isPending}
-            onClick={() => startTransition(() => logoutAction())}
+            onClick={() =>
+              startTransition(async () => {
+                const r = await fetch('/api/admin/logout', { method: 'POST' });
+                window.location.href = r.status === 401 ? '/admin/login' : '/admin/login';
+              })
+            }
             className="rounded-md bg-white/[0.05] px-2.5 py-1.5 text-[0.62rem] font-bold uppercase tracking-wide text-[#9AA39C] hover:bg-[#C0323E]/20 hover:text-[#E06A75]"
           >
             Exit

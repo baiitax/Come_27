@@ -3,7 +3,6 @@ import { getSessionUser, requirePerm } from '@/lib/auth-admin';
 import { prisma } from '@/lib/db';
 import { PageHeader, Card, CardHead, Field } from '@/components/admin/ui';
 import { AdminForm, In } from '@/components/admin/form';
-import { saveSettings } from '@admin/actions/system';
 
 export const dynamic = 'force-dynamic';
 

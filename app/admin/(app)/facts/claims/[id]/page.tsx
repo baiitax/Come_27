@@ -4,7 +4,6 @@ import { prisma } from '@/lib/db';
 import { PageHeader, Card, CardHead, Field, Badge } from '@/components/admin/ui';
 import { statusTone } from '@/lib/status-tone';
 import { AdminForm, In, Ta, Sel } from '@/components/admin/form';
-import { saveClaim, addEvidence, removeEvidence } from '@admin/actions/facts';
 import { EvidenceTray } from '../../evidence-tray';
 
 export const dynamic = 'force-dynamic';
@@ -28,7 +27,7 @@ export default async function ClaimFormPage({ params }: { params: Promise<{ id?:
         right={claim ? <Badge tone={statusTone(claim.status)}>{claim.status}</Badge> : undefined}
         sub="The evidence trail is public-facing: what is linked here is what the public sees behind a claim."
       />
-      <AdminForm action={saveClaim} saveLabel="Save Claim">
+      <AdminForm endpoint="/api/admin/claims" successUrl="/admin/facts/claims" saveLabel="Save Claim">
         {claim && <input type="hidden" name="id" value={claim.id} />}
         <Card>
           <CardHead title="Claim" />
@@ -60,8 +59,6 @@ export default async function ClaimFormPage({ params }: { params: Promise<{ id?:
               evidence={claim.evidences.map((e) => ({ id: e.id, type: e.type, title: e.title, notes: e.notes }))}
               sources={sources.map((s) => ({ id: s.id, title: s.title }))}
               canEdit
-              onAdd={addEvidence}
-              onRemove={removeEvidence}
             />
           </Card>
         )}

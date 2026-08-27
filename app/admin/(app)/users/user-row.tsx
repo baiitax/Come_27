@@ -1,17 +1,19 @@
 'use client';
 
 import { useTransition } from 'react';
-import { toggleUserActive } from '@admin/actions/system';
 
 export function UserRow({ id, active, self }: { id: string; active: boolean; self: boolean }) {
   const [pending, start] = useTransition();
-  if (self) return <span className="text-[0.62rem] font-bold uppercase text-[#5E6A63]">you</span>;
+  if (self) return <span className="text-[0.62rem] font-bold uppercase text-[#98A2B3]">you</span>;
   return (
     <button
       type="button"
       disabled={pending}
-      onClick={() => start(() => toggleUserActive(id))}
-      className="rounded-md border border-white/[0.1] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#9AA39C] hover:bg-white/[0.06] hover:text-white"
+      onClick={() => start(async () => {
+        const res = await fetch(`/api/admin/users/${id}/toggle`, { method: 'POST' });
+        if (res.status === 401) window.location.href = '/admin/login?reason=expired';
+      })}
+      className="rounded-md border border-[rgba(16,24,40,0.1)] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#667085] transition hover:bg-[rgba(16,24,40,0.04)] hover:text-[#172033]"
     >
       {active ? 'Deactivate' : 'Activate'}
     </button>

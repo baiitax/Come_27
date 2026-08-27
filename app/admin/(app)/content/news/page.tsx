@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getSessionUser } from '@/lib/auth-admin';
 import { prisma } from '@/lib/db';
-import { setArticleStatus, deleteArticle, restoreArticle } from '@admin/actions/content';
 import { PageHeader, Card, CardHead, Table, Th, Td, Badge, DemoTag, EmptyState } from '@/components/admin/ui';
 import { statusTone } from '@/lib/status-tone';
 import { NewsRowActions } from './row-actions';

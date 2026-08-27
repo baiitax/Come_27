@@ -1,22 +1,25 @@
 'use client';
 
 import { useTransition } from 'react';
-import { saveTimelineEntry, deleteTimelineEntry } from '@admin/actions/content';
+import Link from 'next/link';
 
-export function TimelineRow({ id, canUp, canDown, sort }: { id: string; canUp: boolean; canDown: boolean; sort: number }) {
+export function TimelineRow({ id }: { id: string; canUp: boolean; canDown: boolean; sort: number }) {
   const [pending, start] = useTransition();
-  const btn = 'rounded-md border border-white/[0.1] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#9AA39C] hover:bg-white/[0.06] hover:text-white disabled:opacity-40';
-  const move = (dir: 'up' | 'down') => start(async () => {
-    const fd = new FormData();
-    fd.set('id', id);
-    fd.set('sort', String(dir === 'up' ? sort - 1 : sort + 1));
-    fd.set('title', '__reorder__');
-    // minimal reorder: handled by server via sort swap — see saveTimelineEntry reorder path
-  });
+  const btn = 'rounded-md border border-[rgba(16,24,40,0.1)] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#667085] transition hover:bg-[rgba(16,24,40,0.04)] hover:text-[#172033] disabled:opacity-40';
   return (
     <span className="flex items-center justify-end gap-1.5">
-      <a href={`/admin/timeline/${id}`} className={btn}>Edit</a>
-      <button type="button" disabled={pending} onClick={async () => { await deleteTimelineEntry(id); }} className={`${btn} hover:bg-[#C0323E]/15 hover:text-[#E06A75]`}>Delete</button>
+      <Link href={`/admin/timeline/${id}`} className={btn}>Edit</Link>
+      <button
+        type="button"
+        disabled={pending}
+        onClick={() => start(async () => {
+          const res = await fetch(`/api/admin/timeline/${id}/delete`, { method: 'POST' });
+          if (res.status === 401) window.location.href = '/admin/login?reason=expired';
+        })}
+        className={`${btn} hover:text-[#B42318]`}
+      >
+        Delete
+      </button>
     </span>
   );
 }

@@ -19,9 +19,12 @@ CONTENT → EVIDENCE → PUBLICATION → ENGAGEMENT → ANALYTICS → INSIGHT �
 
 - Next.js 16 (App Router, Turbopack) + TypeScript + Tailwind v4
 - **Prisma ORM** — SQLite in this sandbox; **PostgreSQL in production** (see below)
-- Custom secure auth: bcrypt (cost 12) + HMAC-SHA256 signed session cookie (12h), rate-limited login (5 / 15 min), MFA-ready
-- Server actions for every mutation; RBAC enforced **server-side** on each action
-- Recharts for analytics; Zod validation on all inputs; audit log on every action
+- **API-based authentication** (plain HTTP endpoints — deliberately not Next server actions, which are unreliable across some runtimes): POST /api/admin/login · /logout · /forgot · /reset
+- bcrypt (cost 12) password hashing + HMAC-SHA256 signed session cookie (12h / 30d remember-me)
+- **Server-side session table (revocable)**: logout truly destroys the session; expired sessions are lazily purged
+- Rate-limited login (5 attempts / 15 min per IP+email), MFA-ready architecture
+- RBAC enforced **server-side** on every endpoint + middleware zone gates; audit log on every action
+- **Automated session suite**: `npm run test:auth` (10 end-to-end HTTP tests: login, invalid, persistence, protected routes, no-loop, expired, RBAC, logout, no secret leaks, rate limit)
 
 ## Admin map
 
@@ -34,6 +37,25 @@ CONTENT → EVIDENCE → PUBLICATION → ENGAGEMENT → ANALYTICS → INSIGHT �
 - **Intelligence** — `/admin/intelligence` (summary, issue pulse, LGA engagement, alerts)
 - **Operations** — `/admin/reports` (daily/weekly/monthly), `/admin/audit` (searchable full audit trail)
 - **System** — `/admin/users`, `/admin/roles` (permission matrix), `/admin/seo`, `/admin/settings`
+
+## Authentication lifecycle (verified)
+
+```
+Login form → POST /api/admin/login
+  → zod validation → rate-limit check → bcrypt compare (constant-shape)
+  → session row created (revocable) → HttpOnly SameSite=Lax cookie (Secure in prod)
+  → 303 redirect to target
+Every /admin request:
+  → Edge middleware: signature + expiry (+ zone gates) → /admin/login?reason=expired
+  → Server: session row lookup (revocation) + user active check → /admin/unauthorized on RBAC fail
+Logout → session row deleted + cookie cleared → next request 401/redirect
+```
+
+Run the acceptance suite against any running production build:
+
+```
+npm run test:auth        # node tests/auth-tests.mjs [baseUrl]
+```
 
 ## Environment variables
 

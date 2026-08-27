@@ -13,17 +13,29 @@ datasource db {
 
 // ============================================================ IDENTITY & ACCESS
 model User {
-  id           String   @id @default(cuid())
-  name         String
-  email        String   @unique
-  passwordHash String
-  role         String   @default("editor") // super_admin|content_admin|editor|fact_checker|media_manager|engagement_manager|analytics_manager|reviewer|read_only
-  isActive     Boolean  @default(true)
-  lastLoginAt  DateTime?
-  createdAt    DateTime @default(now())
-  auditLogs    AuditLog[]
-  notifications Notification[]
-  versions     ContentVersion[]
+  id                 String    @id @default(cuid())
+  name               String
+  email              String    @unique
+  passwordHash       String
+  role               String    @default("editor") // super_admin|content_admin|editor|fact_checker|media_manager|engagement_manager|analytics_manager|reviewer|read_only
+  isActive           Boolean   @default(true)
+  lastLoginAt        DateTime?
+  resetTokenHash     String?
+  resetTokenExpires  DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  auditLogs          AuditLog[]
+  notifications      Notification[]
+  versions           ContentVersion[]
+}
+
+// DEV-ONLY email outbox (written only when NODE_ENV !== 'production')
+model DevOutbox {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  body      String
+  createdAt DateTime @default(now())
 }
 
 model Role {
@@ -448,4 +460,13 @@ model Report {
   kind      String // daily|weekly|monthly
   dataJson  String
   createdAt DateTime @default(now())
+}
+
+model Session {
+  id        String   @id // token sid
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
