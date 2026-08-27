@@ -1,66 +1,57 @@
-/* ============================================================
-   FINAL CTA - Section 15/62
-   The complete visitor experience sequence closer
-   ============================================================ */
-import { GlassCard } from '../components/glass/glass-card';
-import { cn } from '@/lib/utils';
+'use client';
+
+import React from 'react';
+import { useParallax } from '@/hooks/use-parallax';
 
 export function FinalCTASection() {
+  const orbRef = useParallax<HTMLDivElement>(0.08);
+
   return (
-    <section className="py-24 md:py-32 bg-[var(--obsidian)]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="relative z-10">
-          {/* Gold decorative line */}
-          <div className="h-px w-full bg-[var(--gold)] opacity-50 mb-8"></div>
+    <section id="engage" className="relative py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-6">
+        <div
+          data-reveal="zoom"
+          className="glass-card premium relative overflow-hidden !p-10 text-center md:!p-16"
+        >
+          {/* Ambient glow inside card */}
+          <div aria-hidden className="pointer-events-none absolute inset-0">
+            <div
+              ref={orbRef}
+              className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#0B6B45]/25 blur-[90px]"
+            />
+            <div className="absolute -bottom-28 -right-16 h-64 w-64 rounded-full bg-[#D6B25E]/15 blur-[100px]" />
+          </div>
 
-          <div className="glass-card premium p-8 md:p-12">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Text content */}
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-[var(--white)] mb-4">
-                  This is not simply a candidate's website.
-                </h2>
-                <p className="text-[var(--muted-text)] text-lg mb-6">
-                  This is a documented leadership journey and a proposed governance platform
-                  for Kano.
-                </p>
+          <div className="relative">
+            <span className="section-eyebrow">Join the Movement</span>
 
-                {/* The brand tagline */}
-                <div className="mt-8 pt-8 border-t border-[var(--glass-border)]">
-                  <h3 className="text-3xl md:text-4xl font-bold text-[var(--white)] mb-2">
-                    AMINU ABDUSSALAM GWARZO
-                  </h3>
-                  <p className="text-[var(--gold)] text-2xl md:text-lg">
-                    A LIFETIME OF SERVICE.
-                  </p>
-                  <p className="text-[var(--muted-text)] text-sm">
-                    A NEW RESPONSIBILITY TO KANO.
-                  </p>
-                </div>
-              </div>
+            <h2 className="mt-6 font-display text-4xl font-bold leading-tight tracking-tight text-[var(--white)] md:text-6xl">
+              KANO&apos;S NEXT CHAPTER
+              <span className="text-gold-gradient block">STARTS WITH YOU</span>
+            </h2>
 
-              {/* Action buttons */}
-              <div>
-                <button
-                  className="btn-primary w-full md:w-auto mb-4"
-                  aria-label="Explore Comrade Gwarzo's record"
-                >
-                  EXPLORE THE RECORD
-                </button>
-                <button
-                  className="btn-secondary w-full md:w-auto"
-                  aria-label="Discover Kano's future vision"
-                >
-                  DISCOVER THE VISION
-                </button>
-              </div>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[var(--muted-text)] md:text-lg">
+              Volunteers, fact-checkers, community leaders — the 2027 movement is built one voice at
+              a time. Stand with the man who has served Kano for decades.
+            </p>
+
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <a href="/about" className="btn-primary">
+                Become a Volunteer
+                <span aria-hidden>→</span>
+              </a>
+              <a href="/#record" className="btn-secondary">
+                Review the Record
+              </a>
             </div>
 
-            {/* Visual element - simplified */}
-            <div className="lg:hidden hidden">
-              <p className="text-[var(--muted-text)] text-center mt-8">
-                Scroll to explore more
-              </p>
+            <div className="mt-12 flex items-center justify-center gap-3 text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[var(--muted-text)]">
+              <span aria-hidden className="flex gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--ndc-green)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--ndc-red)]" />
+              </span>
+              NDC • For a Better Kano • 2027
             </div>
           </div>
         </div>

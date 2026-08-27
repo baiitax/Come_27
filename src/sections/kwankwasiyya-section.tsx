@@ -13,8 +13,10 @@ export function KwankwasiyyaSection() {
         <div className="absolute inset-0 pattern-kano opacity-60 z-0"></div>
 
         {/* Section header */}
-        <div className="relative z-10 mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[var(--white)] mb-4">
+        <div className="relative z-10 mb-16" data-reveal>
+          <span className="section-eyebrow">Kwankwasiya</span>
+
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-[var(--white)] mb-4">
             THE MOVEMENT
           </h2>
           <p className="text-[var(--muted-text)] text-lg">
@@ -23,7 +25,7 @@ export function KwankwasiyyaSection() {
         </div>
 
         {/* Timeline relationship visualization */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16" data-reveal data-delay="120">
           {/* Kwankwasiyya Movement column */}
           <div className="glass-card premium p-6">
             <h3 className="text-xl font-bold text-[var(--white)] mb-4">

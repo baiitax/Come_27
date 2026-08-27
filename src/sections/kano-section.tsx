@@ -11,8 +11,10 @@ export function KanoSection() {
   return (
     <section className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[var(--white)] mb-4">
+        <div className="text-center mb-16" data-reveal>
+          <span className="section-eyebrow">The Kano Portal</span>
+
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-[var(--white)] mb-4">
             KANO
           </h2>
           <p className="text-2xl md:text-3xl text-[var(--muted-text)] max-w-2xl mx-auto">
@@ -37,7 +39,7 @@ export function KanoSection() {
         </div>
 
         {/* Key stats row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12" data-reveal data-delay="120">
           {[
 
             { label: '44', value: 'LGAs', icon: 'Map' },
@@ -69,7 +71,7 @@ export function KanoSection() {
         </div>
 
         {/* Modules overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-reveal data-delay="200">
           {[
 
             { title: 'METROPOLITAN KANO', description: 'Transport, traffic, drainage, sanitation, waste, housing, markets, security, digital economy, employment', icon: 'City' },

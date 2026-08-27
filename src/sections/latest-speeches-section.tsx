@@ -62,10 +62,12 @@ const mockLatest: LatestItem[] = [
 
 export function LatestSpeechesSection() {
   return (
-    <section className="py-24 md:py-32">
+    <section id="media" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[var(--white)] mb-4">
+        <div className="text-center mb-16" data-reveal>
+          <span className="section-eyebrow">Media Center</span>
+
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-[var(--white)] mb-4">
             LATEST SPEECHES & NEWS
           </h2>
           <p className="text-[var(--muted-text)] text-lg">
@@ -92,7 +94,7 @@ export function LatestSpeechesSection() {
         </div>
 
         {/* Latest items grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-reveal data-delay="120">
           {mockLatest.map((item) => (
             <GlassCard
               key={item.id}

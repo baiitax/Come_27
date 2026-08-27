@@ -1,8 +1,5 @@
-"use client";
+'use client';
 
-/* ============================================================
-   FLOATING GLASS NAVIGATION COMPONENT
-   ============================================================ */
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -12,88 +9,156 @@ export interface NavItem {
   external?: boolean;
 }
 
+const defaultItems: NavItem[] = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Record', href: '/#record' },
+  { label: 'Kano', href: '/kano' },
+  { label: 'Vision', href: '/#vision' },
+  { label: 'Media', href: '/#media' },
+  { label: 'Facts', href: '/facts' },
+  { label: 'Engage', href: '/#engage' },
+];
+
 export const GlassNavbar = ({
-  items,
+  items = defaultItems,
   onScroll,
-  shrinkOnScroll = false,
-  variant = 'desktop', // 'desktop' or 'mobile'
 }: {
-  items: NavItem[];
+  items?: NavItem[];
   onScroll?: (progress: number) => void;
-  shrinkOnScroll?: boolean;
-  variant?: 'desktop' | 'mobile';
 }) => {
-  const [scrolled, setScrolled] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handler = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? scrollY / docHeight : 0;
-      setScrolled(scrollY);
+      setScrolled(scrollY > 24);
       onScroll?.(progress);
     };
-
+    handler();
     window.addEventListener('scroll', handler, { passive: true });
     return () => window.removeEventListener('scroll', handler);
   }, [onScroll]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4">
+      <nav
+        aria-label="Primary"
+        className={cn(
+          'glass-static flex w-full max-w-6xl items-center justify-between gap-4 rounded-full py-2.5 pl-4 pr-2.5 transition-all duration-500',
+          scrolled ? 'shadow-[0_18px_50px_rgba(0,0,0,0.55)] border-[rgba(214,178,94,0.28)]' : ''
+        )}
+      >
+        {/* Brand */}
+        <a href="/" className="group flex items-center gap-2.5" aria-label="Gwarzo 2027 — home">
+          <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-[rgba(214,178,94,0.45)] bg-[linear-gradient(135deg,rgba(214,178,94,0.28),rgba(214,178,94,0.04))] font-display text-sm font-bold text-[var(--gold)] transition-transform duration-500 group-hover:scale-105">
+            G27
+            <span
+              aria-hidden
+              className="absolute inset-x-0 bottom-0 h-[3px] bg-[linear-gradient(90deg,var(--ndc-green)_0%,#F7F9F8_50%,var(--ndc-red)_100%)] opacity-80"
+            />
+          </span>
+          <span className="hidden sm:block leading-none">
+            <span className="block font-display text-[0.95rem] font-bold tracking-[0.08em]">
+              GWARZO <span className="text-[var(--gold)]">2027</span>
+            </span>
+            <span className="mt-1 block text-[0.6rem] uppercase tracking-[0.26em] text-[var(--muted-text)]">
+              For a Better Kano
+            </span>
+          </span>
+        </a>
+
+        {/* Desktop links */}
+        <ul className="hidden items-center gap-0.5 lg:flex">
+          {items.map((item) => (
+            <li key={item.href}>
+              <a
+                href={item.href}
+                className="group relative rounded-full px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--muted-text)] transition-colors duration-300 hover:text-[var(--white)]"
+              >
+                {item.label}
+                <span
+                  aria-hidden
+                  className="absolute inset-x-3.5 -bottom-px h-px origin-left scale-x-0 bg-[var(--gold)] transition-transform duration-300 group-hover:scale-x-100"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA */}
+        <a
+          href="/#engage"
+          className="hidden rounded-full border border-[rgba(214,178,94,0.5)] bg-[linear-gradient(135deg,rgba(214,178,94,0.22),rgba(214,178,94,0.06))] px-5 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[var(--gold-soft)] transition-all duration-300 hover:bg-[linear-gradient(135deg,rgba(214,178,94,0.4),rgba(214,178,94,0.15))] hover:shadow-[0_0_24px_rgba(214,178,94,0.25)] md:inline-flex"
+        >
+          Join the Movement
+        </a>
+
+        {/* Mobile toggle */}
+        <button
+          type="button"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--glass-border)] text-[var(--white)] transition-colors hover:border-[var(--gold)] lg:hidden"
+        >
+          <span className="relative block h-3.5 w-5">
+            <span
+              className={cn(
+                'absolute left-0 top-0 h-0.5 w-full rounded bg-current transition-all duration-300',
+                menuOpen && 'top-1.5 rotate-45'
+              )}
+            />
+            <span
+              className={cn(
+                'absolute left-0 top-1.5 h-0.5 w-full rounded bg-current transition-all duration-300',
+                menuOpen && 'opacity-0'
+              )}
+            />
+            <span
+              className={cn(
+                'absolute left-0 top-3 h-0.5 w-full rounded bg-current transition-all duration-300',
+                menuOpen && 'top-1.5 -rotate-45'
+              )}
+            />
+          </span>
+        </button>
+      </nav>
+
+      {/* Mobile menu */}
       <div
         className={cn(
-          'glass-card premium flex items-center justify-center gap-4 md:gap-8',
-          variant === 'mobile' && 'bottom-0 top-auto left-1/2 -translate-x-1/2 w-full max-w-md',
-          shrinkOnScroll && scrolled > 100 && 'transform transition-transform duration-300 scale-95'
+          'glass-static absolute inset-x-4 top-[5.25rem] origin-top rounded-3xl p-3 transition-all duration-400 lg:hidden',
+          menuOpen
+            ? 'pointer-events-auto scale-100 opacity-100'
+            : 'pointer-events-none scale-95 opacity-0'
         )}
-        style={{
-          background: 'rgba(255,255,255,0.11)',
-          backdropFilter: 'blur(24px)',
-          border: '1px solid rgba(255,255,255,0.14)',
-          borderRadius: variant === 'desktop' ? '28px' : '20px',
-          padding: variant === 'desktop' ? '16px 32px' : '12px 24px',
-          margin: variant === 'desktop' ? '24px auto 0' : '0 0 20px',
-        }}
       >
-        {items.map((item, index) => (
-          <a
-            key={index}
-            href={item.href}
-            className={cn(
-              'text-[var(--muted-text)] text-sm font-medium uppercase tracking-wider relative',
-              variant === 'desktop'
-                ? 'hover:text-[var(--white)] transition-colors'
-                : 'hover:text-[var(--gold)] transition-colors'
-            )}
-            style={{
-              ...(variant === 'desktop' && {
-                fontSize: '0.875rem',
-                padding: '8px 16px',
-              }),
-              ...(variant === 'mobile' && {
-                fontSize: '0.75rem',
-                padding: '6px 12px',
-              }),
-            }}
-          >
-            {item.label}
-            {item.external && (
-              <svg
-                className="inline-block w-4 h-4 ml-2"
-                width={20}
-                height={20}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
+        <ul className="grid grid-cols-2 gap-1">
+          {items.map((item) => (
+            <li key={item.href}>
+              <a
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="block rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-[var(--muted-text)] transition-colors hover:bg-[rgba(214,178,94,0.12)] hover:text-[var(--white)]"
               >
-                <path d="M5 12h14M12 5v14" />
-              </svg>
-            )}
-          </a>
-        ))}
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a
+          href="/#engage"
+          onClick={() => setMenuOpen(false)}
+          className="mt-2 block rounded-2xl bg-[linear-gradient(135deg,rgba(214,178,94,0.3),rgba(214,178,94,0.1))] px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.14em] text-[var(--gold-soft)]"
+        >
+          Join the Movement
+        </a>
       </div>
-    </nav>
+    </header>
   );
 };
 

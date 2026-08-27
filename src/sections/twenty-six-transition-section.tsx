@@ -54,8 +54,10 @@ export function TwentySixTransitionSection() {
   return (
     <section className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[var(--white)] mb-4">
+        <div className="text-center mb-16" data-reveal>
+          <span className="section-eyebrow">The Transition</span>
+
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-[var(--white)] mb-4">
             THE 2026 POLITICAL TRANSITION
           </h2>
           <p className="text-[var(--muted-text)] text-lg">
@@ -63,7 +65,7 @@ export function TwentySixTransitionSection() {
           </p>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6" data-reveal data-delay="120">
           {timelineItems.map((item, index) => (
             <GlassCard
               key={index}

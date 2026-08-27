@@ -10,7 +10,14 @@ export function FactsTransparencySection() {
   return (
     <section className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="mb-14 text-center" data-reveal>
+          <span className="section-eyebrow">Facts &amp; Transparency</span>
+          <h2 className="mt-5 font-display text-4xl md:text-5xl font-bold tracking-tight text-[var(--white)]">
+            THE FACTS
+          </h2>
+          <div className="gold-rule mx-auto mt-6 w-40"></div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" data-reveal data-delay="120">
           {/* Fact Check Card */}
           <GlassCard premium={true} shadow="soft">
             <div className="px-6 py-6">

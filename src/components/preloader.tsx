@@ -1,52 +1,59 @@
-"use client";
+'use client';
 
-/* ============================================================
-   PRELOADER - Website loading animation
-   ============================================================ */
 import React, { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
-// Preloader component - shows during page load
+/**
+ * Elegant brand preloader: gold ring + monogram + NDC tricolor line.
+ * Fades out after load and unmounts itself.
+ */
 export function Preloader() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [hidden, setHidden] = useState(false);
 
-  // Simulate page load - in production, this would detect actual page load
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
+    const t1 = setTimeout(() => setLoading(false), 1600);
+    const t2 = setTimeout(() => setHidden(true), 2450);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--obsidian)]">
-        <div className="relative w-64 h-64">
-          {/* Gold circle orbit */}
-          <div className="absolute inset-0 rounded-full border-4 border-[var(--gold)] opacity-20 animate-spin"></div>
+  if (hidden) return null;
 
-          {/* Rotating gold ring (counter-clockwise, 3s — see globals.css) */}
-          <div className="absolute inset-0 rounded-full border-4 border-[var(--gold)] opacity-30 anti-clockwise"></div>
-
-          {/* Glowing orb */}
-          <div
-            className="absolute rounded-full bg-[var(--gold)]/20 opacity-75 animate-pulse"
-            style={{
-              width: '200px',
-              height: '200px',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          ></div>
-
-          {/* Text */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[var(--white)] text-2xl font-bold tracking-wider">
-            LOADING
-          </div>
+  return (
+    <div
+      aria-hidden={loading}
+      className={cn(
+        'fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--obsidian)] transition-all duration-700',
+        loading ? 'opacity-100' : 'pointer-events-none opacity-0'
+      )}
+    >
+      <div className="relative flex h-40 w-40 items-center justify-center">
+        {/* rotating gold ring */}
+        <div className="absolute inset-0 rounded-full border border-[rgba(214,178,94,0.25)]" />
+        <div className="anti-clockwise absolute inset-0 rounded-full border-2 border-transparent border-t-[var(--gold)] border-r-[rgba(214,178,94,0.35)]" />
+        {/* pulse ring */}
+        <div className="pulse-ring absolute inset-3 rounded-full border border-[rgba(214,178,94,0.4)]" />
+        {/* monogram */}
+        <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-[rgba(214,178,94,0.5)] bg-[linear-gradient(135deg,rgba(214,178,94,0.2),rgba(214,178,94,0.03))] font-display text-2xl font-bold text-[var(--gold)] shadow-[0_0_50px_rgba(214,178,94,0.2)]">
+          G27
         </div>
       </div>
-    );
-  }
 
-  return null;
+      <p className="mt-8 font-display text-sm font-bold tracking-[0.42em] text-[var(--white)]">
+        GWARZO <span className="text-[var(--gold)]">2027</span>
+      </p>
+      <p className="mt-2 text-[0.6rem] uppercase tracking-[0.32em] text-[var(--muted-text)]">
+        For a Better Kano
+      </p>
+
+      {/* NDC tricolor line */}
+      <div
+        aria-hidden
+        className="mt-6 h-[3px] w-24 rounded-full bg-[linear-gradient(90deg,var(--ndc-green)_0%,#F7F9F8_50%,var(--ndc-red)_100%)]"
+      />
+    </div>
+  );
 }

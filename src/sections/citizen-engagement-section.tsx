@@ -7,9 +7,19 @@ import { cn } from '@/lib/utils';
 
 export function CitizenEngagementSection() {
   return (
-    <section className="py-24 md:py-32">
+    <section id="voice" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="mb-14 text-center" data-reveal>
+          <span className="section-eyebrow">Your Voice</span>
+          <h2 className="mt-5 font-display text-4xl md:text-5xl font-bold tracking-tight text-[var(--white)]">
+            ENGAGE THE CAMPAIGN
+          </h2>
+          <div className="gold-rule mx-auto mt-6 w-40"></div>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[var(--muted-text)]">
+            Ask a question, raise a community priority, or flag a fact for review. Every submission is public.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8" data-reveal data-delay="120">
 
           {/* Talk to Gwarzo form */}
           <div>

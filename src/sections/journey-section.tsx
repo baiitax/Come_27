@@ -99,8 +99,10 @@ export function JourneySection() {
     <section className="py-24 md:py-32 relative">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[var(--white)] mb-4">
+        <div className="text-center mb-16" data-reveal>
+          <span className="section-eyebrow">The Journey</span>
+
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-[var(--white)] mb-4">
             THE JOURNEY
           </h2>
           <p className="text-[var(--muted-text)] text-lg">
@@ -109,7 +111,7 @@ export function JourneySection() {
         </div>
 
         {/* Timeline container */}
-        <div className="relative">
+        <div className="relative" data-reveal data-delay="120">
           {/* Vertical timeline line */}
           <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-[var(--primary-green)] opacity-50 top-0 bottom-0"></div>
 

@@ -103,11 +103,13 @@ export function PublicServiceRecordSection() {
     : filteredRecords.sort((a, b) => parseInt(a.year) - parseInt(b.year));
 
   return (
-    <section className="py-24 md:py-32">
+    <section id="record" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[var(--white)] mb-4">
+        <div className="text-center mb-16" data-reveal>
+          <span className="section-eyebrow">The Record</span>
+
+          <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-[var(--white)] mb-4">
             THE RECORD
           </h2>
           <p className="text-[var(--muted-text)] text-lg">
@@ -145,7 +147,7 @@ export function PublicServiceRecordSection() {
         </div>
 
         {/* Records grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6" data-reveal data-delay="120">
           {sortedRecords.map((record) => (
             <div
               key={record.id}
