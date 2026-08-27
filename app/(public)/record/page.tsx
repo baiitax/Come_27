@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { SectionHead } from '@/components/public/section-head';
 import { EvidenceBadge } from '@/components/public/evidence-badge';
 import { RecordFilters } from '@/components/public/record-filters';
@@ -22,7 +23,11 @@ const FILTERS = [
 ];
 
 export default async function RecordPage() {
-  const records = await prisma.serviceRecord.findMany({ where: { published: true, deletedAt: null }, orderBy: { startDate: 'desc' } });
+  const records = await safeDb(
+    () => prisma.serviceRecord.findMany({ where: { published: true, deletedAt: null }, orderBy: { startDate: 'desc' } }),
+    [],
+    'record'
+  );
 
   return (
     <div className="pt-32 md:pt-40">

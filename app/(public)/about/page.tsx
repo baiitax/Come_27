@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { SectionHead } from '@/components/public/section-head';
 import { WhyGwarzoSection } from '@/sections/why-gwarzo-section';
 import { JourneySection } from '@/sections/journey-section';
@@ -12,7 +13,7 @@ export const metadata = {
 };
 
 export default async function AboutPage() {
-  const candidate = await prisma.candidate.findFirst();
+  const candidate = await safeDb(() => prisma.candidate.findFirst(), null, 'about');
   const c = {
     name: candidate?.fullName ?? 'Comrade Aminu Abdussalam Gwarzo',
     title: candidate?.title ?? 'NDC Candidate for Governor of Kano State 2027',

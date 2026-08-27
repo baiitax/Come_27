@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { SectionHead } from '@/components/public/section-head';
 import { LgaExplorer } from '@/components/public/lga-explorer';
 
@@ -10,11 +11,15 @@ export const metadata = {
 };
 
 export default async function KanoPage() {
-  const [lgaCount, events, articles] = await Promise.all([
+  const [lgaCount, events, articles] = await safeDb(
+  () => Promise.all([
     prisma.lga.count(),
     prisma.campaignEvent.findMany({ where: { status: 'upcoming', deletedAt: null }, orderBy: { startsAt: 'asc' }, take: 4 }),
     prisma.article.findMany({ where: { status: 'published', deletedAt: null }, orderBy: { publishedAt: 'desc' }, take: 3 }),
-  ]);
+  ]),
+  [0, [], []],
+  'kano'
+);
 
   return (
     <div className="pt-32 md:pt-40">

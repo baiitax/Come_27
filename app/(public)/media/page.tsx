@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { SectionHead } from '@/components/public/section-head';
 import { MediaTabs } from '@/components/public/media-tabs';
 
@@ -11,12 +12,16 @@ export const metadata = {
 };
 
 export default async function MediaPage() {
-  const [articles, speeches, events, media] = await Promise.all([
+  const [articles, speeches, events, media] = await safeDb(
+  () => Promise.all([
     prisma.article.findMany({ where: { deletedAt: null }, orderBy: { publishedAt: 'desc' }, take: 24 }),
     prisma.speech.findMany({ where: { deletedAt: null }, orderBy: { eventDate: 'desc' }, take: 24 }),
     prisma.campaignEvent.findMany({ where: { deletedAt: null }, orderBy: { startsAt: 'desc' }, take: 24 }),
     prisma.mediaAsset.findMany({ where: { isDemo: false, kind: { in: ['image', 'video'] } }, orderBy: { createdAt: 'desc' }, take: 12 }),
-  ]);
+  ]),
+  [[], [], [], []],
+  'media'
+);
 
   const published = articles.filter((a) => a.status === 'published' && (!a.publishedAt || a.publishedAt <= new Date()));
   const featured = published[0];

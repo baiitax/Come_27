@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { SectionHead } from '@/components/public/section-head';
 import { EvidenceBadge } from '@/components/public/evidence-badge';
 
@@ -10,14 +11,18 @@ export const metadata = {
 };
 
 export default async function FactsPage() {
-  const [claims, sources] = await Promise.all([
+  const [claims, sources] = await safeDb(
+  () => Promise.all([
     prisma.claim.findMany({
       where: { isDemo: false },
       orderBy: { updatedAt: 'desc' },
       include: { source: true, evidences: true },
     }),
     prisma.source.findMany({ orderBy: { createdAt: 'desc' }, take: 8 }),
-  ]);
+  ]),
+  [[], []],
+  'facts'
+);
 
   const verdictTone: Record<string, string> = {
     verified: 'text-[#027A48]', 'mostly-verified': 'text-[#027A48]', unverified: 'text-[#B54708]',

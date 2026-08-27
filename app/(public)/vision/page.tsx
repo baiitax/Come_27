@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { SectionHead } from '@/components/public/section-head';
 
 export const dynamic = 'force-dynamic';
@@ -9,11 +10,15 @@ export const metadata = {
 };
 
 export default async function VisionPage() {
-  const sectors = await prisma.policySector.findMany({
+  const sectors = await safeDb(
+  () => prisma.policySector.findMany({
     where: { published: true },
     include: { initiatives: { orderBy: { sort: 'asc' } } },
     orderBy: { name: 'asc' },
-  });
+  }),
+  [],
+  'vision'
+);
 
   return (
     <div className="pt-32 md:pt-40">

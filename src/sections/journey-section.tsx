@@ -4,6 +4,7 @@
    ============================================================ */
 import { cn } from '@/lib/utils';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 
 export interface TimelineChapter {
   id: string;
@@ -96,7 +97,11 @@ const FALLBACK_CHAPTERS: TimelineChapter[] = [
 ];
 
 export async function JourneySection() {
-  const entries = await prisma.timelineEntry.findMany({ where: { published: true, deletedAt: null }, orderBy: { sort: 'asc' } });
+  const entries = await safeDb(
+    () => prisma.timelineEntry.findMany({ where: { published: true, deletedAt: null }, orderBy: { sort: 'asc' } }),
+    [],
+    'journey'
+  );
   const chapters: TimelineChapter[] =
     entries.length > 0
       ? entries.map((e) => ({

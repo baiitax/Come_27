@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { ShareBar } from '@/components/public/share-bar';
 
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const a = await prisma.article.findFirst({ where: { slug, status: 'published', deletedAt: null } });
+  const a = await safeDb(() => prisma.article.findFirst({ where: { slug, status: 'published', deletedAt: null } }), null, 'news-meta');
   if (!a) return { title: 'Story' };
   return {
     title: a.title,
@@ -18,12 +19,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function NewsDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = await prisma.article.findFirst({ where: { slug, status: 'published', deletedAt: null } });
+  const article = await safeDb(() => prisma.article.findFirst({ where: { slug, status: 'published', deletedAt: null } }), null, 'news-detail');
   if (!article) notFound();
-  const related = await prisma.article.findMany({
+  const related = await safeDb(() => prisma.article.findMany({
     where: { status: 'published', deletedAt: null, id: { not: article.id }, category: article.category },
     take: 3,
-  });
+  }), [], 'news-related');
   const archived = article.publishedAt && article.publishedAt < new Date(Date.now() - 730 * 24 * 3600 * 1000);
 
   return (

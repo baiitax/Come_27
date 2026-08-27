@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { publicRoute } from '@/lib/safe-db';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,7 +11,7 @@ export const dynamic = 'force-dynamic';
  */
 const MIN_SAMPLE = 10;
 
-export async function GET() {
+export const GET = publicRoute(async () => {
   const rows = await prisma.communitySubmission.groupBy({
     by: ['topicName'],
     where: { isDemo: false, status: { notIn: ['archived'] } },
@@ -28,4 +29,4 @@ export async function GET() {
     }))
     .sort((a, b) => b.count - a.count);
   return NextResponse.json({ insufficient: false, total, topics });
-}
+});

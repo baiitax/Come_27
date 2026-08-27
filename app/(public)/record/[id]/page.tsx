@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { EvidenceBadge } from '@/components/public/evidence-badge';
 import { ShareBar } from '@/components/public/share-bar';
 
@@ -9,7 +10,7 @@ export const metadata = { title: 'Record Entry' };
 
 export default async function RecordDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const record = await prisma.serviceRecord.findUnique({ where: { id } });
+  const record = await safeDb(() => prisma.serviceRecord.findUnique({ where: { id } }), null, 'record-detail');
   if (!record || !record.published) notFound();
 
   return (

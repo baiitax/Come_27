@@ -5,10 +5,11 @@
 import { GlassCard } from '../components/glass/glass-card';
 import { cn } from '@/lib/utils';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { ContactForm } from '@/components/contact-form';
 
 export async function CitizenEngagementSection() {
-  const lgas = await prisma.lga.findMany({ orderBy: { name: 'asc' } });
+  const lgas = await safeDb(() => prisma.lga.findMany({ orderBy: { name: 'asc' } }), [], 'engagement-section');
   return (
     <section id="voice" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">

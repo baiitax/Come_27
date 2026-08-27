@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { SectionHead } from '@/components/public/section-head';
 
 export const dynamic = 'force-dynamic';
@@ -8,10 +9,14 @@ export const metadata = { title: 'LGA' };
 
 export default async function LgaPage({ params }: { params: Promise<{ lga: string }> }) {
   const { lga } = await params;
-  const l = await prisma.lga.findUnique({
-    where: { id: lga },
-    include: { _count: { select: { submissions: true, events: true, volunteers: true } } },
-  });
+  const l = await safeDb(
+    () => prisma.lga.findUnique({
+      where: { id: lga },
+      include: { _count: { select: { submissions: true, events: true, volunteers: true } } },
+    }),
+    null,
+    'lga-detail'
+  );
   if (!l) notFound();
   const priorities = JSON.parse(l.prioritiesJson || '[]') as string[];
 

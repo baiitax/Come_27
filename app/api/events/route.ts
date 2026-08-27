@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { publicRoute } from '@/lib/safe-db';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = publicRoute(async () => {
   const events = await prisma.campaignEvent.findMany({
     where: { status: { in: ['upcoming', 'live'] }, deletedAt: null },
     orderBy: { startsAt: 'asc' },
@@ -13,4 +14,4 @@ export async function GET() {
     name: e.name, startsAt: e.startsAt, venue: e.venue, lga: e.lga?.name ?? null,
     address: e.address, category: e.category, registrationUrl: e.registrationUrl,
   })));
-}
+});

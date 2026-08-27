@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { HeroSection } from '@/sections/hero-section';
 import { SectionHead } from '@/components/public/section-head';
 import { EvidenceBadge } from '@/components/public/evidence-badge';
@@ -20,7 +21,9 @@ const WHY_PILLARS = [
 
 export default async function HomePage() {
   const [candidate, stats, records, journey, transition, sectors, claims, articles, speeches, events, lgas] =
-    await Promise.all([
+    await safeDb(
+    () => Promise.all([
+
       prisma.candidate.findFirst(),
       prisma.stat.findMany({ where: { isActive: true }, orderBy: { sort: 'asc' } }),
       prisma.serviceRecord.findMany({ where: { published: true, deletedAt: null }, orderBy: { startDate: 'desc' }, take: 3 }),
@@ -37,7 +40,10 @@ export default async function HomePage() {
       prisma.speech.findMany({ where: { status: 'published', deletedAt: null }, orderBy: { eventDate: 'desc' }, take: 3 }),
       prisma.campaignEvent.findMany({ where: { status: 'upcoming', deletedAt: null }, orderBy: { startsAt: 'asc' }, take: 3 }),
       prisma.lga.count(),
-    ]);
+    ]),
+    [null, [], [], [], [], [], [], [], [], [], 0] as [any, any[], any[], any[], any[], any[], any[], any[], any[], any[], number],
+    'home'
+  )
 
   const c = {
     name: candidate?.fullName ?? 'Comrade Aminu Abdussalam Gwarzo',

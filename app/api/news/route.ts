@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { publicRoute } from '@/lib/safe-db';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = publicRoute(async () => {
   const articles = await prisma.article.findMany({
     where: { status: 'published', deletedAt: null, publishedAt: { lte: new Date() } },
     orderBy: { publishedAt: 'desc' },
@@ -14,4 +15,4 @@ export async function GET() {
     location: a.location, author: a.authorName, publishedAt: a.publishedAt,
     seoDescription: a.seoDescription,
   })));
-}
+});

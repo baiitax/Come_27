@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { publicRoute } from '@/lib/safe-db';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export const GET = publicRoute(async () => {
   const speeches = await prisma.speech.findMany({
     where: { status: 'published', deletedAt: null },
     orderBy: { eventDate: 'desc' },
@@ -12,4 +13,4 @@ export async function GET() {
   return NextResponse.json(speeches.map((s) => ({
     title: s.title, event: s.eventName, date: s.eventDate, venue: s.venue, location: s.location, summary: s.summary,
   })));
-}
+});

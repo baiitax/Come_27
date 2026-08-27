@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { SectionHead } from '@/components/public/section-head';
 import { EvidenceBadge } from '@/components/public/evidence-badge';
 
@@ -18,7 +19,7 @@ const JOURNEY_STEPS = [
 ];
 
 export default async function TransitionPage() {
-  const events = await prisma.transitionEvent.findMany({ orderBy: { sort: 'asc' } });
+  const events = await safeDb(() => prisma.transitionEvent.findMany({ orderBy: { sort: 'asc' } }), [], 'transition');
 
   return (
     <div className="pt-32 md:pt-40">

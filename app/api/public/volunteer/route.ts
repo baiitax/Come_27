@@ -2,10 +2,11 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/db';
+import { publicRoute } from '@/lib/safe-db';
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(req: Request) {
+export const POST = publicRoute(async (req: Request) => {
   const d = z.object({
     name: z.string().min(2).max(120),
     phone: z.string().max(40).optional().or(z.literal('')),
@@ -20,4 +21,4 @@ export async function POST(req: Request) {
   });
   revalidatePath('/admin/engagement/volunteers');
   return NextResponse.json({ ok: true });
-}
+});

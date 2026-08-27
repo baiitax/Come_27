@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { SectionHead } from '@/components/public/section-head';
 import { SubmissionWizard } from '@/components/public/submission-wizard';
 import { PriorityDashboard } from '@/components/public/priority-dashboard';
@@ -10,7 +11,11 @@ export const metadata = {
 };
 
 export default async function EngagePage() {
-  const lgas = await prisma.lga.findMany({ orderBy: { name: 'asc' }, select: { id: true, name: true } });
+  const lgas = await safeDb(
+    () => prisma.lga.findMany({ orderBy: { name: 'asc' }, select: { id: true, name: true } }),
+    [],
+    'engage'
+  );
 
   return (
     <div className="pt-32 md:pt-40">

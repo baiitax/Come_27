@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { ShareBar } from '@/components/public/share-bar';
 
 export const dynamic = 'force-dynamic';
@@ -8,7 +9,7 @@ export const metadata = { title: 'Event' };
 
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const e = await prisma.campaignEvent.findUnique({ where: { id: slug }, include: { lga: true } });
+  const e = await safeDb(() => prisma.campaignEvent.findUnique({ where: { id: slug }, include: { lga: true } }), null, 'event-detail');
   if (!e || e.status === 'cancelled' || e.status === 'archived') notFound();
 
   return (

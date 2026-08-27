@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { publicRoute } from '@/lib/safe-db';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest) {
+export const GET = publicRoute(async (req: NextRequest) => {
   const q = (req.nextUrl.searchParams.get('q') ?? '').trim();
   if (q.length < 2) return NextResponse.json({});
   const like = { contains: q }; // SQLite contains is ASCII case-insensitive; Postgres can add mode later
@@ -27,4 +28,4 @@ export async function GET(req: NextRequest) {
     records: records.map((r) => ({ href: `/record/${r.id}`, title: r.position, meta: `${r.institution} · ${r.startDate}–${r.endDate}` })),
     media: media.map((m) => ({ href: '/media', title: m.altText || m.filename, meta: m.kind })),
   });
-}
+});

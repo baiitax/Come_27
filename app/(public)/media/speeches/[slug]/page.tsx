@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { ShareBar } from '@/components/public/share-bar';
 
 export const dynamic = 'force-dynamic';
@@ -8,7 +9,7 @@ export const metadata = { title: 'Speech' };
 
 export default async function SpeechPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const s = await prisma.speech.findUnique({ where: { id: slug } });
+  const s = await safeDb(() => prisma.speech.findUnique({ where: { id: slug } }), null, 'speech-detail');
   if (!s || s.status !== 'published') notFound();
   const themes = JSON.parse(s.themesJson || '[]') as string[];
 

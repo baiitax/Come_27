@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 import { EvidenceBadge } from '@/components/public/evidence-badge';
 import { ShareBar } from '@/components/public/share-bar';
 
@@ -9,13 +10,13 @@ export const metadata = { title: 'Policy' };
 
 export default async function PolicyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const sector = await prisma.policySector.findFirst({
+  const sector = await safeDb(() => prisma.policySector.findFirst({
     where: { published: true, name: { equals: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) } },
     include: { initiatives: { orderBy: { sort: 'asc' } } },
-  });
+  }), null, 'vision-detail');
+  const all = sector ? [sector] : await safeDb(() => prisma.policySector.findMany({ where: { published: true }, include: { initiatives: true } }), [], 'vision-fallback');
   // fallback: case-insensitive-ish match
-  const all = sector ? [sector] : await prisma.policySector.findMany({ where: { published: true }, include: { initiatives: true } });
-  const s = sector ?? all.find((x) => x.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug);
+    const s = sector ?? all.find((x) => x.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug);
   if (!s) notFound();
 
   const objectives = JSON.parse(s.objectivesJson || '[]') as string[];

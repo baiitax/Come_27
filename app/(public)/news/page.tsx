@@ -1,16 +1,21 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/db';
+import { safeDb } from '@/lib/safe-db';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'News & Media' };
 
 export default async function NewsPage() {
-  const articles = await prisma.article.findMany({
+  const articles = await safeDb(
+  () => prisma.article.findMany({
     where: { status: 'published', deletedAt: null, publishedAt: { lte: new Date() } },
     orderBy: { publishedAt: 'desc' },
     take: 30,
-  });
+  }),
+  [],
+  'news-list'
+);
 
   return (
     <div className="relative pt-36 md:pt-44">

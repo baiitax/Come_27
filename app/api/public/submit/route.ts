@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/db';
+import { publicRoute } from '@/lib/safe-db';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,7 +14,7 @@ const schema = z.object({
   consent: z.boolean().default(false),
 });
 
-export async function POST(req: Request) {
+export const POST = publicRoute(async (req: Request) => {
   const d = schema.safeParse(await req.json().catch(() => ({})));
   if (!d.success) return NextResponse.json({ error: d.error.issues[0].message }, { status: 400 });
 
@@ -39,4 +40,4 @@ export async function POST(req: Request) {
 
   revalidatePath('/admin/engagement');
   return NextResponse.json({ ok: true });
-}
+});
