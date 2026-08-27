@@ -79,7 +79,7 @@ export function HeroSection({
               Comrade
             </span>
             <span className="hero-rise block text-[clamp(2.8rem,7.4vw,5.6rem)] leading-[1.0] text-[var(--white)]" style={{ '--rise-delay': '380ms' } as React.CSSProperties}>
-              Aminu AbdullSalam
+              Aminu Abdussalam
             </span>
             <span
               className="hero-rise block bg-[linear-gradient(100deg,var(--brand-deep),var(--brand)_55%,var(--gold))] bg-clip-text text-[clamp(3.2rem,8.6vw,6.6rem)] leading-[0.98] text-transparent"

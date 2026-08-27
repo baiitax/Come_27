@@ -1,6 +1,6 @@
 import './globals.css';
 import type { ReactNode } from 'react';
-import { Manrope, Archivo } from 'next/font/google';
+import { Manrope, Fraunces } from 'next/font/google';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -8,11 +8,11 @@ const manrope = Manrope({
   display: 'swap',
 });
 
-const archivo = Archivo({
+const fraunces = Fraunces({
   subsets: ['latin'],
-  variable: '--font-archivo',
+  variable: '--font-fraunces',
   display: 'swap',
-  axes: ['wdth'],
+  axes: ['opsz', 'SOFT', 'WONK'],
 });
 
 export const metadata = {
@@ -38,8 +38,8 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${archivo.variable}`}>
-      <body className={`font-sans antialiased ${manrope.variable} ${archivo.variable}`}>{children}</body>
+    <html lang="en" className={`${manrope.variable} ${fraunces.variable}`}>
+      <body className={`font-sans antialiased ${manrope.variable} ${fraunces.variable}`}>{children}</body>
     </html>
   );
 }

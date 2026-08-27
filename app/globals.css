@@ -28,7 +28,7 @@
   --color-ndc-blue: #0A3D91;
 
   --font-sans: var(--font-manrope), "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --font-display: var(--font-archivo), "Archivo", "Manrope", system-ui, sans-serif;
+  --font-display: var(--font-fraunces), "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
 
   --radius-lg: 28px;
   --radius-md: 24px;
@@ -149,9 +149,10 @@ body {
 
 .font-display {
   font-family: var(--font-display);
-  font-stretch: 125%;
   font-weight: 800;
-  letter-spacing: -0.015em;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  letter-spacing: -0.018em;
 }
 
 /* ---------- Custom scrollbar ---------- */
