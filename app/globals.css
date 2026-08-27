@@ -28,7 +28,7 @@
   --color-ndc-blue: #0A3D91;
 
   --font-sans: var(--font-manrope), "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --font-display: var(--font-bricolage), "Bricolage Grotesque", "Manrope", system-ui, sans-serif;
+  --font-display: var(--font-archivo), "Archivo", "Manrope", system-ui, sans-serif;
 
   --radius-lg: 28px;
   --radius-md: 24px;
@@ -69,6 +69,7 @@ html {
 
 body {
   font-family: var(--font-sans);
+  font-weight: 450;
   background-color: var(--obsidian);
   background-image:
     radial-gradient(1100px 560px at 88% -10%, rgba(0, 121, 91, 0.09), transparent 60%),
@@ -91,6 +92,9 @@ body {
 
 .font-display {
   font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 800;
+  letter-spacing: -0.015em;
 }
 
 /* ---------- Custom scrollbar ---------- */

@@ -67,19 +67,19 @@ export function HeroSection() {
 
           <h1 className="mt-8 font-display font-bold leading-[0.98] tracking-tight">
             <span
-              className="hero-rise block text-[clamp(2.6rem,7vw,5.4rem)] text-[var(--white)]"
+              className="hero-rise block text-[clamp(2.8rem,7.5vw,6rem)] text-[var(--white)]"
               style={{ '--rise-delay': '300ms' } as React.CSSProperties}
             >
               COMRADE AMINU
             </span>
             <span
-              className="hero-rise block text-[clamp(2.6rem,7vw,5.4rem)]"
+              className="hero-rise block text-[clamp(2.8rem,7.5vw,6rem)]"
               style={{ '--rise-delay': '450ms' } as React.CSSProperties}
             >
               ABDULLSALAM
             </span>
             <span
-              className="hero-rise text-gold-gradient block text-[clamp(2.9rem,8vw,6.2rem)]"
+              className="hero-rise text-gold-gradient block text-[clamp(3.1rem,8.5vw,7rem)]"
               style={{ '--rise-delay': '600ms' } as React.CSSProperties}
             >
               GWARZO

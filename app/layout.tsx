@@ -1,6 +1,6 @@
 import './globals.css';
 import type { ReactNode } from 'react';
-import { Manrope, Bricolage_Grotesque } from 'next/font/google';
+import { Manrope, Archivo } from 'next/font/google';
 import { Preloader } from '@/components/preloader';
 import { ScrollReveals } from '@/components/scroll-reveals';
 import { SiteFooter } from '@/components/site-footer';
@@ -12,10 +12,11 @@ const manrope = Manrope({
   display: 'swap',
 });
 
-const bricolage = Bricolage_Grotesque({
+const archivo = Archivo({
   subsets: ['latin'],
-  variable: '--font-bricolage',
+  variable: '--font-archivo',
   display: 'swap',
+  axes: ['wdth'],
 });
 
 export const metadata = {
@@ -52,7 +53,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${bricolage.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${archivo.variable}`}>
       <body className="grain relative">
         {/* Preloader */}
         <Preloader />
