@@ -1,13 +1,14 @@
 /* ============================================================
    PRELOADER - Website loading animation
    ============================================================ */
-import { cn } from '@/lib/utils';
+import React, { useEffect, useState } from 'react';
 
+// Preloader component - shows during page load
 export function Preloader() {
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Simulate page load - in production, this would detect actual page load
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
