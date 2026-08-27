@@ -42,12 +42,12 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       {sections.map((s) => (
         <Card key={s.label} className="mb-4">
           <CardHead title={s.label} sub={`${s.rows.length} result(s)`} />
-          <ul className="divide-y divide-white/[0.05]">
+          <ul className="divide-y divide-[rgba(16,24,40,0.06)]">
             {s.rows.map((r) => (
               <li key={r.id}>
-                <Link href={s.href(r.id)} className="block px-5 py-3 transition-colors hover:bg-white/[0.03]">
+                <Link href={s.href(r.id)} className="block px-5 py-3 transition-colors hover:bg-[rgba(16,24,40,0.04)]">
                   <p className="truncate text-sm font-semibold text-white">{r.primary}</p>
-                  <p className="text-xs text-[#5E6A63]">{r.secondary}</p>
+                  <p className="text-xs text-[#98A2B3]">{r.secondary}</p>
                 </Link>
               </li>
             ))}

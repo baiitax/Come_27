@@ -19,7 +19,7 @@ export default async function RolesPage() {
             <CardHead title={r.label} sub={r.description} right={<Badge tone={r.name === 'super_admin' ? 'crimson' : 'green'}>{r.name}</Badge>} />
             <div className="flex flex-wrap gap-1.5 px-5 py-4">
               {(ROLE_PERMISSIONS[r.name] ?? []).map((p) => (
-                <code key={p} className="rounded bg-white/[0.04] px-2 py-1 text-[0.68rem] text-[#C8CFC9]">{p}</code>
+                <code key={p} className="rounded bg-[rgba(16,24,40,0.03)] px-2 py-1 text-[0.68rem] text-[#364152]">{p}</code>
               ))}
             </div>
           </Card>

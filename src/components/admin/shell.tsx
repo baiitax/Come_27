@@ -89,20 +89,20 @@ export function Sidebar({ user, mobileOpen, onClose }: { user: { name: string; e
       {/* mobile backdrop */}
       {mobileOpen && <div className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={onClose} aria-hidden />}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-[248px] flex-col border-r border-white/[0.06] bg-[#0B0E11] transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-[248px] flex-col border-r border-[rgba(16,24,40,0.08)] bg-white/60 backdrop-blur-xl transition-transform duration-300 lg:translate-x-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* brand */}
-        <Link href="/admin/dashboard" className="flex items-center gap-2.5 border-b border-white/[0.06] px-5 py-4" onClick={onClose}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[linear-gradient(135deg,rgba(201,162,75,0.35),rgba(163,22,33,0.25))] font-display text-[0.7rem] font-extrabold text-[#E8CE8F] ring-1 ring-[rgba(201,162,75,0.4)]">
+        <Link href="/admin/dashboard" className="flex items-center gap-2.5 border-b border-[rgba(16,24,40,0.08)] px-5 py-4" onClick={onClose}>
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[linear-gradient(135deg,rgba(201,162,75,0.35),rgba(163,22,33,0.25))] font-display text-[0.7rem] font-extrabold text-[#8A6A1F] ring-1 ring-[rgba(201,162,75,0.4)]">
             G27
           </span>
           <span>
             <span className="block font-display text-sm font-extrabold tracking-wide text-white">
-              GWARZO <span className="text-[#C9A24B]">2027</span>
+              GWARZO <span className="text-[#9C7427]">2027</span>
             </span>
-            <span className="block text-[0.58rem] font-bold uppercase tracking-[0.24em] text-[#5E6A63]">Command Center</span>
+            <span className="block text-[0.58rem] font-bold uppercase tracking-[0.24em] text-[#98A2B3]">Command Center</span>
           </span>
         </Link>
 
@@ -113,7 +113,7 @@ export function Sidebar({ user, mobileOpen, onClose }: { user: { name: string; e
               <button
                 type="button"
                 onClick={() => setCollapsed((c) => ({ ...c, [g.group]: !c[g.group] }))}
-                className="mb-1.5 flex w-full items-center justify-between px-2 text-[0.58rem] font-bold uppercase tracking-[0.22em] text-[#5E6A63]"
+                className="mb-1.5 flex w-full items-center justify-between px-2 text-[0.58rem] font-bold uppercase tracking-[0.22em] text-[#98A2B3]"
               >
                 {g.group}
                 <span className="text-[0.6rem]">{collapsed[g.group] ? '▸' : '▾'}</span>
@@ -129,8 +129,8 @@ export function Sidebar({ user, mobileOpen, onClose }: { user: { name: string; e
                           onClick={onClose}
                           className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[0.8rem] font-semibold transition-colors ${
                             active
-                              ? 'bg-[#C9A24B]/[0.1] text-[#E8CE8F] ring-1 ring-[#C9A24B]/25'
-                              : 'text-[#9AA39C] hover:bg-white/[0.04] hover:text-white'
+                              ? 'bg-[#C9A24B]/[0.12] text-[#9C7427] ring-1 ring-[#C9A24B]/25'
+                              : 'text-[#667085] hover:bg-[rgba(16,24,40,0.04)] hover:text-white'
                           }`}
                         >
                           <span aria-hidden className="w-4 text-center text-[0.75rem] opacity-80">{item.icon}</span>
@@ -146,9 +146,9 @@ export function Sidebar({ user, mobileOpen, onClose }: { user: { name: string; e
         </nav>
 
         {/* user */}
-        <div className="border-t border-white/[0.06] px-4 py-3.5">
+        <div className="border-t border-[rgba(16,24,40,0.08)] px-4 py-3.5">
           <p className="truncate text-[0.78rem] font-bold text-white">{user.name}</p>
-          <p className="text-[0.62rem] text-[#8A968E]">{roleLabel(user.role)}</p>
+          <p className="text-[0.62rem] text-[#667085]">{roleLabel(user.role)}</p>
         </div>
       </aside>
     </>
@@ -162,16 +162,16 @@ export function TopBar({ user, onMenu }: { user: { name: string; email: string; 
   const router = useRouter();
 
   return (
-    <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-white/[0.06] bg-[#0D1013]/90 px-4 py-3 backdrop-blur md:px-6">
-      <button type="button" onClick={onMenu} aria-label="Open menu" className="rounded-lg border border-white/[0.1] p-2 text-[#C8CFC9] lg:hidden">
+    <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-[rgba(16,24,40,0.08)] bg-white/75 backdrop-blur-xl px-4 py-3 backdrop-blur md:px-6">
+      <button type="button" onClick={onMenu} aria-label="Open menu" className="rounded-lg border border-[rgba(16,24,40,0.1)] p-2 text-[#364152] lg:hidden">
         ☰
       </button>
 
-      <div className="hidden items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3.5 py-2 text-sm text-[#5E6A63] md:flex md:w-72">
+      <div className="hidden items-center gap-2 rounded-lg border border-[rgba(16,24,40,0.08)] bg-[rgba(16,24,40,0.03)] px-3.5 py-2 text-sm text-[#98A2B3] md:flex md:w-72">
         <span aria-hidden>⌕</span>
         <input
           placeholder="Search content, claims, submissions…"
-          className="w-full bg-transparent text-[#C8CFC9] outline-none placeholder:text-[#5E6A63]"
+          className="w-full bg-transparent text-[#364152] outline-none placeholder:text-[#98A2B3]"
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               const q = (e.target as HTMLInputElement).value.trim();
@@ -195,9 +195,9 @@ export function TopBar({ user, onMenu }: { user: { name: string; email: string; 
             + Create
           </button>
           {createOpen && (
-            <div className="absolute right-0 top-12 z-50 w-52 rounded-xl border border-white/[0.08] bg-[#12161A] p-1.5 shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+            <div className="absolute right-0 top-12 z-50 w-52 rounded-xl border border-[rgba(16,24,40,0.08)] bg-white/75 p-1.5 shadow-[0_20px_60px_rgba(16,24,40,0.15)]">
               {QUICK_CREATE.map((c) => (
-                <Link key={c.href} href={c.href} onClick={() => setCreateOpen(false)} className="block rounded-lg px-3 py-2 text-[0.8rem] font-semibold text-[#C8CFC9] hover:bg-white/[0.05] hover:text-white">
+                <Link key={c.href} href={c.href} onClick={() => setCreateOpen(false)} className="block rounded-lg px-3 py-2 text-[0.8rem] font-semibold text-[#364152] hover:bg-[rgba(16,24,40,0.04)] hover:text-white">
                   {c.label}
                 </Link>
               ))}
@@ -207,21 +207,21 @@ export function TopBar({ user, onMenu }: { user: { name: string; email: string; 
 
         {/* notifications */}
         <div className="relative">
-          <button type="button" onClick={() => { setNotifOpen((v) => !v); setCreateOpen(false); }} aria-label="Notifications" className="relative rounded-lg border border-white/[0.1] p-2 text-[#C8CFC9] hover:bg-white/[0.05]">
+          <button type="button" onClick={() => { setNotifOpen((v) => !v); setCreateOpen(false); }} aria-label="Notifications" className="relative rounded-lg border border-[rgba(16,24,40,0.1)] p-2 text-[#364152] hover:bg-[rgba(16,24,40,0.04)]">
             ◷
             <span className="absolute -right-0.5 -top-0.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[#C0323E] px-1 text-[0.55rem] font-bold text-white">•</span>
           </button>
           {notifOpen && (
-            <div className="absolute right-0 top-12 z-50 w-72 rounded-xl border border-white/[0.08] bg-[#12161A] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
-              <p className="mb-2 text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#8A968E]">Notifications</p>
-              <p className="text-xs text-[#9AA39C]">Open the dashboard to see the live activity feed and attention queue.</p>
+            <div className="absolute right-0 top-12 z-50 w-72 rounded-xl border border-[rgba(16,24,40,0.08)] bg-white/75 p-4 shadow-[0_20px_60px_rgba(16,24,40,0.15)]">
+              <p className="mb-2 text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#667085]">Notifications</p>
+              <p className="text-xs text-[#667085]">Open the dashboard to see the live activity feed and attention queue.</p>
               <button
                 type="button"
                 onClick={() => startTransition(async () => {
                   const r = await fetch('/api/admin/notifications/read', { method: 'POST' });
                   if (r.status === 401) window.location.href = '/admin/login?reason=expired';
                 })}
-                className="mt-3 text-xs font-bold text-[#C9A24B] hover:underline"
+                className="mt-3 text-xs font-bold text-[#9C7427] hover:underline"
               >
                 Mark all as read
               </button>
@@ -230,15 +230,15 @@ export function TopBar({ user, onMenu }: { user: { name: string; email: string; 
         </div>
 
         {/* visit website */}
-        <a href="/" target="_blank" rel="noreferrer" className="hidden rounded-lg border border-white/[0.1] px-3.5 py-2 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-[#C8CFC9] hover:bg-white/[0.05] hover:text-white md:block">
+        <a href="/" target="_blank" rel="noreferrer" className="hidden rounded-lg border border-[rgba(16,24,40,0.1)] px-3.5 py-2 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-[#364152] hover:bg-[rgba(16,24,40,0.04)] hover:text-white md:block">
           Visit site ↗
         </a>
 
         {/* user / logout */}
-        <div className="flex items-center gap-2 rounded-lg border border-white/[0.1] py-1.5 pl-3 pr-1.5">
+        <div className="flex items-center gap-2 rounded-lg border border-[rgba(16,24,40,0.1)] py-1.5 pl-3 pr-1.5">
           <div className="hidden text-right sm:block">
             <p className="text-[0.72rem] font-bold leading-tight text-white">{user.name}</p>
-            <p className="text-[0.58rem] text-[#8A968E]">{roleLabel(user.role)}</p>
+            <p className="text-[0.58rem] text-[#667085]">{roleLabel(user.role)}</p>
           </div>
           <button
             type="button"
@@ -249,7 +249,7 @@ export function TopBar({ user, onMenu }: { user: { name: string; email: string; 
                 window.location.href = r.status === 401 ? '/admin/login' : '/admin/login';
               })
             }
-            className="rounded-md bg-white/[0.05] px-2.5 py-1.5 text-[0.62rem] font-bold uppercase tracking-wide text-[#9AA39C] hover:bg-[#C0323E]/20 hover:text-[#E06A75]"
+            className="rounded-md bg-[rgba(16,24,40,0.03)] px-2.5 py-1.5 text-[0.62rem] font-bold uppercase tracking-wide text-[#667085] hover:bg-[rgba(192,50,62,0.1)] hover:text-[#B42318]"
           >
             Exit
           </button>

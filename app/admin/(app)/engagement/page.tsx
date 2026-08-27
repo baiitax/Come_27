@@ -31,11 +31,11 @@ export default async function EngagementPage() {
         ) : (
           <Table head={<><Th>Date</Th><Th>Message</Th><Th>LGA</Th><Th>Topic</Th><Th>From</Th><Th>Status</Th><Th>Priority</Th><Th className="text-right">Actions</Th></>}>
             {submissions.map((s) => (
-              <tr key={s.id} className="hover:bg-white/[0.02]">
+              <tr key={s.id} className="hover:bg-[rgba(16,24,40,0.04)]">
                 <Td className="whitespace-nowrap text-xs tabular-nums">{s.createdAt.toISOString().slice(0, 10)}</Td>
                 <Td className="max-w-md">
                   <p className="truncate text-sm">{s.message.slice(0, 120)}</p>
-                  {s.response && <p className="mt-0.5 truncate text-[0.65rem] text-[#4CC39A]">↳ responded</p>}
+                  {s.response && <p className="mt-0.5 truncate text-[0.65rem] text-[#027A48]">↳ responded</p>}
                 </Td>
                 <Td className="text-xs">{s.lga?.name ?? '—'}</Td>
                 <Td className="text-xs capitalize">{s.topicName}</Td>

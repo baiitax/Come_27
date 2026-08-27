@@ -32,17 +32,17 @@ export default async function SpeechesPage() {
             }
           >
             {speeches.map((s) => (
-              <tr key={s.id} className="hover:bg-white/[0.02]">
+              <tr key={s.id} className="hover:bg-[rgba(16,24,40,0.04)]">
                 <Td>
-                  <Link href={`/admin/speeches/${s.id}`} className="font-semibold text-white hover:text-[#C9A24B]">{s.title}</Link>
-                  <p className="mt-0.5 truncate text-xs text-[#5E6A63]">{s.summary.slice(0, 90)}</p>
+                  <Link href={`/admin/speeches/${s.id}`} className="font-semibold text-white hover:text-[#9C7427]">{s.title}</Link>
+                  <p className="mt-0.5 truncate text-xs text-[#98A2B3]">{s.summary.slice(0, 90)}</p>
                 </Td>
                 <Td className="text-xs">{s.eventName}</Td>
                 <Td className="text-xs tabular-nums">{s.eventDate}</Td>
                 <Td className="text-xs">{s.location}</Td>
                 <Td><span className="flex items-center gap-2"><Badge tone={statusTone(s.status)}>{s.status}</Badge>{s.isDemo && <DemoTag />}</span></Td>
                 <Td className="text-right">
-                  <Link href={`/admin/speeches/${s.id}`} className="rounded-md border border-white/[0.1] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#9AA39C] hover:bg-white/[0.06] hover:text-white">Edit</Link>
+                  <Link href={`/admin/speeches/${s.id}`} className="rounded-md border border-[rgba(16,24,40,0.1)] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#667085] hover:bg-[rgba(16,24,40,0.04)] hover:text-white">Edit</Link>
                 </Td>
               </tr>
             ))}

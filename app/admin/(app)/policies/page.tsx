@@ -25,14 +25,14 @@ export default async function PoliciesPage() {
         ) : (
           <Table head={<><Th>Sector</Th><Th>Problem Statement</Th><Th>Objectives</Th><Th>Initiatives</Th><Th>Published</Th><Th className="text-right">Actions</Th></>}>
             {sectors.map((s) => (
-              <tr key={s.id} className="hover:bg-white/[0.02]">
-                <Td><p className="font-semibold text-white">{s.name}</p><p className="mt-0.5 text-[0.62rem] uppercase tracking-wide text-[#5E6A63]">{s.icon}</p></Td>
+              <tr key={s.id} className="hover:bg-[rgba(16,24,40,0.04)]">
+                <Td><p className="font-semibold text-white">{s.name}</p><p className="mt-0.5 text-[0.62rem] uppercase tracking-wide text-[#98A2B3]">{s.icon}</p></Td>
                 <Td className="max-w-sm text-xs">{s.problemStatement.slice(0, 110)}</Td>
                 <Td className="text-xs">{JSON.parse(s.objectivesJson || '[]').length}</Td>
                 <Td className="text-xs">{s.initiatives.length}</Td>
                 <Td><Badge tone={s.published ? 'green' : 'slate'}>{s.published ? 'live' : 'hidden'}</Badge></Td>
                 <Td className="text-right">
-                  <Link href={`/admin/policies/${s.id}`} className="rounded-md border border-white/[0.1] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#9AA39C] hover:bg-white/[0.06] hover:text-white">Edit</Link>
+                  <Link href={`/admin/policies/${s.id}`} className="rounded-md border border-[rgba(16,24,40,0.1)] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#667085] hover:bg-[rgba(16,24,40,0.04)] hover:text-white">Edit</Link>
                 </Td>
               </tr>
             ))}

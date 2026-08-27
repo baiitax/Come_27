@@ -56,12 +56,12 @@ export default async function NewsListPage() {
             }
           >
             {articles.map((a) => (
-              <tr key={a.id} className="group hover:bg-white/[0.02]">
+              <tr key={a.id} className="group hover:bg-[rgba(16,24,40,0.04)]">
                 <Td>
-                  <Link href={a.deletedAt ? '#restored' : `/admin/content/news/${a.id}`} className="font-semibold text-white hover:text-[#C9A24B]">
+                  <Link href={a.deletedAt ? '#restored' : `/admin/content/news/${a.id}`} className="font-semibold text-white hover:text-[#9C7427]">
                     {a.title}
                   </Link>
-                  <p className="mt-0.5 truncate text-xs text-[#5E6A63]">/{a.slug}</p>
+                  <p className="mt-0.5 truncate text-xs text-[#98A2B3]">/{a.slug}</p>
                 </Td>
                 <Td>
                   <Badge tone="blue">{a.category}</Badge>

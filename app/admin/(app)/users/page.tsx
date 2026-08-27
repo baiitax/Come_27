@@ -28,7 +28,7 @@ export default async function UsersPage() {
         {users.length === 0 ? <EmptyState title="No users" /> : (
           <Table head={<><Th>Name</Th><Th>Email</Th><Th>Role</Th><Th>Status</Th><Th>Last login</Th><Th className="text-right">Actions</Th></>}>
             {users.map((u) => (
-              <tr key={u.id} className="hover:bg-white/[0.02]">
+              <tr key={u.id} className="hover:bg-[rgba(16,24,40,0.04)]">
                 <Td className="font-semibold text-white">{u.name}</Td>
                 <Td className="text-xs">{u.email}</Td>
                 <Td><Badge tone={u.role === 'super_admin' ? 'crimson' : 'green'}>{roleLabel(u.role)}</Badge></Td>

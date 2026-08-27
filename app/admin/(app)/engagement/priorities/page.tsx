@@ -21,13 +21,13 @@ export default async function PrioritiesPage() {
         ) : (
           <Table head={<><Th>Topic</Th><Th>Current</Th><Th>Previous</Th><Th>Change</Th><Th>Top LGAs</Th><Th>Trend</Th></>}>
             {pulse.map((p) => (
-              <tr key={p.topic} className="hover:bg-white/[0.02]">
+              <tr key={p.topic} className="hover:bg-[rgba(16,24,40,0.04)]">
                 <Td className="font-semibold capitalize text-white">{p.topic}</Td>
                 <Td className="font-display text-lg font-bold text-white">{p.current}</Td>
                 <Td className="text-xs">{p.previous}</Td>
                 <Td>
                   {p.change === null ? <Badge tone="slate">new</Badge> : (
-                    <span className={`text-xs font-bold ${p.change >= 0 ? 'text-[#4CC39A]' : 'text-[#E06A75]'}`}>{p.change >= 0 ? '+' : ''}{p.change}%</span>
+                    <span className={`text-xs font-bold ${p.change >= 0 ? 'text-[#027A48]' : 'text-[#B42318]'}`}>{p.change >= 0 ? '+' : ''}{p.change}%</span>
                   )}
                 </Td>
                 <Td className="max-w-[200px] text-xs">{p.topLgas.join(', ') || '—'}</Td>
@@ -42,9 +42,9 @@ export default async function PrioritiesPage() {
         <CardHead title="LGA Digital Engagement" sub="Neutral engagement levels only — high / medium / low / insufficient. No political labels, ever." />
         <div className="grid grid-cols-2 gap-3 px-5 py-4 md:grid-cols-4 xl:grid-cols-6">
           {lgas.map((l) => (
-            <div key={l.id} className={`rounded-lg border px-3 py-2.5 ${l.level === 'high' ? 'border-[#0E8A5A]/40 bg-[#0E8A5A]/[0.07]' : l.level === 'medium' ? 'border-[#C9A24B]/35 bg-[#C9A24B]/[0.06]' : l.level === 'low' ? 'border-white/[0.08] bg-white/[0.02]' : 'border-white/[0.05] bg-transparent'}`}>
+            <div key={l.id} className={`rounded-lg border px-3 py-2.5 ${l.level === 'high' ? 'border-[#0E8A5A]/40 bg-[#0E8A5A]/[0.07]' : l.level === 'medium' ? 'border-[#C9A24B]/35 bg-[#C9A24B]/[0.06]' : l.level === 'low' ? 'border-[rgba(16,24,40,0.08)] bg-[rgba(16,24,40,0.03)]' : 'border-[rgba(16,24,40,0.08)] bg-transparent'}`}>
               <p className="truncate text-[0.78rem] font-bold text-white">{l.name}</p>
-              <p className="text-[0.62rem] text-[#8A968E]">{l.submissions} sub · {l.events} ev · {l.volunteers} vol</p>
+              <p className="text-[0.62rem] text-[#667085]">{l.submissions} sub · {l.events} ev · {l.volunteers} vol</p>
               <Badge tone={l.level === 'high' ? 'green' : l.level === 'medium' ? 'gold' : l.level === 'low' ? 'slate' : 'neutral'} className="mt-1.5">{l.level}</Badge>
             </div>
           ))}

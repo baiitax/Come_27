@@ -36,10 +36,10 @@ export default async function ContentIndexPage() {
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         {tiles.map((t) => (
-          <Link key={t.href} href={t.href} className="group rounded-xl border border-white/[0.07] bg-[#12161A] p-4 transition-colors hover:border-[#C9A24B]/40">
-            <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8A968E]">{t.label}</p>
+          <Link key={t.href} href={t.href} className="group rounded-xl border border-[rgba(16,24,40,0.08)] bg-white/75 p-4 transition-colors hover:border-[#C9A24B]/40">
+            <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#667085]">{t.label}</p>
             {t.value !== null && <p className="mt-1 font-display text-2xl font-extrabold text-white">{t.value}</p>}
-            <p className="mt-1 text-[0.68rem] text-[#5E6A63]">{t.desc}</p>
+            <p className="mt-1 text-[0.68rem] text-[#98A2B3]">{t.desc}</p>
           </Link>
         ))}
       </div>

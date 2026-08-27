@@ -28,8 +28,8 @@ export default async function FactsIndexPage() {
           ['Sources', sources, '/admin/facts/sources'],
           ['Awaiting verification', statusMap['under-review'] ?? 0, '/admin/facts/claims'],
         ].map(([label, value, href]) => (
-          <Link key={String(label)} href={String(href)} className="rounded-xl border border-white/[0.07] bg-[#12161A] p-4 transition-colors hover:border-[#C9A24B]/40">
-            <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8A968E]">{label}</p>
+          <Link key={String(label)} href={String(href)} className="rounded-xl border border-[rgba(16,24,40,0.08)] bg-white/75 p-4 transition-colors hover:border-[#C9A24B]/40">
+            <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#667085]">{label}</p>
             <p className="mt-1 font-display text-3xl font-extrabold text-white">{value}</p>
           </Link>
         ))}

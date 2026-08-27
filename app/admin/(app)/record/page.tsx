@@ -26,15 +26,15 @@ export default async function RecordPage() {
         ) : (
           <Table head={<><Th>Position</Th><Th>Institution</Th><Th>Period</Th><Th>Location</Th><Th>Impact</Th><Th>Evidence</Th><Th className="text-right">Actions</Th></>}>
             {records.map((r) => (
-              <tr key={r.id} className="hover:bg-white/[0.02]">
-                <Td><p className="font-semibold text-white">{r.position}</p><p className="mt-0.5 max-w-sm truncate text-xs text-[#5E6A63]">{r.responsibilities}</p></Td>
+              <tr key={r.id} className="hover:bg-[rgba(16,24,40,0.04)]">
+                <Td><p className="font-semibold text-white">{r.position}</p><p className="mt-0.5 max-w-sm truncate text-xs text-[#98A2B3]">{r.responsibilities}</p></Td>
                 <Td className="text-xs">{r.institution}</Td>
                 <Td className="text-xs tabular-nums">{r.startDate} – {r.endDate}</Td>
                 <Td className="text-xs">{r.location}</Td>
                 <Td className="max-w-[160px] text-xs">{r.impact}</Td>
                 <Td><Badge tone={statusTone(r.evidenceStatus)}>{r.evidenceStatus}</Badge></Td>
                 <Td className="text-right">
-                  <Link href={`/admin/record/${r.id}`} className="rounded-md border border-white/[0.1] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#9AA39C] hover:bg-white/[0.06] hover:text-white">Edit</Link>
+                  <Link href={`/admin/record/${r.id}`} className="rounded-md border border-[rgba(16,24,40,0.1)] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#667085] hover:bg-[rgba(16,24,40,0.04)] hover:text-white">Edit</Link>
                 </Td>
               </tr>
             ))}

@@ -22,7 +22,7 @@ export default async function LgasPage() {
       <Card>
         <Table head={<><Th>LGA</Th><Th>District</Th><Th>Priorities</Th><Th>Submissions</Th><Th>Events</Th><Th>Volunteers</Th></>}>
           {lgas.map((l) => (
-            <tr key={l.id} className="hover:bg-white/[0.02]">
+            <tr key={l.id} className="hover:bg-[rgba(16,24,40,0.04)]">
               <Td className="font-semibold text-white">{l.name}</Td>
               <Td className="text-xs">{l.senatorialDistrict}</Td>
               <Td className="max-w-[220px] text-xs">{JSON.parse(l.prioritiesJson || '[]').join(', ') || '—'}</Td>

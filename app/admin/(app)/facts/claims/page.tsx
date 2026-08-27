@@ -26,20 +26,20 @@ export default async function ClaimsPage() {
         ) : (
           <Table head={<><Th>Claim</Th><Th>Category</Th><Th>Verdict</Th><Th>Evidence</Th><Th>Updated</Th><Th className="text-right">Actions</Th></>}>
             {claims.map((c) => (
-              <tr key={c.id} className="hover:bg-white/[0.02]">
+              <tr key={c.id} className="hover:bg-[rgba(16,24,40,0.04)]">
                 <Td>
-                  <Link href={`/admin/facts/claims/${c.id}`} className="font-semibold text-white hover:text-[#C9A24B]">{c.statement}</Link>
-                  <p className="mt-0.5 max-w-lg truncate text-xs text-[#5E6A63]">{c.context}</p>
+                  <Link href={`/admin/facts/claims/${c.id}`} className="font-semibold text-white hover:text-[#9C7427]">{c.statement}</Link>
+                  <p className="mt-0.5 max-w-lg truncate text-xs text-[#98A2B3]">{c.context}</p>
                 </Td>
                 <Td className="text-xs">{c.category}</Td>
                 <Td>
                   <Badge tone={statusTone(c.status)}>{c.status}</Badge>
-                  {c.verifiedBy && <p className="mt-1 text-[0.62rem] text-[#5E6A63]">by {c.verifiedBy}</p>}
+                  {c.verifiedBy && <p className="mt-1 text-[0.62rem] text-[#98A2B3]">by {c.verifiedBy}</p>}
                 </Td>
                 <Td className="text-xs">{c.evidences.length} item(s)</Td>
                 <Td className="text-xs tabular-nums">{c.updatedAt.toDateString()}</Td>
                 <Td className="text-right">
-                  <Link href={`/admin/facts/claims/${c.id}`} className="rounded-md border border-white/[0.1] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#9AA39C] hover:bg-white/[0.06] hover:text-white">Open</Link>
+                  <Link href={`/admin/facts/claims/${c.id}`} className="rounded-md border border-[rgba(16,24,40,0.1)] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#667085] hover:bg-[rgba(16,24,40,0.04)] hover:text-white">Open</Link>
                 </Td>
               </tr>
             ))}

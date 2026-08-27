@@ -111,16 +111,16 @@ export default async function EditArticlePage({ params }: { params: Promise<{ id
         <Card>
           <CardHead title="Version History" sub="Snapshot recorded on every save" />
           {versions.length === 0 ? (
-            <p className="px-5 py-4 text-sm text-[#8A968E]">No versions recorded yet.</p>
+            <p className="px-5 py-4 text-sm text-[#667085]">No versions recorded yet.</p>
           ) : (
-            <ul className="divide-y divide-white/[0.05]">
+            <ul className="divide-y divide-[rgba(16,24,40,0.06)]">
               {versions.map((v) => (
                 <li key={v.id} className="flex items-center justify-between px-5 py-3 text-sm">
-                  <span className="text-[#C8CFC9]">
+                  <span className="text-[#364152]">
                     <strong className="font-display text-white">v{v.version}</strong> — {v.summary}
-                    {v.user && <span className="text-[#8A968E]"> · {v.user.name}</span>}
+                    {v.user && <span className="text-[#667085]"> · {v.user.name}</span>}
                   </span>
-                  <span className="text-xs tabular-nums text-[#5E6A63]">{v.createdAt.toLocaleString('en-GB', { day: '2-digit', month: 'short', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</span>
+                  <span className="text-xs tabular-nums text-[#98A2B3]">{v.createdAt.toLocaleString('en-GB', { day: '2-digit', month: 'short', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</span>
                 </li>
               ))}
             </ul>

@@ -28,14 +28,14 @@ export default async function AuditPage({ searchParams }: { searchParams: Promis
         {logs.length === 0 ? <EmptyState title="No audit entries" sub="Actions will be recorded here as administrators work." /> : (
           <Table head={<><Th>User</Th><Th>Action</Th><Th>Entity</Th><Th>Old value</Th><Th>New value</Th><Th>IP</Th><Th>When</Th></>}>
             {logs.map((l) => (
-              <tr key={l.id} className="hover:bg-white/[0.02]">
+              <tr key={l.id} className="hover:bg-[rgba(16,24,40,0.04)]">
                 <Td className="whitespace-nowrap text-xs font-semibold text-white">{l.userName}</Td>
                 <Td><Badge tone={statusTone(l.action)}>{l.action}</Badge></Td>
-                <Td className="text-xs">{l.entity}{l.entityId && <span className="text-[#5E6A63]"> / {l.entityId.slice(0, 12)}</span>}</Td>
-                <Td className="max-w-[180px]"><code className="block truncate text-[0.65rem] text-[#8A968E]">{l.oldValues ?? '—'}</code></Td>
-                <Td className="max-w-[180px]"><code className="block truncate text-[0.65rem] text-[#8A968E]">{l.newValues ?? '—'}</code></Td>
-                <Td className="whitespace-nowrap text-[0.65rem] text-[#5E6A63]">{l.ip ?? '—'}</Td>
-                <Td className="whitespace-nowrap text-[0.65rem] tabular-nums text-[#8A968E]">{l.createdAt.toISOString().slice(0, 16).replace('T', ' ')}</Td>
+                <Td className="text-xs">{l.entity}{l.entityId && <span className="text-[#98A2B3]"> / {l.entityId.slice(0, 12)}</span>}</Td>
+                <Td className="max-w-[180px]"><code className="block truncate text-[0.65rem] text-[#667085]">{l.oldValues ?? '—'}</code></Td>
+                <Td className="max-w-[180px]"><code className="block truncate text-[0.65rem] text-[#667085]">{l.newValues ?? '—'}</code></Td>
+                <Td className="whitespace-nowrap text-[0.65rem] text-[#98A2B3]">{l.ip ?? '—'}</Td>
+                <Td className="whitespace-nowrap text-[0.65rem] tabular-nums text-[#667085]">{l.createdAt.toISOString().slice(0, 16).replace('T', ' ')}</Td>
               </tr>
             ))}
           </Table>

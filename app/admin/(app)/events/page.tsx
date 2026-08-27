@@ -32,17 +32,17 @@ export default async function EventsPage() {
             }
           >
             {events.map((e) => (
-              <tr key={e.id} className="hover:bg-white/[0.02]">
+              <tr key={e.id} className="hover:bg-[rgba(16,24,40,0.04)]">
                 <Td>
-                  <Link href={`/admin/events/${e.id}`} className="font-semibold text-white hover:text-[#C9A24B]">{e.name}</Link>
-                  <p className="mt-0.5 truncate text-xs text-[#5E6A63]">{e.description.slice(0, 90)}</p>
+                  <Link href={`/admin/events/${e.id}`} className="font-semibold text-white hover:text-[#9C7427]">{e.name}</Link>
+                  <p className="mt-0.5 truncate text-xs text-[#98A2B3]">{e.description.slice(0, 90)}</p>
                 </Td>
                 <Td className="text-xs">{e.category}</Td>
                 <Td className="text-xs tabular-nums">{e.startsAt.toDateString()}</Td>
                 <Td className="text-xs">{e.lga?.name ?? e.venue}</Td>
                 <Td><span className="flex items-center gap-2"><Badge tone={statusTone(e.status)}>{e.status}</Badge>{e.isDemo && <DemoTag />}</span></Td>
                 <Td className="text-right">
-                  <Link href={`/admin/events/${e.id}`} className="rounded-md border border-white/[0.1] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#9AA39C] hover:bg-white/[0.06] hover:text-white">Edit</Link>
+                  <Link href={`/admin/events/${e.id}`} className="rounded-md border border-[rgba(16,24,40,0.1)] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#667085] hover:bg-[rgba(16,24,40,0.04)] hover:text-white">Edit</Link>
                 </Td>
               </tr>
             ))}

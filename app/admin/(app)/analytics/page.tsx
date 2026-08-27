@@ -31,7 +31,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
 
       <div className="mb-4 flex flex-wrap gap-2">
         {[['traffic', 'Traffic'], ['content', 'Content'], ['engagement', 'Engagement']].map(([k, label]) => (
-          <Link key={k} href={`/admin/analytics?d=${days}&tab=${k}`} className={`rounded-full border px-3.5 py-1.5 text-[0.68rem] font-bold uppercase tracking-wide ${tab === k ? 'border-[#C9A24B]/50 bg-[#C9A24B]/10 text-[#DDBE72]' : 'border-white/[0.1] text-[#9AA39C] hover:bg-white/[0.05]'}`}>{label}</Link>
+          <Link key={k} href={`/admin/analytics?d=${days}&tab=${k}`} className={`rounded-full border px-3.5 py-1.5 text-[0.68rem] font-bold uppercase tracking-wide ${tab === k ? 'border-[#C9A24B]/50 bg-[#C9A24B]/10 text-[#9C7427]' : 'border-[rgba(16,24,40,0.1)] text-[#667085] hover:bg-[rgba(16,24,40,0.04)]'}`}>{label}</Link>
         ))}
       </div>
 
@@ -44,8 +44,8 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
               ['Top page', traffic.topPages[0]?.path ?? '—'],
               ['Referrers tracked', String(traffic.sources.length)],
             ].map(([label, value]) => (
-              <div key={label} className="rounded-xl border border-white/[0.07] bg-[#12161A] p-4">
-                <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#8A968E]">{label}</p>
+              <div key={label} className="rounded-xl border border-[rgba(16,24,40,0.08)] bg-white/75 p-4">
+                <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#667085]">{label}</p>
                 <p className="mt-1 truncate font-display text-xl font-extrabold text-white">{value}</p>
               </div>
             ))}
@@ -66,7 +66,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
               {traffic.topPages.length === 0 ? <EmptyState title="No data" /> : (
                 <Table head={<><Th>#</Th><Th>Path</Th><Th className="text-right">Views</Th></>}>
                   {traffic.topPages.map((p, i) => (
-                    <tr key={p.path}><Td className="font-bold text-[#8A968E]">{i + 1}</Td><Td className="font-semibold text-white">{p.path}</Td><Td className="text-right font-display font-bold text-[#C9A24B]">{p.views}</Td></tr>
+                    <tr key={p.path}><Td className="font-bold text-[#667085]">{i + 1}</Td><Td className="font-semibold text-white">{p.path}</Td><Td className="text-right font-display font-bold text-[#9C7427]">{p.views}</Td></tr>
                   ))}
                 </Table>
               )}
@@ -76,7 +76,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
               {traffic.sources.length === 0 ? <EmptyState title="No referrers" /> : (
                 <Table head={<><Th>Source</Th><Th className="text-right">Views</Th></>}>
                   {traffic.sources.map((s) => (
-                    <tr key={s.referrer}><Td className="font-semibold text-white">{s.referrer}</Td><Td className="text-right font-display font-bold text-[#C9A24B]">{s.views}</Td></tr>
+                    <tr key={s.referrer}><Td className="font-semibold text-white">{s.referrer}</Td><Td className="text-right font-display font-bold text-[#9C7427]">{s.views}</Td></tr>
                   ))}
                 </Table>
               )}
@@ -92,7 +92,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
             {top.length === 0 ? <EmptyState title="No views recorded yet" sub="Content performance ranks here as the public site receives visits." /> : (
               <Table head={<><Th>#</Th><Th>Content</Th><Th className="text-right">Views</Th></>}>
                 {top.map((t, i) => (
-                  <tr key={t.path}><Td className="font-bold text-[#8A968E]">{i + 1}</Td><Td className="font-semibold text-white">{t.path}</Td><Td className="text-right font-display font-bold text-[#C9A24B]">{t.views}</Td></tr>
+                  <tr key={t.path}><Td className="font-bold text-[#667085]">{i + 1}</Td><Td className="font-semibold text-white">{t.path}</Td><Td className="text-right font-display font-bold text-[#9C7427]">{t.views}</Td></tr>
                 ))}
               </Table>
             )}
@@ -101,8 +101,8 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
             <CardHead title="Content Health Scores" sub="Recency, SEO metadata, completeness, thin content. Recommendations included." />
             <Table head={<><Th>Content</Th><Th>Score</Th><Th>Grade</Th><Th>Recommendations</Th><Th>Updated</Th></>}>
               {health.slice(0, 12).map((h) => (
-                <tr key={h.id} className="hover:bg-white/[0.02]">
-                  <Td className="max-w-[260px]"><p className="truncate font-semibold text-white">{h.title}</p><p className="text-[0.65rem] text-[#5E6A63]">{h.path}</p></Td>
+                <tr key={h.id} className="hover:bg-[rgba(16,24,40,0.04)]">
+                  <Td className="max-w-[260px]"><p className="truncate font-semibold text-white">{h.title}</p><p className="text-[0.65rem] text-[#98A2B3]">{h.path}</p></Td>
                   <Td className="font-display text-lg font-extrabold text-white">{h.score}</Td>
                   <Td><Badge tone={gradeTone(h.grade)}>{h.grade}</Badge></Td>
                   <Td className="max-w-[280px] text-xs">{h.recommendations.join(' · ') || '—'}</Td>
@@ -125,7 +125,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
                     <Td className="font-semibold capitalize text-white">{p.topic}</Td>
                     <Td className="font-display text-lg font-bold text-white">{p.current}</Td>
                     <Td className="text-xs">{p.previous}</Td>
-                    <Td>{p.change === null ? <Badge tone="slate">new</Badge> : <span className={`text-xs font-bold ${p.change >= 0 ? 'text-[#4CC39A]' : 'text-[#E06A75]'}`}>{p.change >= 0 ? '+' : ''}{p.change}%</span>}</Td>
+                    <Td>{p.change === null ? <Badge tone="slate">new</Badge> : <span className={`text-xs font-bold ${p.change >= 0 ? 'text-[#027A48]' : 'text-[#B42318]'}`}>{p.change >= 0 ? '+' : ''}{p.change}%</span>}</Td>
                     <Td className="max-w-[220px] text-xs">{p.topLgas.join(', ') || '—'}</Td>
                   </tr>
                 ))}
@@ -136,9 +136,9 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
             <CardHead title="LGA Engagement Levels" sub="Neutral labels only: high / medium / low / insufficient data." />
             <div className="grid grid-cols-2 gap-2 px-5 py-4 md:grid-cols-4 xl:grid-cols-6">
               {lgas.map((l) => (
-                <div key={l.id} className="rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 py-2">
+                <div key={l.id} className="rounded-lg border border-[rgba(16,24,40,0.08)] bg-[rgba(16,24,40,0.03)] px-3 py-2">
                   <p className="truncate text-[0.72rem] font-bold text-white">{l.name}</p>
-                  <p className="text-[0.6rem] text-[#8A968E]">{l.level} · {l.submissions + l.events + l.volunteers} signals</p>
+                  <p className="text-[0.6rem] text-[#667085]">{l.level} · {l.submissions + l.events + l.volunteers} signals</p>
                 </div>
               ))}
             </div>

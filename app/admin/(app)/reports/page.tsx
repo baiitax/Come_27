@@ -25,7 +25,7 @@ export default async function ReportsPage() {
       <Card>
         <CardHead title="Generated Reports" sub="Latest first. Each report is a JSON snapshot — printable and CSV-exportable." />
         {reports.length === 0 ? <EmptyState title="No reports yet" sub="Generate the first report above." /> : (
-          <ul className="divide-y divide-white/[0.05]">
+          <ul className="divide-y divide-[rgba(16,24,40,0.06)]">
             {reports.map((r) => {
               const data = JSON.parse(r.dataJson);
               return (
@@ -35,12 +35,12 @@ export default async function ReportsPage() {
                     <span className="text-sm font-semibold text-white">
                       {r.kind === 'daily' ? 'Daily Digital Brief' : r.kind === 'weekly' ? 'Weekly Digital Report' : 'Monthly Executive Report'}
                     </span>
-                    <span className="text-xs tabular-nums text-[#5E6A63]">{r.createdAt.toISOString().slice(0, 16).replace('T', ' ')}</span>
+                    <span className="text-xs tabular-nums text-[#98A2B3]">{r.createdAt.toISOString().slice(0, 16).replace('T', ' ')}</span>
                     <span className="ml-auto flex gap-2">
-                      <button type="button" onClick={() => window.print()} className="rounded-md border border-white/[0.1] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#9AA39C] hover:bg-white/[0.06]">Print</button>
+                      <button type="button" onClick={() => window.print()} className="rounded-md border border-[rgba(16,24,40,0.1)] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#667085] hover:bg-[rgba(16,24,40,0.04)]">Print</button>
                     </span>
                   </div>
-                  <p className="mt-1.5 text-xs text-[#8A968E]">
+                  <p className="mt-1.5 text-xs text-[#667085]">
                     {data.pageViews ?? 0} page views · {data.communitySubmissions ?? 0} community submissions · {data.claimsAwaitingVerification ?? 0} claims awaiting verification · {data.openAlerts ?? 0} open alerts. {data.disclaimer}
                   </p>
                 </li>

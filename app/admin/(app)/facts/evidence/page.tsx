@@ -20,10 +20,10 @@ export default async function EvidenceIndexPage() {
         ) : (
           <Table head={<><Th>Evidence</Th><Th>Type</Th><Th>Claim</Th><Th>Source</Th><Th>Added</Th></>}>
             {evidences.map((e) => (
-              <tr key={e.id} className="hover:bg-white/[0.02]">
-                <Td><p className="font-semibold text-white">{e.title}</p>{e.notes && <p className="text-xs text-[#5E6A63]">{e.notes.slice(0, 90)}</p>}</Td>
+              <tr key={e.id} className="hover:bg-[rgba(16,24,40,0.04)]">
+                <Td><p className="font-semibold text-white">{e.title}</p>{e.notes && <p className="text-xs text-[#98A2B3]">{e.notes.slice(0, 90)}</p>}</Td>
                 <Td><Badge tone={e.type === 'official-record' ? 'green' : e.type === 'url' ? 'blue' : 'gold'}>{e.type}</Badge></Td>
-                <Td className="max-w-[220px] text-xs"><Link href={`/admin/facts/claims/${e.claimId}`} className="hover:text-[#C9A24B]">{e.claim.statement.slice(0, 70)}</Link></Td>
+                <Td className="max-w-[220px] text-xs"><Link href={`/admin/facts/claims/${e.claimId}`} className="hover:text-[#9C7427]">{e.claim.statement.slice(0, 70)}</Link></Td>
                 <Td className="text-xs">{e.source?.title ?? '—'}</Td>
                 <Td className="text-xs tabular-nums">{e.createdAt.toDateString()}</Td>
               </tr>

@@ -27,9 +27,9 @@ export default async function TimelinePage() {
         ) : (
           <Table head={<><Th>Year</Th><Th>Milestone</Th><Th>Institution</Th><Th>Location</Th><Th>Evidence</Th><Th>Published</Th><Th className="text-right">Actions</Th></>}>
             {entries.map((e, i) => (
-              <tr key={e.id} className="hover:bg-white/[0.02]">
-                <Td className="font-display font-bold text-[#C9A24B]">{e.year}</Td>
-                <Td><p className="font-semibold text-white">{e.title}</p><p className="mt-0.5 max-w-md truncate text-xs text-[#5E6A63]">{e.description}</p></Td>
+              <tr key={e.id} className="hover:bg-[rgba(16,24,40,0.04)]">
+                <Td className="font-display font-bold text-[#9C7427]">{e.year}</Td>
+                <Td><p className="font-semibold text-white">{e.title}</p><p className="mt-0.5 max-w-md truncate text-xs text-[#98A2B3]">{e.description}</p></Td>
                 <Td className="text-xs">{e.institution}</Td>
                 <Td className="text-xs">{e.location}</Td>
                 <Td><Badge tone={statusTone(e.evidenceLevel)}>{e.evidenceLevel}</Badge></Td>

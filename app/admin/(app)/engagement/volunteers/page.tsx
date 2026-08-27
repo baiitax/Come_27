@@ -21,7 +21,7 @@ export default async function VolunteersPage() {
         ) : (
           <Table head={<><Th>Name</Th><Th>Contact</Th><Th>LGA</Th><Th>Skills</Th><Th>Status</Th><Th>Joined</Th><Th className="text-right">Actions</Th></>}>
             {vols.map((v) => (
-              <tr key={v.id} className="hover:bg-white/[0.02]">
+              <tr key={v.id} className="hover:bg-[rgba(16,24,40,0.04)]">
                 <Td className="font-semibold text-white">{v.name}{v.name.startsWith('[DEMO') && <DemoTag />}</Td>
                 <Td className="max-w-[180px] truncate text-xs">{[v.phone, v.email].filter(Boolean).join(' · ') || '—'}</Td>
                 <Td className="text-xs">{v.lga?.name ?? '—'}</Td>

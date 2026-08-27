@@ -9,16 +9,16 @@ export async function AlertsPanel() {
     <Card>
       <CardHead title="Alerts" sub="Automated from live data: volume spikes, stale content, approaching events, verification backlog." />
       {alerts.length === 0 ? <EmptyState title="No alerts" sub="The alert engine will surface operational signals here." /> : (
-        <ul className="divide-y divide-white/[0.05]">
+        <ul className="divide-y divide-[rgba(16,24,40,0.06)]">
           {alerts.map((a) => (
             <li key={a.id} className="px-5 py-3">
               <div className="flex items-center gap-2.5">
                 <Badge tone={sevTone[a.severity] ?? 'slate'}>{a.severity}</Badge>
                 <p className="flex-1 truncate text-sm font-semibold text-white">{a.title}</p>
-                <span className="text-[0.62rem] tabular-nums text-[#5E6A63]">{a.createdAt.toISOString().slice(5, 10)}</span>
+                <span className="text-[0.62rem] tabular-nums text-[#98A2B3]">{a.createdAt.toISOString().slice(5, 10)}</span>
               </div>
-              <p className="mt-1 text-xs text-[#8A968E]">{a.reason}</p>
-              {a.action && <p className="mt-0.5 text-xs text-[#DDBE72]">→ {a.action}</p>}
+              <p className="mt-1 text-xs text-[#667085]">{a.reason}</p>
+              {a.action && <p className="mt-0.5 text-xs text-[#9C7427]">→ {a.action}</p>}
               <AlertRow id={a.id} resolved={!!a.resolvedAt} />
             </li>
           ))}

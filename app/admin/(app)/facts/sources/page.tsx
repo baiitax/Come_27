@@ -26,15 +26,15 @@ export default async function SourcesPage() {
         ) : (
           <Table head={<><Th>Source</Th><Th>Publisher</Th><Th>Type</Th><Th>Reliability</Th><Th>Claims</Th><Th>Verified</Th><Th className="text-right">Actions</Th></>}>
             {sources.map((s) => (
-              <tr key={s.id} className="hover:bg-white/[0.02]">
-                <Td><Link href="/admin/facts/sources/new" className="font-semibold text-white hover:text-[#C9A24B]">{s.title}</Link>{s.url && <p className="truncate text-[0.65rem] text-[#5E6A63]">{s.url}</p>}</Td>
+              <tr key={s.id} className="hover:bg-[rgba(16,24,40,0.04)]">
+                <Td><Link href="/admin/facts/sources/new" className="font-semibold text-white hover:text-[#9C7427]">{s.title}</Link>{s.url && <p className="truncate text-[0.65rem] text-[#98A2B3]">{s.url}</p>}</Td>
                 <Td className="text-xs">{s.publisher}</Td>
                 <Td className="text-xs">{s.type}</Td>
                 <Td><Badge tone={s.reliability === 'official' || s.reliability === 'high' ? 'green' : s.reliability === 'low' || s.reliability === 'unverified' ? 'gold' : 'neutral'}>{s.reliability}</Badge></Td>
                 <Td className="text-xs">{s._count.claims}</Td>
                 <Td className="text-xs tabular-nums">{s.verifiedAt ? s.verifiedAt.toDateString() : '—'}</Td>
                 <Td className="text-right">
-                  <Link href="/admin/facts/sources/new" className="rounded-md border border-white/[0.1] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#9AA39C] hover:bg-white/[0.06] hover:text-white">New</Link>
+                  <Link href="/admin/facts/sources/new" className="rounded-md border border-[rgba(16,24,40,0.1)] px-2 py-1 text-[0.62rem] font-bold uppercase text-[#667085] hover:bg-[rgba(16,24,40,0.04)] hover:text-white">New</Link>
                 </Td>
               </tr>
             ))}

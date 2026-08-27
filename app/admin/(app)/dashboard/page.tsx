@@ -61,13 +61,13 @@ export default async function AdminDashboardPage() {
         <CardHead title="Digital Intelligence Summary" sub={`Auto-generated ${intel.generatedAt.toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })} from live data`} right={<Badge tone="gold">live calculations</Badge>} />
         <ul className="space-y-2.5 px-5 py-4">
           {intel.lines.map((line, i) => (
-            <li key={i} className="flex gap-2.5 text-sm text-[#C8CFC9]">
-              <span aria-hidden className="mt-0.5 text-[#C9A24B]">◆</span>
+            <li key={i} className="flex gap-2.5 text-sm text-[#364152]">
+              <span aria-hidden className="mt-0.5 text-[#9C7427]">◆</span>
               {line}
             </li>
           ))}
           {intel.insufficient && (
-            <li className="rounded-lg border border-white/[0.07] bg-white/[0.02] px-3.5 py-2.5 text-xs text-[#8A968E]">
+            <li className="rounded-lg border border-[rgba(16,24,40,0.08)] bg-[rgba(16,24,40,0.03)] px-3.5 py-2.5 text-xs text-[#667085]">
               Intelligence activates as genuine traffic and voluntary community data accumulate. No figures are fabricated.
             </li>
           )}
@@ -90,13 +90,13 @@ export default async function AdminDashboardPage() {
         {/* Attention queue */}
         <Card>
           <CardHead title="What Needs Attention?" sub="Operational priority queue" />
-          <div className="divide-y divide-white/[0.05]">
+          <div className="divide-y divide-[rgba(16,24,40,0.06)]">
             {attention.length === 0 && <EmptyState title="All clear" sub="Nothing is currently waiting on an administrator." />}
             {attention.map((a) => (
-              <a key={a.label} href={a.href} className="flex items-center justify-between gap-3 px-5 py-3.5 transition-colors hover:bg-white/[0.03]">
+              <a key={a.label} href={a.href} className="flex items-center justify-between gap-3 px-5 py-3.5 transition-colors hover:bg-[rgba(16,24,40,0.04)]">
                 <div className="flex items-center gap-3">
                   <Badge tone={sevTone[a.severity] ?? 'slate'}>{a.severity}</Badge>
-                  <span className="text-sm text-[#C8CFC9]">{a.label}</span>
+                  <span className="text-sm text-[#364152]">{a.label}</span>
                 </div>
                 <span className="font-display text-lg font-extrabold text-white">{a.count}</span>
               </a>
@@ -108,7 +108,7 @@ export default async function AdminDashboardPage() {
       <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
         {/* Top content */}
         <Card className="xl:col-span-2">
-          <CardHead title="Content Performance" sub="Most-viewed public pages — last 30 days" right={<a href="/admin/analytics" className="text-xs font-bold text-[#C9A24B] hover:underline">Full analytics →</a>} />
+          <CardHead title="Content Performance" sub="Most-viewed public pages — last 30 days" right={<a href="/admin/analytics" className="text-xs font-bold text-[#9C7427] hover:underline">Full analytics →</a>} />
           {top.length === 0 ? (
             <EmptyState title="No page views recorded yet" sub="Top content will rank here once the public site receives visits." />
           ) : (
@@ -120,10 +120,10 @@ export default async function AdminDashboardPage() {
               }
             >
               {top.map((t, i) => (
-                <tr key={t.path} className="hover:bg-white/[0.02]">
-                  <Td className="font-display font-bold text-[#8A968E]">{i + 1}</Td>
+                <tr key={t.path} className="hover:bg-[rgba(16,24,40,0.04)]">
+                  <Td className="font-display font-bold text-[#667085]">{i + 1}</Td>
                   <Td className="font-semibold text-white">{t.path}</Td>
-                  <Td className="text-right font-display font-extrabold text-[#C9A24B]">{t.views}</Td>
+                  <Td className="text-right font-display font-extrabold text-[#9C7427]">{t.views}</Td>
                 </tr>
               ))}
             </Table>
@@ -132,16 +132,16 @@ export default async function AdminDashboardPage() {
 
         {/* Digital pulse */}
         <Card>
-          <CardHead title="Digital Pulse" sub="Issue trend from voluntary submissions (30d)" right={<a href="/admin/intelligence" className="text-xs font-bold text-[#C9A24B] hover:underline">Intelligence →</a>} />
+          <CardHead title="Digital Pulse" sub="Issue trend from voluntary submissions (30d)" right={<a href="/admin/intelligence" className="text-xs font-bold text-[#9C7427] hover:underline">Intelligence →</a>} />
           {pulse.length === 0 ? (
             <EmptyState title="Insufficient data" sub="Issue pulse appears once community submissions are collected. No figures are fabricated." />
           ) : (
             <div className="space-y-3 px-5 py-4">
               {pulse.slice(0, 5).map((p) => (
                 <div key={p.topic} className="flex items-center justify-between gap-3">
-                  <span className="text-sm font-semibold capitalize text-[#C8CFC9]">{p.topic}</span>
+                  <span className="text-sm font-semibold capitalize text-[#364152]">{p.topic}</span>
                   <div className="flex items-center gap-2.5">
-                    <span className="text-xs text-[#8A968E]">{p.current} sub.</span>
+                    <span className="text-xs text-[#667085]">{p.current} sub.</span>
                     <Badge tone={p.direction === 'up' ? 'green' : p.direction === 'down' ? 'crimson' : 'neutral'}>
                       {p.direction === 'up' ? '↑' : p.direction === 'down' ? '↓' : '→'} {p.change === null ? 'new' : `${Math.abs(p.change)}%`}
                     </Badge>
@@ -155,21 +155,21 @@ export default async function AdminDashboardPage() {
 
       {/* Activity feed */}
       <Card className="mt-6">
-        <CardHead title="Live Activity" sub="Every administrative action is captured in the audit trail" right={<a href="/admin/audit" className="text-xs font-bold text-[#C9A24B] hover:underline">Audit log →</a>} />
+        <CardHead title="Live Activity" sub="Every administrative action is captured in the audit trail" right={<a href="/admin/audit" className="text-xs font-bold text-[#9C7427] hover:underline">Audit log →</a>} />
         {activity.length === 0 ? (
           <EmptyState title="No activity yet" sub="Admin actions (publish, verify, respond…) will stream here." />
         ) : (
-          <ul className="divide-y divide-white/[0.05]">
+          <ul className="divide-y divide-[rgba(16,24,40,0.06)]">
             {activity.map((a) => (
               <li key={a.id} className="flex items-center gap-4 px-5 py-3">
                 <span className={`h-2 w-2 shrink-0 rounded-full ${a.action === 'create' ? 'bg-[#4CC39A]' : a.action === 'publish' ? 'bg-[#C9A24B]' : a.action === 'delete' ? 'bg-[#E06A75]' : 'bg-[#5E7168]'}`} />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm text-[#C8CFC9]">
-                    <strong className="text-white">{a.actor}</strong> — {a.action} <span className="text-[#8A968E]">{a.entity}</span>
+                  <p className="truncate text-sm text-[#364152]">
+                    <strong className="text-white">{a.actor}</strong> — {a.action} <span className="text-[#667085]">{a.entity}</span>
                   </p>
                 </div>
                 <Badge tone={statusTone(a.action)}>{a.action}</Badge>
-                <span className="shrink-0 text-xs tabular-nums text-[#5E6A63]">{a.at.toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</span>
+                <span className="shrink-0 text-xs tabular-nums text-[#98A2B3]">{a.at.toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</span>
               </li>
             ))}
           </ul>
