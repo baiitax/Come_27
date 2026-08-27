@@ -1,5 +1,5 @@
-import WhyGwarzoSection from '@/src/sections/why-gwarzo-section';
-import JourneySection from '@/src/sections/journey-section';
+import { WhyGwarzoSection } from '@/sections/why-gwarzo-section';
+import { JourneySection } from '@/sections/journey-section';
 import { GlassNavbar } from '@/components/navigation/floating-navbar';
 
 export default function AboutPage() {
@@ -14,7 +14,7 @@ export default function AboutPage() {
         { label: 'MEDIA', href: '/media' },
         { label: 'FACTS', href: '/facts' },
         { label: 'ENGAGE', href: '/engage' },
-      ]}>
+      ]} />
 
       <WhyGwarzoSection />
       <JourneySection />

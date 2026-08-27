@@ -1,6 +1,9 @@
+"use client";
+
 /* ============================================================
    FLOATING GLASS NAVIGATION COMPONENT
    ============================================================ */
+import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface NavItem {
@@ -9,23 +12,24 @@ export interface NavItem {
   external?: boolean;
 }
 
-export const FloatingNavbar = ({
+export const GlassNavbar = ({
   items,
-  onScroll shrinkOnScroll = false,
+  onScroll,
+  shrinkOnScroll = false,
   variant = 'desktop', // 'desktop' or 'mobile'
 }: {
   items: NavItem[];
   onScroll?: (progress: number) => void;
+  shrinkOnScroll?: boolean;
   variant?: 'desktop' | 'mobile';
 }) => {
-  const [scrolled, setScrolled] = React.useState(0);
-  const [isScrolling, setIsScrolling] = React.useState(false);
+  const [scrolled, setScrolled] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handler = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = scrollY / docHeight;
+      const progress = docHeight > 0 ? scrollY / docHeight : 0;
       setScrolled(scrollY);
       onScroll?.(progress);
     };
@@ -35,32 +39,31 @@ export const FloatingNavbar = ({
   }, [onScroll]);
 
   return (
-    <nav
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50',
-        variant === 'desktop'
-          ? 'glass-card premium'
-          : 'glass-card premium bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md',
-        shrinkOnScroll && scrolled > 100 ? 'transform transition-transform duration-300' : ''
-      )}
-      style={{
-        background: 'rgba(255,255,255,0.11)',
-        backdropFilter: 'blur(24px)',
-        border: '1px solid rgba(255,255,255,0.14)',
-        borderRadius: variant === 'desktop' ? '28px' : '20px',
-        padding: variant === 'desktop' ? '16px 32px' : '12px 24px',
-        margin: variant === 'desktop' ? '0 auto' : '20px 0',
-      }}
-    >
-      <div className="flex items-center justify-center gap-8">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4">
+      <div
+        className={cn(
+          'glass-card premium flex items-center justify-center gap-4 md:gap-8',
+          variant === 'mobile' && 'bottom-0 top-auto left-1/2 -translate-x-1/2 w-full max-w-md',
+          shrinkOnScroll && scrolled > 100 && 'transform transition-transform duration-300 scale-95'
+        )}
+        style={{
+          background: 'rgba(255,255,255,0.11)',
+          backdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255,255,255,0.14)',
+          borderRadius: variant === 'desktop' ? '28px' : '20px',
+          padding: variant === 'desktop' ? '16px 32px' : '12px 24px',
+          margin: variant === 'desktop' ? '24px auto 0' : '0 0 20px',
+        }}
+      >
         {items.map((item, index) => (
-          <button
+          <a
             key={index}
             href={item.href}
             className={cn(
-              'text-[var(--muted-text)] text-sm font-medium uppercase tracking-wider',
-              variant === 'desktop' ? 'hover:text-[var(--white)] transition-colors' : 'hover:text-[var(--gold)] transition-colors',
-              'relative'
+              'text-[var(--muted-text)] text-sm font-medium uppercase tracking-wider relative',
+              variant === 'desktop'
+                ? 'hover:text-[var(--white)] transition-colors'
+                : 'hover:text-[var(--gold)] transition-colors'
             )}
             style={{
               ...(variant === 'desktop' && {
@@ -87,9 +90,12 @@ export const FloatingNavbar = ({
                 <path d="M5 12h14M12 5v14" />
               </svg>
             )}
-          </button>
+          </a>
         ))}
       </div>
     </nav>
   );
 };
+
+// Backwards-compatible alias
+export const FloatingNavbar = GlassNavbar;

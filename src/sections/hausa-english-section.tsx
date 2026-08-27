@@ -51,7 +51,7 @@ export function HausaEnglishSection() {
                   language === 'english'
                     ? 'bg-[var(--primary-green)] text-[var(--white)]'
                     : 'text-[var(--muted-text)] hover:bg-[var(--glass-surface)]')
-                }}
+                }
               >
                 EN
               </button>
@@ -62,7 +62,7 @@ export function HausaEnglishSection() {
                   language === 'hausa'
                     ? 'bg-[var(--gold)] text-[var(--obsidian)]'
                     : 'text-[var(--muted-text)] hover:bg-[var(--glass-surface)]')
-                }}
+                }
               >
                 HA
               </button>

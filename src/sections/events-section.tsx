@@ -83,7 +83,7 @@ export function EventsSection() {
                 i === 0
                   ? 'bg-[var(--primary-green)] text-[var(--white)] border border-[var(--primary-green)]'
                   : 'text-[var(--muted-text)] hover:text-[var(--white)] hover:bg-transparent')
-              }}
+              }
             >
               {cat}
             </button>

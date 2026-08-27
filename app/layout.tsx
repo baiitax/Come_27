@@ -14,7 +14,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="en" lang="ha">
+    <html lang="en">
       <body className="bg-[var(--obsidian)] text-[var(--white)] min-h-screen">
         {/* Preloader */}
         <Preloader />

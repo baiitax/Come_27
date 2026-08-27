@@ -23,7 +23,7 @@ export default function DashboardLayout({
               style={{
                 background: 'none',
                 border: 'none',
-                color: var(--white),
+                color: 'var(--white)',
                 cursor: 'pointer',
               }}
             >

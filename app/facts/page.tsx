@@ -1,4 +1,4 @@
-import FactsTransparencySection from '@/src/sections/facts-transparency-section';
+import { FactsTransparencySection } from '@/sections/facts-transparency-section';
 import { GlassNavbar } from '@/components/navigation/floating-navbar';
 
 export default function FactsPage() {
@@ -13,7 +13,7 @@ export default function FactsPage() {
         { label: 'MEDIA', href: '/media' },
         { label: 'FACTS', href: '/facts' },
         { label: 'ENGAGE', href: '/engage' },
-      ]}>
+      ]} />
 
       <FactsTransparencySection />
     </main>

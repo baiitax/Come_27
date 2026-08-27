@@ -1,3 +1,5 @@
+"use client";
+
 /* ============================================================
    PRELOADER - Website loading animation
    ============================================================ */
@@ -21,13 +23,22 @@ export function Preloader() {
         <div className="relative w-64 h-64">
           {/* Gold circle orbit */}
           <div className="absolute inset-0 rounded-full border-4 border-[var(--gold)] opacity-20 animate-spin"></div>
-          
-          {/* Rotating gold ring */}
-          <div className="absolute inset-0 rounded-full border-4 border-[var(--gold)] opacity-30 animate-spin anti-clockwise" style="animation-duration: 3s;"></div>
-          
+
+          {/* Rotating gold ring (counter-clockwise, 3s — see globals.css) */}
+          <div className="absolute inset-0 rounded-full border-4 border-[var(--gold)] opacity-30 anti-clockwise"></div>
+
           {/* Glowing orb */}
-          <div className="absolute -inset-1/2 rounded-full bg-[var(--gold)]/20 opacity-75 animate-pulse" style="width: 200px; height: 200px; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
-          
+          <div
+            className="absolute rounded-full bg-[var(--gold)]/20 opacity-75 animate-pulse"
+            style={{
+              width: '200px',
+              height: '200px',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          ></div>
+
           {/* Text */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[var(--white)] text-2xl font-bold tracking-wider">
             LOADING
@@ -38,16 +49,4 @@ export function Preloader() {
   }
 
   return null;
-}
-
-/* Keyframes */
-@keyframes anti-clockwise {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(-360deg); }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .animate-spin { animation: none; }
-  .animate-pulse { animation: none; }
 }

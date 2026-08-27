@@ -121,7 +121,6 @@ export function CitizenEngagementSection() {
                   </button>
                 </form>
               </div>
-            </GlassCard>
           </div>
 
           {/* Community Priority Map */}
@@ -194,10 +193,10 @@ export function CitizenEngagementSection() {
               <p className="text-center text-sm text-[var(--muted-text)]">
                 Data will appear here as citizen submissions are collected. Your voice matters.
               </p>
-            </GlassCard>
           </div>
         </div>
       </div>
-    </section>
+      </div>
+</section>
   );
 }

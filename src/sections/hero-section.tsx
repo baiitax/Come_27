@@ -2,7 +2,6 @@
    HERO SECTION - Comrade Aminu Abdussalam Gwarzo 2027
    ============================================================ */
 import { GlassCard } from '../components/glass/glass-card';
-import { GoldAccent } from '../styles/design-system.css';
 
 export function HeroSection() {
   return (

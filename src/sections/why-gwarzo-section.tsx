@@ -2,7 +2,7 @@
    WHY GWARZO SECTION - Section 12
    ============================================================ */
 import { GlassCard } from '../components/glass/glass-card';
-import { EvidenceBadge } from '../components/evidence/evidence-badge';
+import { EvidenceBadge, EvidenceBadgeGroup } from '../components/evidence/evidence-badge';
 import { cn } from '@/lib/utils';
 
 export function WhyGwarzoSection() {

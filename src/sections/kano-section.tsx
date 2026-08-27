@@ -1,3 +1,5 @@
+"use client";
+
 /* ============================================================
    KANO SECTION - Section 20
    Full digital Kano portal with hero and modules
@@ -63,7 +65,6 @@ export function KanoSection() {
                 <p className="text-3xl md:text-4xl font-bold text-[var(--white)]">{stat.label}</p>
                 <p className="text-[var(--muted-text)] text-sm">{stat.value}</p>
               </div>
-            </div>
           ))}
         </div>
 

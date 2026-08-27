@@ -1,4 +1,4 @@
-import KanoSection from '@/src/sections/kano-section';
+import { KanoSection } from '@/sections/kano-section';
 import { GlassNavbar } from '@/components/navigation/floating-navbar';
 
 export default function KanoPage() {
@@ -13,7 +13,7 @@ export default function KanoPage() {
         { label: 'MEDIA', href: '/media' },
         { label: 'FACTS', href: '/facts' },
         { label: 'ENGAGE', href: '/engage' },
-      ]}>
+      ]} />
 
       <KanoSection />
     </main>

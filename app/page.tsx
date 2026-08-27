@@ -1,13 +1,13 @@
-import HeroSection from '@/src/sections/hero-section';
-import WhyGwarzoSection from '@/src/sections/why-gwarzo-section';
-import JourneySection from '@/src/sections/journey-section';
-import PublicServiceRecordSection from '@/src/sections/public-service-record-section';
-import TwentySixTransitionSection from '@/src/sections/twenty-six-transition-section';
-import KwankwasiyyaSection from '@/src/sections/kwankwasiyya-section';
-import FactsTransparencySection from '@/src/sections/facts-transparency-section';
-import CitizenEngagementSection from '@/src/sections/citizen-engagement-section';
-import LatestSpeechesSection from '@/src/sections/latest-speeches-section';
-import FinalCTASection from '@/src/sections/final-cta-section';
+import { HeroSection } from '@/sections/hero-section';
+import { WhyGwarzoSection } from '@/sections/why-gwarzo-section';
+import { JourneySection } from '@/sections/journey-section';
+import { PublicServiceRecordSection } from '@/sections/public-service-record-section';
+import { TwentySixTransitionSection } from '@/sections/twenty-six-transition-section';
+import { KwankwasiyyaSection } from '@/sections/kwankwasiyya-section';
+import { FactsTransparencySection } from '@/sections/facts-transparency-section';
+import { CitizenEngagementSection } from '@/sections/citizen-engagement-section';
+import { LatestSpeechesSection } from '@/sections/latest-speeches-section';
+import { FinalCTASection } from '@/sections/final-cta-section';
 import { GlassNavbar } from '@/components/navigation/floating-navbar';
 
 export default function HomePage() {
@@ -22,7 +22,7 @@ export default function HomePage() {
         { label: 'MEDIA', href: '/media' },
         { label: 'FACTS', href: '/facts' },
         { label: 'ENGAGE', href: '/engage' },
-      ]}>
+      ]} />
 
       <HeroSection />
       <WhyGwarzoSection />

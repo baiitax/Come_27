@@ -1,7 +1,10 @@
+"use client";
+
 /* ============================================================
    PUBLIC SERVICE RECORD SECTION - Section 15
    Database-style interface with filters
    ============================================================ */
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { EvidenceBadge } from '../components/evidence/evidence-badge';
 
@@ -87,7 +90,7 @@ const mockRecords: ServiceRecord[] = [
 ];
 
 export function PublicServiceRecordSection() {
-  const [filter, setFilter] = React.useState<'all' | keyof typeof mockRecords['filters'>]('all');
+  const [filter, setFilter] = React.useState<'all' | string>('all');
   const [sort, setSort] = React.useState<'newest' | 'oldest'>('newest');
 
   const filteredRecords = mockRecords.filter((record) => {
@@ -121,7 +124,7 @@ export function PublicServiceRecordSection() {
               filter === 'all' 
                 ? 'bg-[var(--primary-green)] text-[var(--white)]'
                 : 'text-[var(--muted-text)] hover:text-[var(--white)] hover:bg-transparent')
-            }}
+            }
           >
             All
           </button>
@@ -134,7 +137,7 @@ export function PublicServiceRecordSection() {
                 filter === f
                   ? 'bg-[var(--glass-surface)] text-[var(--white)] border border-[var(--glass-border)]'
                   : 'text-[var(--muted-text)] hover:text-[var(--white)] hover:bg-[var(--glass-surface)]')
-              }}
+              }
             >
               {f.replace('-', ' ')}
             </button>

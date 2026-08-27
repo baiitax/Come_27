@@ -108,7 +108,7 @@ export function MediaCenterSection() {
                 categoryFilter === 'all'
                   ? 'bg-[var(--primary-green)] text-[var(--white)] border border-[var(--primary-green)]'
                   : 'text-[var(--muted-text)] hover:text-[var(--white)] hover:bg-transparent')
-              }}
+              }
             >
               All
             </button>
@@ -123,7 +123,7 @@ export function MediaCenterSection() {
                 categoryFilter === cat
                   ? 'bg-[var(--glass-surface)] text-[var(--white)] border border-[var(--glass-border)]'
                   : 'text-[var(--muted-text)] hover:text-[var(--white)] hover:bg-[var(--glass-surface)]')
-              }}
+              }
             >
               {cat}
             </button>
@@ -138,7 +138,7 @@ export function MediaCenterSection() {
                 languageFilter === 'all'
                   ? 'bg-[var(--primary-green)] text-[var(--white)] border border-[var(--primary-green)]'
                   : 'text-[var(--muted-text)] hover:text-[var(--white)] hover:bg-transparent')
-              }}
+              }
             >
               All
             </button>
@@ -149,7 +149,7 @@ export function MediaCenterSection() {
                 languageFilter === 'hausa'
                   ? 'bg-[var(--gold)] text-[var(--obsidian)] border border-[var(--gold)]'
                   : 'text-[var(--muted-text)] hover:text-[var(--white)] hover:bg-transparent')
-              }}
+              }
             >
               Hausa
             </button>

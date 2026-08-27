@@ -1,3 +1,5 @@
+"use client";
+
 /* ============================================================
    LATEST SPEECHES/NEWS - Section 11/32
    Recent campaign activity and developments
@@ -53,7 +55,7 @@ const mockLatest: LatestItem[] = [
     title: 'Gwarzo at Arewa Consultative Forum',
     date: 'June 25, 2024',
     category: 'event',
-    location 'Kano',
+    location: 'Kano',
     excerpt: 'Participation in ACF deliberations on northern Nigeria development and security.',
   },
 ];
@@ -82,7 +84,7 @@ export function LatestSpeechesSection() {
                 i === 0
                   ? 'bg-[var(--primary-green)] text-[var(--white)] border border-[var(--primary-green)]'
                   : 'text-[var(--muted-text)] hover:text-[var(--white)] hover:bg-transparent')
-              }}
+              }
             >
               {tab}
             </button>

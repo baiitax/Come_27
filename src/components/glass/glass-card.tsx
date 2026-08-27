@@ -1,6 +1,7 @@
 /* ============================================================
    GLASS CARD COMPONENT
    ============================================================ */
+import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface GlassCardProps {
@@ -8,7 +9,7 @@ export interface GlassCardProps {
   premium?: boolean;
   shadow?: 'soft' | 'medium' | 'strong';
   hasHover?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 /**
