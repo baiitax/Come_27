@@ -29,6 +29,7 @@ next-env.d.ts
 # secrets & local db
 .env
 .env.*
+!.env.example
 *.db
 *.db-journal
 public/uploads/
