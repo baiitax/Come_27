@@ -20,7 +20,7 @@ const WHY_PILLARS = [
 ];
 
 export default async function HomePage() {
-  const [candidate, stats, records, journey, transition, sectors, claims, articles, speeches, events, lgas] =
+  const [candidate, stats, records, journey, transition, sectors, claims, articles, pressReleases, speeches, events, lgas] =
     await safeDb(
     () => Promise.all([
 
@@ -36,12 +36,13 @@ export default async function HomePage() {
         take: 3,
         include: { source: true, evidences: true },
       }),
-      prisma.article.findMany({ where: { status: 'published', deletedAt: null }, orderBy: { publishedAt: 'desc' }, take: 3 }),
+      prisma.article.findMany({ where: { status: 'published', deletedAt: null, category: { not: 'press-release' } }, orderBy: { publishedAt: 'desc' }, take: 3 }),
+      prisma.article.findMany({ where: { status: 'published', deletedAt: null, category: 'press-release' }, orderBy: { publishedAt: 'desc' }, take: 3 }),
       prisma.speech.findMany({ where: { status: 'published', deletedAt: null }, orderBy: { eventDate: 'desc' }, take: 3 }),
       prisma.campaignEvent.findMany({ where: { status: 'upcoming', deletedAt: null }, orderBy: { startsAt: 'asc' }, take: 3 }),
       prisma.lga.count(),
     ]),
-    [null, [], [], [], [], [], [], [], [], [], 0] as [any, any[], any[], any[], any[], any[], any[], any[], any[], any[], number],
+    [null, [], [], [], [], [], [], [], [], [], [], 0] as [any, any[], any[], any[], any[], any[], any[], any[], any[], any[], any[], number],
     'home'
   )
 
@@ -358,12 +359,12 @@ export default async function HomePage() {
       {/* 10 — LATEST FROM GWARZO 2027 */}
       <section className="relative py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <SectionHead eyebrow="Section 09 · Media" title="Latest from Gwarzo 2027" />
-          <div className="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <SectionHead eyebrow="Section 09 · Media" title="Latest from Gwarzo 2027" />
+        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <div data-reveal>
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="font-display text-sm font-extrabold uppercase tracking-[0.18em] text-[var(--white)]">News</h3>
-                <Link href="/media" className="text-[0.68rem] font-bold text-[var(--brand)] hover:underline">All →</Link>
+                <Link href="/news" className="text-[0.68rem] font-bold text-[var(--brand)] hover:underline">All →</Link>
               </div>
               <div className="space-y-3">
                 {articles.map((a) => (
@@ -374,6 +375,28 @@ export default async function HomePage() {
                     <p className="mt-1.5 font-display text-sm font-bold leading-snug text-[var(--white)]">{a.title}</p>
                   </Link>
                 ))}
+              </div>
+            </div>
+            <div data-reveal data-delay="80">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="font-display text-sm font-extrabold uppercase tracking-[0.18em] text-[var(--white)]">Press Releases</h3>
+                <Link href="/newsroom/press-releases" className="text-[0.68rem] font-bold text-[var(--brand)] hover:underline">All →</Link>
+              </div>
+              <div className="space-y-3">
+                {pressReleases.map((a) => (
+                  <Link key={a.id} href={`/news/${a.slug}`} className="glass-card glass-panel-hover block p-5">
+                    <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[var(--kwankwasiya)]">
+                      {a.publishedAt?.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })} · Campaign Council
+                    </p>
+                    <p className="mt-1.5 font-display text-sm font-bold leading-snug text-[var(--white)]">{a.title}</p>
+                  </Link>
+                ))}
+                {pressReleases.length === 0 && (
+                  <Link href="/newsroom" className="glass-card glass-panel-hover block p-5">
+                    <p className="font-display text-sm font-bold leading-snug text-[var(--white)]">Visit the Newsroom</p>
+                    <p className="mt-1 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[var(--muted-2)]">Official updates →</p>
+                  </Link>
+                )}
               </div>
             </div>
             <div data-reveal data-delay="120">

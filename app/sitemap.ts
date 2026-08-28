@@ -7,7 +7,7 @@ const BASE = 'https://come-pcipyrd8f-baiita-x-degen-s-projects.vercel.app';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
-    '', '/about', '/record', '/kano', '/vision', '/media', '/facts', '/transition',
+    '', '/about', '/record', '/kano', '/vision', '/media', '/newsroom', '/newsroom/press-releases', '/facts', '/transition',
     '/engage', '/join', '/contact', '/search',
   ].map((p) => ({ url: BASE + p, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: p === '' ? 1 : 0.8 }));
 

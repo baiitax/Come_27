@@ -21,6 +21,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
   const { slug } = await params;
   const article = await safeDb(() => prisma.article.findFirst({ where: { slug, status: 'published', deletedAt: null } }), null, 'news-detail');
   if (!article) notFound();
+  const isPressRelease = article.category === 'press-release';
   const related = await safeDb(() => prisma.article.findMany({
     where: { status: 'published', deletedAt: null, id: { not: article.id }, category: article.category },
     take: 3,
@@ -30,15 +31,22 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
   return (
     <div className="pt-32 md:pt-40">
       <article className="mx-auto max-w-3xl px-6 pb-20">
-        <Link href="/media" className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--brand)] hover:underline">
-          ← Media Center
+        <Link href={isPressRelease ? '/newsroom/press-releases' : '/media'} className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--brand)] hover:underline">
+          {isPressRelease ? '← Press Releases' : '← Media Center'}
         </Link>
 
         <div data-reveal className="mt-8">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-[var(--glass-border)] bg-white/70 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[var(--muted-text)]">
-              {article.category.replace('-', ' ')}
-            </span>
+            {isPressRelease ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(163,22,33,0.35)] bg-[rgba(163,22,33,0.08)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[var(--kwankwasiya)]">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[var(--kwankwasiya)]" />
+                Official Press Release
+              </span>
+            ) : (
+              <span className="rounded-full border border-[var(--glass-border)] bg-white/70 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[var(--muted-text)]">
+                {article.category.replace('-', ' ')}
+              </span>
+            )}
             {archived && (
               <span className="rounded-full border border-[rgba(102,112,133,0.3)] bg-[rgba(102,112,133,0.1)] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[#475467]">
                 Archived
@@ -49,6 +57,16 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
             {article.title}
           </h1>
           {article.subtitle && <p className="mt-4 max-w-[720px] text-lg leading-relaxed text-[var(--muted-text)]">{article.subtitle}</p>}
+          {isPressRelease && (
+            <div className="mt-5 flex items-center gap-3 rounded-2xl border border-[rgba(163,22,33,0.2)] bg-[rgba(163,22,33,0.05)] px-5 py-3">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[rgba(163,22,33,0.12)] text-[0.6rem] font-extrabold text-[var(--kwankwasiya)]">CC</span>
+              <p className="text-xs text-[var(--muted-text)]">
+                <span className="font-bold text-[var(--white)]">Issued by {article.authorName}</span>
+                {article.publishedAt && <> · {article.publishedAt.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}</>}
+                {article.location && <> · {article.location}</>}
+              </p>
+            </div>
+          )}
           <p className="mt-4 text-xs text-[var(--muted-2)]">
             {article.authorName}
             {article.publishedAt && <> · {article.publishedAt.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}</>}

@@ -11,6 +11,7 @@ const LINKS = [
   { label: 'Kano', href: '/kano' },
   { label: 'Vision', href: '/vision' },
   { label: 'Media', href: '/media' },
+  { label: 'Newsroom', href: '/newsroom' },
   { label: 'Facts', href: '/facts' },
   { label: 'Engage', href: '/engage' },
 ];
@@ -22,6 +23,7 @@ const MOBILE_LINKS = [
   { label: 'Kano', href: '/kano' },
   { label: 'Vision', href: '/vision' },
   { label: 'Media', href: '/media' },
+  { label: 'Newsroom', href: '/newsroom' },
   { label: 'Facts & Transparency', href: '/facts' },
   { label: 'Engage', href: '/engage' },
 ];
