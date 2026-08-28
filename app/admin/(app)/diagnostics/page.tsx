@@ -21,12 +21,26 @@ export default async function DiagnosticsPage() {
 
   const results: { label: string; detail: string; state: 'ok' | 'warn' | 'fail' }[] = [];
 
-  // 1. Database connection
+  // 1. Database connection (with specific Prisma error codes + targeted fix)
   try {
     const count = await prisma.user.count();
     results.push({ label: 'Database connection', detail: `Operational — ${count} user record(s)`, state: 'ok' });
-  } catch (e) {
-    results.push({ label: 'Database connection', detail: 'UNREACHABLE — check DATABASE_URL', state: 'fail' });
+  } catch (e: any) {
+    const code: string = e?.code ?? 'unknown';
+    let detail = `FAILING (${code}) — database error, see function logs`;
+    if (code === 'P1001') {
+      detail = 'FAILING (P1001) — authentication rejected. Fix: in the host settings, set DATABASE_URL to the DIRECT/SESSION string (Supabase: port 5432, user postgres.<project-ref>). If the password contains an @ sign it MUST be written as %40 inside the URL.';
+    } else if (code === 'P1012') {
+      detail = 'FAILING (P1012) — DATABASE_URL environment variable is not set on this host. Add it in Vercel → Project → Settings → Environment Variables (Production), then redeploy.';
+    } else if (code === 'P1000' || code === 'P1008') {
+      detail = `FAILING (${code}) — cannot reach the database server. Check the host and port in DATABASE_URL, and that the database is running.`;
+    } else if (code === 'P1002' || code === 'P2021' || code === 'P2022') {
+      detail = `FAILING (${code}) — schema missing or out of date on this database. Run: npx prisma migrate deploy (with this database's DATABASE_URL), or clear the public schema and redeploy.`;
+    } else if (code === 'P1003' || code === 'P1010') {
+      detail = `FAILING (${code}) — the database named in DATABASE_URL does not exist on that server.`;
+    }
+    console.error('[diagnostics] database check failed:', e);
+    results.push({ label: 'Database connection', detail, state: 'fail' });
   }
 
   // 2. Session secret configuration

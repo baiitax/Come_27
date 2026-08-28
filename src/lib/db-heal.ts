@@ -19,14 +19,46 @@ import { seedIfEmpty } from '../../prisma/seed-core';
  * when available, because DDL over a pooler is fragile on Neon.
  */
 
-const DB_DOWN_CODES = new Set([
-  'P1000', 'P1001', 'P1008', 'P1009', 'P1010', 'P1012', 'P1013', 'P1014',
-  'P1017', 'P2021', 'P2022', 'P2023', 'P2024', 'P2034', 'P2038', 'P2037',
-]);
+/**
+ * Error classification for the Prisma client.
+ *
+ * - CONFIG errors (bad credentials, missing env var, missing database)
+ *   can NEVER be fixed by migrating at runtime — fail fast with guidance.
+ * - DRIFT errors (missing tables / schema mismatch) are what the self-heal
+ *   exists for: re-run the idempotent migration + seed-if-empty.
+ * - TRANSIENT errors (cold-start timeouts, dropped connections) just need
+ *   a short backoff and a retry of the same query.
+ */
+const DB_CONFIG_CODES = new Set(['P1001', 'P1003', 'P1010', 'P1012']);
+const DB_DRIFT_CODES = new Set(['P1002', 'P2021', 'P2022', 'P2023', 'P2024', 'P2034', 'P2037', 'P2038']);
+const DB_TRANSIENT_CODES = new Set(['P1000', 'P1008', 'P1009', 'P1011', 'P1013', 'P1014', 'P1017']);
 
-export function isDbDownError(e: unknown): boolean {
+function errorCode(e: unknown): string | undefined {
   const code = (e as { code?: string })?.code;
-  return typeof code === 'string' && DB_DOWN_CODES.has(code);
+  return typeof code === 'string' ? code : undefined;
+}
+
+/** Bad credentials / missing DATABASE_URL / missing database — config problem, never healable. */
+export function isConfigDbError(e: unknown): boolean {
+  const code = errorCode(e);
+  return !!code && DB_CONFIG_CODES.has(code);
+}
+
+/** Missing tables or schema drift — fixed by migrate + seed. */
+export function isDriftDbError(e: unknown): boolean {
+  const code = errorCode(e);
+  return !!code && DB_DRIFT_CODES.has(code);
+}
+
+/** Cold-start / network blip — retry the query after a short backoff. */
+export function isTransientDbError(e: unknown): boolean {
+  const code = errorCode(e);
+  return !!code && DB_TRANSIENT_CODES.has(code);
+}
+
+/** Legacy: anything the old retry path should care about (drift + transient). */
+export function isDbDownError(e: unknown): boolean {
+  return isDriftDbError(e) || isTransientDbError(e);
 }
 
 export interface HealReport {
