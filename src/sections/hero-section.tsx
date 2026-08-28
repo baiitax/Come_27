@@ -132,8 +132,8 @@ export function HeroSection({
                 <Image
                   src={candidate.profileImageUrl || '/images/hero/gwarzo-hero.jpg'}
                   alt={candidate.name}
-                  width={864}
-                  height={1220}
+                  width={1122}
+                  height={1402}
                   priority
                   className="h-full w-full object-cover"
                 />

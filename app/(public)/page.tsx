@@ -86,10 +86,10 @@ export default async function HomePage() {
               <div aria-hidden className="absolute -inset-3 -translate-x-2 -translate-y-2 rounded-[2rem] border border-[rgba(198,146,50,0.3)]" />
               <div className="portrait-frame">
                 <Image
-                  src="/images/about/gwarzo-speaking.jpg"
+                  src="/images/about/gwarzo-service.jpg"
                   alt={c.name}
-                  width={848}
-                  height={1264}
+                  width={1095}
+                  height={1436}
                   loading="lazy"
                   className="h-full w-full object-cover"
                 />

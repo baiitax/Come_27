@@ -32,7 +32,7 @@ export const metadata = {
     siteName: 'Gwarzo 2027',
     locale: 'en_NG',
     type: 'website',
-    images: [{ url: '/images/hero/gwarzo-hero.jpg', width: 864, height: 1220, alt: 'Comrade Aminu Abdussalam Gwarzo' }],
+    images: [{ url: '/images/hero/gwarzo-hero.jpg', width: 1122, height: 1402, alt: 'Comrade Aminu Abdussalam Gwarzo' }],
   },
 };
 
