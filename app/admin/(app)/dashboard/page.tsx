@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getSessionUser } from '@/lib/auth-admin';
 import { dashboardKpis, trafficOverview, topContent, attentionQueue, recentActivity, issuePulse, intelligenceSummary } from '@/lib/stats';
@@ -6,20 +7,55 @@ import { statusTone } from '@/lib/status-tone';
 import { TrafficChart } from '@/components/admin/traffic-chart';
 
 export const dynamic = 'force-dynamic';
+// Heaviest page on the site (7 aggregate queries) — give cold starts the full window.
+export const maxDuration = 30;
 
 export default async function AdminDashboardPage() {
   const user = await getSessionUser();
   if (!user) redirect('/admin/login');
 
-  const [kpis, traffic, top, attention, activity, pulse, intel] = await Promise.all([
-    dashboardKpis(),
-    trafficOverview(30),
-    topContent(30, 6),
-    attentionQueue(),
-    recentActivity(10),
-    issuePulse(30),
-    intelligenceSummary(30),
-  ]);
+  let data: Awaited<ReturnType<typeof loadDashboard>>;
+  try {
+    data = await loadDashboard();
+  } catch (e) {
+    // One retry: the first request on a cold serverless instance can hit
+    // engine-boot + connection latency spikes that a second try outlives.
+    await new Promise((r) => setTimeout(r, 400));
+    try {
+      data = await loadDashboard();
+    } catch (e2) {
+      const code = (e2 as { code?: string })?.code ?? 'unknown';
+      console.error('[dashboard] data load failed twice:', e2);
+      return (
+        <div>
+          <PageHeader crumb="Command Center" title="Command center data unavailable" sub="The database did not respond to the dashboard queries." />
+          <Card>
+            <div className="flex flex-col items-center gap-4 px-6 py-14 text-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[rgba(240,68,56,0.3)] bg-[rgba(240,68,56,0.06)] text-xl text-[#B42318]">⚠</div>
+              <div>
+                <p className="font-display text-lg font-extrabold text-[#172033]">Database temporarily unreachable (code {code})</p>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[#667085]">
+                  Login works, but the dashboard&apos;s aggregate queries are failing. Common causes:
+                  DATABASE_URL misconfigured on this host, the database is down, or the schema is out of date.
+                  The diagnostics page re-checks live and shows the exact fix.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <Link href="/admin/diagnostics" className="rounded-full bg-[#172033] px-6 py-3 text-xs font-bold uppercase tracking-[0.1em] text-white transition hover:-translate-y-px">
+                  Open diagnostics →
+                </Link>
+                <a href="/api/health" className="rounded-full border border-[rgba(16,24,40,0.15)] bg-white px-6 py-3 text-xs font-bold uppercase tracking-[0.1em] text-[#344054] transition hover:-translate-y-px">
+                  Check /api/health
+                </a>
+              </div>
+            </div>
+          </Card>
+        </div>
+      );
+    }
+  }
+
+  const [kpis, traffic, top, attention, activity, pulse, intel] = data;
 
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
@@ -177,4 +213,16 @@ export default async function AdminDashboardPage() {
       </Card>
     </div>
   );
+}
+
+async function loadDashboard() {
+  return Promise.all([
+    dashboardKpis(),
+    trafficOverview(30),
+    topContent(30, 6),
+    attentionQueue(),
+    recentActivity(10),
+    issuePulse(30),
+    intelligenceSummary(30),
+  ]);
 }

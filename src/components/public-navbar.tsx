@@ -80,10 +80,10 @@ export function PublicNavbar() {
                 G27
               </span>
               <span className="hidden leading-none sm:block">
-                <span className="block font-display text-sm font-extrabold tracking-[0.14em] text-[var(--white)]">
+                <span className="block font-display text-[0.95rem] font-extrabold tracking-[0.18em] text-[var(--white)]">
                   GWARZO <span className="text-[var(--brand)]">2027</span>
                 </span>
-                <span className="mt-1 block text-[0.55rem] font-semibold uppercase tracking-[0.3em] text-[var(--muted-2)]">
+                <span className="mt-1.5 block text-[0.52rem] font-bold uppercase tracking-[0.34em] text-[var(--muted-2)]">
                   For a Better Kano
                 </span>
               </span>
@@ -98,16 +98,18 @@ export function PublicNavbar() {
                     <Link
                       href={l.href}
                       className={cn(
-                        'relative rounded-full px-3.5 py-2 text-[0.78rem] font-semibold tracking-wide transition-colors duration-300',
-                        active ? 'text-[var(--brand)]' : 'text-[var(--muted-text)] hover:text-[var(--white)]'
+                        'relative rounded-full px-3.5 py-2 text-[0.8rem] font-semibold tracking-[0.015em] transition-all duration-300',
+                        active
+                          ? 'bg-[rgba(166,27,27,0.09)] text-[var(--brand)]'
+                          : 'text-[var(--muted-text)] hover:bg-[rgba(23,32,51,0.05)] hover:text-[var(--white)]'
                       )}
                     >
                       {l.label}
                       <span
                         aria-hidden
                         className={cn(
-                          'absolute inset-x-3.5 -bottom-0.5 h-px origin-left transition-transform duration-300',
-                          active ? 'scale-x-100 bg-[var(--brand)]' : 'scale-x-0 bg-[var(--brand)]'
+                          'absolute inset-x-3.5 -bottom-px h-px origin-left bg-[var(--brand)] transition-transform duration-300',
+                          active ? 'scale-x-100' : 'scale-x-0'
                         )}
                       />
                     </Link>
@@ -195,6 +197,29 @@ export function PublicNavbar() {
           </p>
         </div>
       </div>
+
+      {/* Mobile — fixed, always-visible Join bar (hidden while the menu is open
+          or when already on the join page) */}
+      {!open && pathname !== '/join' && (
+        <div
+          className="fixed inset-x-0 bottom-0 z-[60] border-t border-[rgba(23,32,51,0.08)] bg-[rgba(250,251,252,0.88)] backdrop-blur-xl transition-all duration-300 lg:hidden"
+          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        >
+          <div className="mx-auto flex max-w-md items-center justify-center px-4 py-3">
+            <Link
+              href="/join"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#B32424,var(--brand) 60%,var(--brand-deep))] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.14em] text-white shadow-[0_10px_28px_rgba(166,27,27,0.35)] active:scale-[0.99]"
+            >
+              <span aria-hidden className="flex gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--ndc-green)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--ndc-red)]" />
+              </span>
+              Join the Movement
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 }

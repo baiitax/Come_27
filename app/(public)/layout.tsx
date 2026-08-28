@@ -4,6 +4,7 @@ import { ScrollReveals } from '@/components/scroll-reveals';
 import { SiteFooter } from '@/components/site-footer';
 import { PublicNavbar } from '@/components/public-navbar';
 import { Track } from '@/components/public/track';
+import { ChatWidget } from '@/components/public/chat-widget';
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
@@ -28,12 +29,15 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
 
       <ScrollReveals />
       <PublicNavbar />
+      <ChatWidget />
 
       <main id="main-content" className="relative">
         {children}
       </main>
 
       <SiteFooter />
+      {/* breathing room so the fixed mobile Join bar never covers the footer */}
+      <div aria-hidden className="h-16 lg:hidden" />
     </div>
   );
 }

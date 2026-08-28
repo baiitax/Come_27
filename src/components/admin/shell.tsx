@@ -45,6 +45,7 @@ const NAV: { group: string; items: NavItem[] }[] = [
   {
     group: 'Engagement',
     items: [
+      { label: 'Chat Inbox', href: '/admin/engagement/chat', icon: '💬' },
       { label: 'Submissions', href: '/admin/engagement', icon: '✉' },
       { label: 'Priorities', href: '/admin/engagement/priorities', icon: '▲' },
       { label: 'LGAs', href: '/admin/engagement/lgas', icon: '⌖' },
