@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Newsroom',
   description:
-    'The Gwarzo 2027 Newsroom — news, official press releases and updates from the Campaign Council of Comrade Aminu Abdussalam Gwarzo.',
+    'The Gwarzo 2027 Newsroom — news, official press releases and updates from the Campaign Council of Comarade Aminu Abdussalam Gwarzo.',
 };
 
 export default async function NewsroomPage() {
@@ -40,7 +40,7 @@ export default async function NewsroomPage() {
           </h1>
           <div className="gold-rule mx-auto mt-6 w-40" />
           <p className="mx-auto mt-6 max-w-2xl text-base text-[var(--muted-text)] md:text-lg">
-            News, official press releases and updates from the Campaign Council of Comrade Aminu Abdussalam
+            News, official press releases and updates from the Campaign Council of Comarade Aminu Abdussalam
             Gwarzo — NDC candidate for Governor of Kano State 2027.
           </p>
         </div>

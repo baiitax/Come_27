@@ -13,7 +13,7 @@ export function DisclaimerSection() {
 
         <div className="prose mx-auto text-[var(--muted-text)] max-w-2xl">
           <p>
-            This platform presents information about Comrade Aminu Abdussalam Gwarzo, his
+            This platform presents information about Comarade Aminu Abdussalam Gwarzo, his
             public-service record, policy positions and campaign activities.
           </p>
           <p>

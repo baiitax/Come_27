@@ -23,7 +23,7 @@ export const pageOgData: Record<string, {
     image: '/images/og-primary.jpg',
   },
   '/about': {
-    title: 'About Comrade Aminu Abdussalam Gwarzo',
+    title: 'About Comarade Aminu Abdussalam Gwarzo',
     description: 'Who is Aminu Abdussalam Gwarzo? His biography, background and journey.',
     image: '/images/og-about.jpg',
   },

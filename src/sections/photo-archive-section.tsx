@@ -112,7 +112,7 @@ export function PhotoArchiveSection() {
           >
             <img
               src="/images/portraits/primary-portrait.jpg"
-              alt="Early life photo of Comrade Gwarzo"
+              alt="Early life photo of Comarade Gwarzo"
               className="w-full h-full object-cover"
             />
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-transparent via-[var(--primary-green)]/80 to-transparent text-[var(--white)] text-sm font-medium">
@@ -430,7 +430,7 @@ export function PhotoArchiveSection() {
         <div className="mt-12 pt-8 border-t border-[var(--glass-border)]">
           <h3 className="text-xl font-bold text-[var(--white)] mb-4">EARLY LIFE</h3>
           <p className="text-[var(--muted-text)] text-sm">
-            Photos from Comrade Gwarzo's early life in Gwarzo, Kano State. Each photograph
+            Photos from Comarade Gwarzo's early life in Gwarzo, Kano State. Each photograph
             includes date, location, context, and source where known. No fabricated historical
             photographs are presented. AI-generated decorative imagery is never presented as
             documentary evidence.

@@ -18,21 +18,21 @@ const fraunces = Fraunces({
 export const metadata = {
   metadataBase: new URL('https://come-pcipyrd8f-baiita-x-degen-s-projects.vercel.app'),
   title: {
-    default: 'Comrade Aminu Abdussalam Gwarzo | 2027 Kano Governorship',
+    default: 'Comarade Aminu Abdussalam Gwarzo | 2027 Kano Governorship',
     template: '%s | Gwarzo 2027',
   },
   description:
-    'Official digital portfolio of Comrade Aminu Abdussalam Gwarzo — NDC candidate for Governor of Kano State 2027. A lifetime of service. A new responsibility to Kano.',
+    'Official digital portfolio of Comarade Aminu Abdussalam Gwarzo — NDC candidate for Governor of Kano State 2027. A lifetime of service. A new responsibility to Kano.',
   keywords: ['Gwarzo 2027', 'Aminu Abdussalam Gwarzo', 'Kano Governor 2027', 'NDC Kano', 'Kano State', 'Nigeria'],
   openGraph: {
-    title: 'Comrade Aminu Abdussalam Gwarzo | 2027 Kano Governorship',
+    title: 'Comarade Aminu Abdussalam Gwarzo | 2027 Kano Governorship',
     description:
       'A lifetime of service. A new responsibility to Kano. NDC candidate for Governor of Kano State 2027.',
     url: 'https://come-pcipyrd8f-baiita-x-degen-s-projects.vercel.app/',
     siteName: 'Gwarzo 2027',
     locale: 'en_NG',
     type: 'website',
-    images: [{ url: '/images/hero/gwarzo-hero.jpg', width: 1122, height: 1402, alt: 'Comrade Aminu Abdussalam Gwarzo' }],
+    images: [{ url: '/images/hero/gwarzo-hero.jpg', width: 1122, height: 1402, alt: 'Comarade Aminu Abdussalam Gwarzo' }],
   },
 };
 

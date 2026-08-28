@@ -24,7 +24,7 @@ export default async function NewArticlePage() {
           <CardHead title="Article" sub="Headline and body" />
           <div className="grid grid-cols-1 gap-5 p-5 md:grid-cols-2">
             <Field label="Title" required className="md:col-span-2">
-              <In name="title" placeholder="e.g. Comrade Gwarzo presents education reform position" />
+              <In name="title" placeholder="e.g. Comarade Gwarzo presents education reform position" />
             </Field>
             <Field label="Slug" hint="URL (optional — auto from title)">
               <In name="slug" placeholder="education-reform-position" />

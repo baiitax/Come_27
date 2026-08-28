@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Press Releases',
   description:
-    'Official press releases from the Campaign Council of Comrade Aminu Abdussalam Gwarzo — NDC candidate for Governor of Kano State 2027.',
+    'Official press releases from the Campaign Council of Comarade Aminu Abdussalam Gwarzo — NDC candidate for Governor of Kano State 2027.',
 };
 
 export default async function PressReleasesPage() {
@@ -31,7 +31,7 @@ export default async function PressReleasesPage() {
           </h1>
           <div className="gold-rule mx-auto mt-6 w-40" />
           <p className="mx-auto mt-6 max-w-2xl text-base text-[var(--muted-text)] md:text-lg">
-            Official releases issued by the Campaign Council of Comrade Aminu Abdussalam Gwarzo. For media
+            Official releases issued by the Campaign Council of Comarade Aminu Abdussalam Gwarzo. For media
             enquiries, contact the campaign desk.
           </p>
         </div>

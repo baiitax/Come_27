@@ -18,7 +18,7 @@ const timelineEvents: TimelineEvent[] = [
     year: '1960',
     location: 'Gwarzo, Kano State',
     role: 'Born',
-    explanation: 'Comrade Aminu Abdussalam Gwarzo born in Gwarzo, Kano State.',
+    explanation: 'Comarade Aminu Abdussalam Gwarzo born in Gwarzo, Kano State.',
   },
   {
     year: '1977',

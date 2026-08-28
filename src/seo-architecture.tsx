@@ -22,7 +22,7 @@ export const primaryKeywords = [
 // Secondary keywords
 export const secondaryKeywords = [
   'Kano State governorship',
-  'Comrade Gwarzo',
+  'Comarade Gwarzo',
   'Kwankwasiyya candidate',
   'Kano 2027 election',
   'Nigeria Democratic Congress',
@@ -48,7 +48,7 @@ export const supportedSchemaTypes = [
 export const schemaTypes = {
   person: {
     ' @type': 'Person',
-    name: 'Comrade Aminu Abdussalam Gwarzo',
+    name: 'Comarade Aminu Abdussalam Gwarzo',
     description: 'NDC Candidate for Governor of Kano State',
     image: '/images/portraits/primary-portrait.jpg',
     url: '/',

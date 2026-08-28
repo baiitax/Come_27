@@ -90,7 +90,7 @@ export function KwankwasiyyaSection() {
             <div className="space-y-4">
               <p className="text-[var(--muted-text)]">
                 The Kwankwasiyya movement provided the foundation and grassroots structure that shaped
-                Comrade Gwarzo's political development over two decades of service.
+                Comarade Gwarzo's political development over two decades of service.
               </p>
               <p className="text-[var(--muted-text)]">
                 His individual leadership identity is now charting a new responsibility to Kano through

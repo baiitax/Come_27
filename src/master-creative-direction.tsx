@@ -31,7 +31,7 @@ export function MasterCreativeDirection() {
           <div className="relative">
             <img
               src="/images/portraits/primary-portrait.jpg"
-              alt="Comrade Aminu Abdussalam Gwarzo"
+              alt="Comarade Aminu Abdussalam Gwarzo"
               className="relative w-full h-[600px] object-cover rounded-3xl border border-[var(--glass-border)] backdrop-blur-[28px] shadow-[0_8px_32px_rgba(0,0,0,0.5)] md:translate-y--[-60px] max-md:translate-y-0 md:duration-2000"
               loading="lazy"
             />

@@ -1,6 +1,6 @@
 /* ============================================================
    SAMPLE DATA - Verified/publicly documented information
-   for Comrade Aminu Abdussalam Gwarzo 2027 Kano Governorship
+   for Comarade Aminu Abdussalam Gwarzo 2027 Kano Governorship
    ============================================================ */
 export interface ServiceRecord {
   id: string;
@@ -85,7 +85,7 @@ export const serviceRecords: ServiceRecord[] = [
 ];
 
 export const timelineEvents = [
-  { year: '1960', location: 'Gwarzo, Kano State', role: 'Born', explanation: 'Comrade Aminu Abdussalam Gwarzo born in Gwarzo, Kano State.' },
+  { year: '1960', location: 'Gwarzo, Kano State', role: 'Born', explanation: 'Comarade Aminu Abdussalam Gwarzo born in Gwarzo, Kano State.' },
   { year: '1977', location: 'Kano State', role: 'Begins teaching/public-service journey', explanation: 'Starts teaching and public-service journey, beginning his connection to Kano communities.' },
   { year: '1980s', location: 'Kano State', role: 'Professional education and public-sector experience', explanation: 'Professional education and public-sector experience, building foundation for future leadership.' },
   { year: '1990s', location: 'Kano State', role: 'Early professional life', explanation: 'Early professional life in education, impacting young minds in Kano communities.' },
@@ -173,7 +173,7 @@ export const governanceModelPhases = [
 ];
 
 export const faqItems = [
-  { id: '1', question: 'Who is Aminu Abdussalam Gwarzo?', answer: 'Comrade Aminu Abdussalam Gwarzo is the Nigeria Democratic Congress (NDC) candidate for Governor of Kano State in the 2027 governorship election.' },
+  { id: '1', question: 'Who is Aminu Abdussalam Gwarzo?', answer: 'Comarade Aminu Abdussalam Gwarzo is the Nigeria Democratic Congress (NDC) candidate for Governor of Kano State in the 2027 governorship election.' },
   { id: '2', question: 'What positions has he held?', answer: 'Deputy Governor of Kano State, Federal Education Sector Governance, Kano State Government official, Local Government Administrator, Community Leader, Teacher.' },
   { id: '3', question: 'What is his educational background?', answer: 'Professional journey connected to teaching, learning, and higher education.' },
   { id: '4', question: 'What did he do as Deputy Governor?', answer: 'Oversaw state administration and development initiatives across Kano\'s 44 LGAs.' },

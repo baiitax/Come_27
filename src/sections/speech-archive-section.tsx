@@ -73,7 +73,7 @@ export function SpeechArchiveSection() {
             SPEECH ARCHIVE
           </h2>
           <p className="text-[var(--muted-text)] text-lg">
-            Searchable collection of Comrade Gwarzo's public addresses.
+            Searchable collection of Comarade Gwarzo's public addresses.
           </p>
         </div>
 

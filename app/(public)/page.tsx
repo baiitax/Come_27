@@ -47,8 +47,8 @@ export default async function HomePage() {
   )
 
   const c = {
-    name: candidate?.fullName ?? 'Comrade Aminu Abdussalam Gwarzo',
-    displayName: candidate?.displayName ?? 'Comrade Aminu Abdussalam Gwarzo',
+    name: candidate?.fullName ?? 'Comarade Aminu Abdussalam Gwarzo',
+    displayName: candidate?.displayName ?? 'Comarade Aminu Abdussalam Gwarzo',
     title: candidate?.title ?? 'NDC Candidate for Governor of Kano State 2027',
     tagline: candidate?.tagline ?? 'A lifetime of service. A new responsibility to Kano.',
     shortBio:

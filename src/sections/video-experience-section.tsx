@@ -18,7 +18,7 @@ const mockVideos: VideoItem[] = [
   {
     id: '1',
     title: 'Inaugural Governorship Speech - Full',
-    description: 'Comrade Gwarzo's inaugural address as NDC governorship candidate',
+    description: 'Comarade Gwarzo's inaugural address as NDC governorship candidate',
     source: 'youtube',
     videoUrl: '/videos/inaugural-speech.mp4',
     thumbnailUrl: '/images/thumbnails/inaugural.jpg',

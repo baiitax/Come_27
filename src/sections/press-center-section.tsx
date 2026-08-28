@@ -18,7 +18,7 @@ export function PressCenterSection() {
               <ul className="space-y-3 text-[var(--muted-text)]">
                 <li>
                   <span className="font-medium">Full Name:</span>
-                  <span className="text-[var(--white)]">Comrade Aminu Abdussalam Gwarzo</span>
+                  <span className="text-[var(--white)]">Comarade Aminu Abdussalam Gwarzo</span>
                 </li>
                 <li>
                   <span className="font-medium">Position:</span>

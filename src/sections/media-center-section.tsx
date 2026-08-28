@@ -20,7 +20,7 @@ export interface MediaItem {
 const mockMediaItems: MediaItem[] = [
   {
     id: '1',
-    title: 'Comrade Gwarzo outlines Kano development agenda',
+    title: 'Comarade Gwarzo outlines Kano development agenda',
     date: 'July 2024',
     category: 'news',
     location: 'Kano',

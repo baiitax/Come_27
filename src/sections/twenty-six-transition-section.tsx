@@ -27,14 +27,14 @@ export function TwentySixTransitionSection() {
     },
     {
       title: "Candidate's Response",
-      description: 'Comrade Gwarzo\'s formal response to the allegations',
-      attribution: 'Comrade Aminu Abdussalam Gwarzo campaign',
+      description: 'Comarade Gwarzo\'s formal response to the allegations',
+      attribution: 'Comarade Aminu Abdussalam Gwarzo campaign',
       verified: true,
     },
     {
       title: 'Resignation',
       description: 'Official resignation from Deputy Governorship position',
-      attribution: 'Comrade Aminu Abdussalam Gwarzo',
+      attribution: 'Comarade Aminu Abdussalam Gwarzo',
       verified: true,
     },
     {

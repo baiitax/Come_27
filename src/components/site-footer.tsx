@@ -40,7 +40,7 @@ export async function SiteFooter() {
               </div>
             </div>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-[var(--muted-text)]">
-              The official digital home of Comrade Aminu Abdussalam Gwarzo — NDC candidate for
+              The official digital home of Comarade Aminu Abdussalam Gwarzo — NDC candidate for
               Governor of Kano State 2027.
             </p>
           </div>

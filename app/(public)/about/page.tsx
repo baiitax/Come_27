@@ -9,13 +9,13 @@ import { JourneySection } from '@/sections/journey-section';
 export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'About Gwarzo',
-  description: 'Comrade Aminu Abdussalam Gwarzo — a life built around service. Career, public service, grassroots experience and current candidacy.',
+  description: 'Comarade Aminu Abdussalam Gwarzo — a life built around service. Career, public service, grassroots experience and current candidacy.',
 };
 
 export default async function AboutPage() {
   const candidate = await safeDb(() => prisma.candidate.findFirst(), null, 'about');
   const c = {
-    name: candidate?.fullName ?? 'Comrade Aminu Abdussalam Gwarzo',
+    name: candidate?.fullName ?? 'Comarade Aminu Abdussalam Gwarzo',
     title: candidate?.title ?? 'NDC Candidate for Governor of Kano State 2027',
     shortBio: candidate?.shortBio ?? 'A public servant, grassroots leader and former Deputy Governor of Kano State.',
     longBio: candidate?.longBio ?? '',

@@ -76,7 +76,7 @@ export function HeroSection({
 
           <h1 className="mt-8 font-display font-extrabold tracking-tight">
             <span className="hero-rise block text-[clamp(2.4rem,6.4vw,4.6rem)] leading-[1.02] text-[var(--muted-2)]" style={{ '--rise-delay': '250ms' } as React.CSSProperties}>
-              Comrade
+              Comarade
             </span>
             <span className="hero-rise block text-[clamp(2.8rem,7.4vw,5.6rem)] leading-[1.0] text-[var(--white)]" style={{ '--rise-delay': '380ms' } as React.CSSProperties}>
               Aminu Abdussalam

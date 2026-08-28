@@ -7,7 +7,7 @@ export function HomeFinalExperience() {
     {
       id: 1,
       title: 'See the candidate.',
-      description: 'Cinematic portrait of Comrade Aminu Abdussalam Gwarzo',
+      description: 'Cinematic portrait of Comarade Aminu Abdussalam Gwarzo',
       icon: 'User',
     },
     {

@@ -22,7 +22,7 @@ export function VisionForKanoSection() {
         <GlassCard premium={true} shadow="medium">
           <div className="px-8 pt-8 pb-6">
             <p className="text-[var(--muted-text)] text-lg leading-relaxed mb-6">
-              Comrade Aminu Abdussalam Gwarzo seeks to bring decades of institutional and
+              Comarade Aminu Abdussalam Gwarzo seeks to bring decades of institutional and
               community experience to the next chapter of Kano's development. The vision is
               built on evidence, grounded in grassroots reality, and ambitious in scope.
             </p>
